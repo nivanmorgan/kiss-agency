@@ -55,7 +55,32 @@ h1{
     @apply text-[--black] font-bold border-b-2 border-[--black] cursor-pointer
 }
 
+.btn-2-v2{
+    @apply text-[--white] bg-[--black] font-bold border-2 border-[--white] cursor-pointer h-[50px] md:h-[55px] w-[180px] md:w-[200px] text-lg lg:text-2xl rounded-[2rem] pb-1
+}
+
 .section-py{
     @apply py-[25px] md:py-[35px] lg:py-[60px]
 }
 
+.footer-header-space, .footer-header-space div{
+    @apply space-y-2
+}
+
+/* FORM */
+/* FORM */
+/* FORM */
+/* FORM */
+/* FORM */
+/* FORM */
+.form-grid{
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5
+}
+
+.form-grid input{
+    @apply py-[0.7rem] px-5 text-sm placeholder:text-sm placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral]
+}
+
+.form-grid textarea{
+    @apply py-[0.7rem] px-5 text-sm placeholder:text-sm placeholder:text-[--gray] block w-full lg:col-span-2 focus:border-none focus:outline-[--neutral]
+}

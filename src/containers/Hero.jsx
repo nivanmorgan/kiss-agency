@@ -1,7 +1,72 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  useScroll,
+  motion,
+  useMotionValue,
+  useTransform,
+  animate,
+} from 'framer-motion';
+import { FirstSection, MiddleSection, LastSection } from '../components';
+import useMeasure from 'react-use-measure';
+
+const getWindowsDimension = () => {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+};
 
 const Hero = () => {
-	return <div>Hero</div>;
+  const [screenSize, setScreenSize] = useState(getWindowsDimension());
+
+  // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(getWindowsDimension());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // *HORIZONTAL SCROLL
+  let [scrollContainer, { width }] = useMeasure();
+  const container = useRef();
+  //   const scrollContainer = useRef();
+  const { scrollYProgress } = useScroll({
+    target: container,
+    offset: ['start start', 'end end'],
+  });
+
+  const containerTranslation = useMotionValue(0);
+  const xTranslation = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, screenSize.width - width]
+  );
+
+  return (
+    <div ref={container} className="h-[400vh] relative pointer-events-none">
+      <motion.div className="sticky top-0 left-0 w-full h-screen ">
+        <motion.div
+          //   ref={scrollContainer}
+          className="relative h-screen w-full bg-[--white] overflow-x-scroll no-scrollbar overflow-y-hidden"
+        >
+          <motion.div
+            ref={scrollContainer}
+            style={{ translateX: xTranslation }}
+            className="absolute top-0 left-0 w-auto h-screen flex flex-nowrap gap-0"
+          >
+            <FirstSection />
+            <MiddleSection />
+            <LastSection />
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
 };
 
 export default Hero;
