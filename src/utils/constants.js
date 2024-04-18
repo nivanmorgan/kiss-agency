@@ -122,3 +122,66 @@ export const services = [
       'Our graphic design services bring your brand to life with visually stunning elements that captivate and communicate. Elevate your brand with our artistic and strategic approach to graphic design.',
   },
 ];
+
+export const accordionContent = [
+  {
+    heading: 'Revolutionizing Possibilities with Artificial Intelligence',
+    content: [
+      {
+        title: 'Strategic AI Integration:',
+        text:
+          'Unlock the true potential of your digital solutions with our strategic AI services. From optimizing user experiences to streamlining complex processes, our AI expertise opens doors to innovation.',
+      },
+      {
+        title: 'Tailored AI Solutions:',
+        text:
+          'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives',
+      },
+      {
+        title: 'Cutting-Edge Technologies:',
+        text:
+          'Explore the forefront of technology with our AI services. We leverage cutting-edge advancements, including machine learning and natural language processing, to bring you solutions that go beyond the ordinary.',
+      },
+    ],
+  },
+  {
+    heading: 'AI in Design and Development',
+    content: [
+      {
+        title: 'Strategic AI Integration:',
+        text:
+          'Unlock the true potential of your digital solutions with our strategic AI services. From optimizing user experiences to streamlining complex processes, our AI expertise opens doors to innovation.',
+      },
+      {
+        title: 'Tailored AI Solutions:',
+        text:
+          'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives',
+      },
+      {
+        title: 'Cutting-Edge Technologies:',
+        text:
+          'Explore the forefront of technology with our AI services. We leverage cutting-edge advancements, including machine learning and natural language processing, to bring you solutions that go beyond the ordinary.',
+      },
+    ],
+  },
+  {
+    heading: 'AI in Marketing',
+    content: [
+      {
+        title: 'Strategic AI Integration:',
+        text:
+          'Unlock the true potential of your digital solutions with our strategic AI services. From optimizing user experiences to streamlining complex processes, our AI expertise opens doors to innovation.',
+      },
+      {
+        title: 'Tailored AI Solutions:',
+        text:
+          'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives',
+      },
+      {
+        title: 'Cutting-Edge Technologies:',
+        text:
+          'Explore the forefront of technology with our AI services. We leverage cutting-edge advancements, including machine learning and natural language processing, to bring you solutions that go beyond the ordinary.',
+      },
+    ],
+  },
+];
