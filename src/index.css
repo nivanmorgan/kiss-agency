@@ -67,6 +67,14 @@ h1{
     @apply space-y-2
 }
 
+.swiper_container{
+    @apply h-[80vh] max-h-[420px] md:h-[385px] relative
+}
+
+.swiper_container .swiper-slide{
+    @apply w-[70vw] md:w-[300px] relative
+}
+
 /* FORM */
 /* FORM */
 /* FORM */

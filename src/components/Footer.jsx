@@ -9,7 +9,7 @@ const Footer = () => {
           <img
             src={logo}
             alt="logo"
-            className="w-auto h-[40px] lg:h-[50px] object-contain"
+            className="w-auto h-[45px] lg:h-[50px] object-contain"
           />
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

@@ -13,6 +13,10 @@ import service6 from '../assets/icons/service6.svg';
 import solution1 from '../assets/imgs/solution1.jpeg';
 import solution2 from '../assets/imgs/solution2.jpeg';
 
+import icon1 from '../assets/imgs/service-i-1.svg';
+import icon2 from '../assets/imgs/service-i-2.svg';
+import icon3 from '../assets/imgs/service-i-3.svg';
+
 export const values = [
   {
     title: 'Client-Centric',
@@ -94,5 +98,27 @@ export const navigation = [
   {
     text: 'Subscribe',
     link: '#subscribe',
+  },
+];
+
+// *FOR THE CAROUSEL
+export const services = [
+  {
+    icon: icon1,
+    title: 'Web Design Excellence',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  },
+  {
+    icon: icon2,
+    title: 'Comprehensive Design Solutions',
+    text:
+      'From conceptualization to execution, our comprehensive design services cover every aspect of your brand’s visual identity, ensuring a cohesive and impactful presence across all channels.',
+  },
+  {
+    icon: icon3,
+    title: 'Graphic Design Mastery',
+    text:
+      'Our graphic design services bring your brand to life with visually stunning elements that captivate and communicate. Elevate your brand with our artistic and strategic approach to graphic design.',
   },
 ];

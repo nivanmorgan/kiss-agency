@@ -51,7 +51,7 @@ const Navbar = () => {
       //   transition={{ duration: 0.4, type: 'tween' }}
       className={`${
         scrolledOffHero ? 'flex' : 'hidden'
-      } bg-white fixed top-0 left-0 w-full h-[70px] lg:h-[80px] items-center justify-center shadow`}
+      } bg-white fixed top-0 left-0 w-full h-[70px] lg:h-[80px] items-center justify-center shadow z-[1000000]`}
     >
       <div className="container py-5 flex items-center justify-between gap-[25px] xl:gap-[50px] relative">
         <div className="hidden lg:flex flex-1 justify-between items-center w-full">
