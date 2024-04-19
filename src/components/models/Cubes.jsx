@@ -30,13 +30,13 @@ const Stars = (props) => {
 
   //   *SCROLL
   const { scrollY } = useScroll();
-  const scale = useTransform(scrollY, [0, 700], [0.5, 1]);
-  const rotate = useTransform(scrollY, [0, 700], [0, Math.PI]);
+  const scale = useTransform(scrollY, [0, 2000], [1, 0.7]);
+  const rotate = useTransform(scrollY, [0, 2000], [0, Math.PI]);
 
   return (
     <motion.group
       transition={{ type: 'spring', stiffness: 700, damping: 35 }}
-      animate={{ scale: [0, 0.5] }}
+      animate={{ scale: [0, 1] }}
       scale={[scale, scale, scale]}
       rotation={[0, rotate, Math.PI / 4]}
     >

@@ -40,7 +40,10 @@ function App() {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       if (screenSize.width >= 768) {
-        if (scrollTop >= 700 + 60 && scrollTop <= screenSize.height * 3) {
+        if (
+          scrollTop >= screenSize.height &&
+          scrollTop <= screenSize.height * 3
+        ) {
           setSticky(true);
         } else {
           setSticky(false);
@@ -71,12 +74,12 @@ function App() {
       <Contact />
 
       {/* Footer and Navbar */}
-      {sticky && (
-        <div className="fixed top-0 left-0 w-[50px]">
+      {/* {sticky && (
+        <div className="fixed top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen">
           <SideNav />
         </div>
-      )}
-      <Navbar />
+      )} */}
+      {/* <Navbar /> */}
       <Footer />
     </SmoothScroll>
   );

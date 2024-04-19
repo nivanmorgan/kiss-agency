@@ -43,12 +43,12 @@ const Hero = () => {
   const containerTranslation = useMotionValue(0);
   const xTranslation = useTransform(
     scrollYProgress,
-    [0, 1],
+    [0.1, 0.9],
     [0, screenSize.width - width]
   );
 
   return (
-    <div ref={container} className="h-[400vh] relative pointer-events-none">
+    <div ref={container} className="h-[600vh] relative pointer-events-none">
       <motion.div className="sticky top-0 left-0 w-full h-screen ">
         <motion.div
           //   ref={scrollContainer}
@@ -59,9 +59,9 @@ const Hero = () => {
             style={{ translateX: xTranslation }}
             className="absolute top-0 left-0 w-auto h-screen flex flex-nowrap gap-0"
           >
-            <FirstSection />
-            <MiddleSection />
-            <LastSection />
+            <FirstSection scrollYProgress={scrollYProgress} />
+            <MiddleSection scrollYProgress={scrollYProgress} />
+            <LastSection scrollYProgress={scrollYProgress} />
           </motion.div>
         </motion.div>
       </motion.div>

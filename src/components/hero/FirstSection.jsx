@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-import { motion, useTransform, useScroll } from 'framer-motion';
+import { motion, useTransform, useSpring } from 'framer-motion';
 
 import { SideNav, Cubes } from '../../components';
 import hero1 from '../../assets/imgs/hero1.png';
@@ -14,7 +14,7 @@ const getWindowsDimension = () => {
   };
 };
 
-const FirstSection = () => {
+const FirstSection = ({ scrollYProgress }) => {
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
   // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
@@ -28,16 +28,27 @@ const FirstSection = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const { scrollY } = useScroll();
-
   const yTranslate = useTransform(
-    scrollY,
-    [0, screenSize.width >= 768 ? 500 - 6 : screenSize.width - 60],
+    scrollYProgress,
+    [0, screenSize.width >= 768 ? 0.25 : 0.35],
     [screenSize.height / 2, 0]
   );
+  const springYTranslate = useSpring(yTranslate, { damping: 35 });
+
+  // *ON CLICK SCROLL TO
+  const handleScrollTo = () => {
+    window.scrollTo({
+      top:
+        screenSize.width > 728
+          ? screenSize.height * 1.5
+          : screenSize.height * 2.5,
+      behavior: 'smooth',
+    });
+    console.log('Clicked');
+  };
 
   return (
-    <div className="flex gap-0 !w-screen !min-w-[100vw] !max-w-[100vw] !md:w-[500px] md:!min-w-[500px] md:!max-w-[500px] justify-start h-screen">
+    <div className="flex gap-0 !w-screen !min-w-[100vw] !max-w-[100vw] !md:w-[50vw] md:!min-w-[50vw] md:!max-w-[50vw] justify-start h-screen">
       <div className="relative h-full flex flex-col w-full">
         <div className="h-[80vh] bg-[--black] w-full">
           {/* <img
@@ -53,7 +64,11 @@ const FirstSection = () => {
               Know More
             </button>
           </div>
-          <button>
+          <button
+            onClick={handleScrollTo}
+            type="button"
+            className="cursor-pointer pointer-events-auto"
+          >
             <img
               src={arrow}
               alt="arrow"
@@ -62,8 +77,8 @@ const FirstSection = () => {
           </button>
         </div>
       </div>
-      <div className="hidden md:block h-full !w-[60px] min-w-[55px] z-10 bg-[--neutral] relative">
-        <SideNav y={yTranslate} />
+      <div className="hidden md:block h-full w-[60px] md:!w-[60px] min-w-[60px] z-10 bg-[--neutral] relative">
+        <SideNav y={springYTranslate} />
         {/* <div
           className={`fixed top-0 w-[60px] bg-[--neutral] h-screen ${
             screenSize.width >= 768
