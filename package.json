@@ -17,6 +17,7 @@
     "@react-three/fiber": "^8.16.1",
     "@studio-freight/lenis": "^1.0.42",
     "framer-motion": "^11.0.28",
+    "framer-motion-3d": "^11.1.5",
     "react": "^18.2.0",
     "react-canvas-confetti": "^2.0.7",
     "react-dom": "^18.2.0",

@@ -20,7 +20,7 @@ const NavLink = ({ text, link, contact }) => (
 const SideNav = ({ y }) => {
   return (
     <motion.div
-      style={{ translateY: y }}
+      style={{ translateY: y && y }}
       className="absolute w-full h-screen bg-[--neutral] overflow-y-scroll no-scrollbar pointer-events-auto"
     >
       <div className="flex flex-col-reverse items-center justify-center gap-4 py-[2rem] ">

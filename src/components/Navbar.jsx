@@ -36,7 +36,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      if (scrollTop >= screenSize.height * 3.5) {
+      if (scrollTop >= screenSize.height * 4) {
         setScrolledOffHero(true);
       } else {
         setScrolledOffHero(false);
@@ -59,7 +59,7 @@ const Navbar = () => {
       <div className="container py-5 flex items-center justify-between gap-[25px] xl:gap-[50px] relative">
         <div className="hidden lg:flex flex-1 justify-between items-center w-full">
           {navigation.slice(0, 4).map(({ text, link }, i) => (
-            <a href={link} className="navlinks">
+            <a key={i} href={link} className="navlinks">
               {text}
             </a>
           ))}
@@ -69,7 +69,7 @@ const Navbar = () => {
         </div>
         <div className="hidden lg:flex flex-1 justify-between items-center w-full">
           {navigation.slice(4, 6).map(({ text, link }, i) => (
-            <a href={link} className="navlinks">
+            <a key={i} href={link} className="navlinks">
               {text}
             </a>
           ))}
@@ -96,7 +96,7 @@ const Navbar = () => {
                 <div className="flex flex-col gap-[5vh] justify-center items-center ">
                   {navigation.map(({ text, link }, i) => (
                     <a
-                      id={i}
+                      key={i}
                       href={link}
                       className="navlinks !text-[8vw] !font-semibold"
                     >
