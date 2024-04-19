@@ -7,6 +7,7 @@ import {
   useTransform,
 } from 'framer-motion';
 import useMeasure from 'react-use-measure';
+import { slideInRight, slideInBottom } from '../utils/variants';
 
 import { serviceList } from '../utils/constants';
 
@@ -42,6 +43,10 @@ const ServiceList = ({ container }) => {
 
   return (
     <motion.div
+      variants={slideInBottom}
+      initial="initial"
+      whileInView="animate"
+      custom={0}
       ref={ref}
       style={{ x: containerTranslation }}
       className="w-full overflow-x-auto no-scrollbar"

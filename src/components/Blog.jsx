@@ -54,9 +54,15 @@ const Blog = ({ title, excerpt, link, img, type, i }) => {
         custom={4}
         className="pt-2"
       >
-        <a href="#" className="btn-2">
+        <motion.a
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+          href="#"
+          className="btn-2"
+        >
           Know More
-        </a>
+        </motion.a>
       </motion.div>
     </motion.div>
   );

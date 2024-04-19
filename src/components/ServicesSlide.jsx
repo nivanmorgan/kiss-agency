@@ -1,6 +1,8 @@
 import React from 'react';
 
+import { motion } from 'framer-motion';
 import { services } from '../utils/constants';
+import { slideInRight, slideInBottom } from '../utils/variants';
 
 import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -21,7 +23,12 @@ const ServiceCard = ({ icon, title, text }) => {
 
 const ServicesSlide = () => {
   return (
-    <div>
+    <motion.div
+      variants={slideInBottom}
+      initial="initial"
+      whileInView="animate"
+      custom={0}
+    >
       <Swiper
         effect={'coverflow'}
         grabCursor={false}
@@ -48,7 +55,7 @@ const ServicesSlide = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </motion.div>
   );
 };
 

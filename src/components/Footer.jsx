@@ -1,16 +1,28 @@
 import React from 'react';
-import logo from '../assets/imgs/kiss-agency-logo.png';
+import { motion } from 'framer-motion';
+// import logo from '../assets/imgs/kiss-agency-logo.png';
+import { Logo } from '../components';
+
+import { slideInRight, slideInBottom } from '../utils/variants';
 
 const Footer = () => {
   return (
-    <div id="contact" className="py-[25px] md:py-[50px] bg-[--white]">
+    <motion.div
+      variants={slideInBottom}
+      initial="initial"
+      whileInView="animate"
+      custom={0}
+      id="contact"
+      className="py-[25px] md:py-[50px] bg-[--white]"
+    >
       <div className="container grid grid-cols-1 lg:grid-cols-5 gap-[25px] lg:gap-[50px]">
         <div className="lg:col-span-2 footer-header-space">
-          <img
+          {/* <img
             src={logo}
             alt="logo"
             className="w-auto h-[45px] lg:h-[50px] object-contain"
-          />
+          /> */}
+          <Logo />
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -34,7 +46,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

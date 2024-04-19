@@ -61,11 +61,19 @@ const FirstSection = ({ scrollYProgress }) => {
         </div>
         <div className="relative flex flex-col justify-center h-full">
           <div className="flex justify-center">
-            <button className="absolute top-0 btn-2-v2 translate-y-[-50%]">
+            <motion.a
+              // whileHover={{ scale: 1.1 }}
+              // whileTap={{ scale: 0.9 }}
+              href="#about"
+              className="absolute top-0 btn-2-v2 translate-y-[-50%] pointer-events-auto"
+            >
               Know More
-            </button>
+            </motion.a>
           </div>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
             onClick={handleScrollTo}
             type="button"
             className="cursor-pointer pointer-events-auto"
@@ -75,7 +83,7 @@ const FirstSection = ({ scrollYProgress }) => {
               alt="arrow"
               className="h-[22.5px] md:h-[25px] w-full object-contain"
             />
-          </button>
+          </motion.button>
         </div>
       </div>
       <div className="hidden md:block h-full w-[60px] md:!w-[60px] min-w-[60px] z-10 bg-[--neutral] relative">
