@@ -9,11 +9,11 @@ import {
   DigitalSolutions,
   Contact,
 } from './containers';
-import { Navbar, Footer } from './components';
+import { Navbar, Footer, SmoothScroll } from './components';
 
 function App() {
   return (
-    <motion.div>
+    <SmoothScroll>
       <Hero />
       <About />
       <OurValues />
@@ -24,7 +24,7 @@ function App() {
       {/* Footer and Navbar */}
       <Navbar />
       <Footer />
-    </motion.div>
+    </SmoothScroll>
   );
 }
 

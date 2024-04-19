@@ -3,7 +3,10 @@ import { motion } from 'framer-motion';
 
 import { CgMenuLeftAlt } from 'react-icons/cg';
 import { MdClose } from 'react-icons/md';
-import logo from '../assets/imgs/kiss-agency-logo.svg';
+// import logo from '../assets/imgs/kiss-agency-logo.svg';
+import { navigation } from '../utils/constants';
+
+import Logo from './Logo';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -55,34 +58,26 @@ const Navbar = () => {
     >
       <div className="container py-5 flex items-center justify-between gap-[25px] xl:gap-[50px] relative">
         <div className="hidden lg:flex flex-1 justify-between items-center w-full">
-          <a href="#" className="navlinks">
-            Home
-          </a>
-          <a href="#" className="navlinks">
-            About us
-          </a>
-          <a href="#" className="navlinks">
-            Our values
-          </a>
-          <a href="#" className="navlinks">
-            Our Services
-          </a>
+          {navigation.slice(0, 4).map(({ text, link }, i) => (
+            <a href={link} className="navlinks">
+              {text}
+            </a>
+          ))}
         </div>
         <div className="">
-          <img src={logo} className="h-[40px] lg:h-[50px] object-cover" />
+          <Logo />
         </div>
         <div className="hidden lg:flex flex-1 justify-between items-center w-full">
-          <a href="#" className="navlinks">
-            Digital Solutions
-          </a>
-          <a href="#" className="navlinks">
-            Subscribe
-          </a>
+          {navigation.slice(4, 6).map(({ text, link }, i) => (
+            <a href={link} className="navlinks">
+              {text}
+            </a>
+          ))}
           <button className="btn-1">Contact Us</button>
         </div>
         <div className="lg:hidden flex items-center">
           <button
-            className=""
+            className="z-[10]"
             onClick={() => setMenuToggled((toggled) => !toggled)}
           >
             {menuToggled ? (
@@ -91,6 +86,28 @@ const Navbar = () => {
               <CgMenuLeftAlt className="text-[--black] text-2xl" />
             )}
           </button>
+          {menuToggled && (
+            <div className="fixed top-0 left-0 w-full h-screen bg-[#ffffffaa] backdrop-blur">
+              <div className="flex flex-col gap-[8vh] h-full justify-start items-center pt-[10vh]">
+                <div>
+                  <Logo />
+                </div>
+
+                <div className="flex flex-col gap-[5vh] justify-center items-center ">
+                  {navigation.map(({ text, link }, i) => (
+                    <a
+                      id={i}
+                      href={link}
+                      className="navlinks !text-[8vw] !font-semibold"
+                    >
+                      {text}
+                    </a>
+                  ))}
+                  <button className="btn-1-v2 mt-5">Contact Us</button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* popup */}

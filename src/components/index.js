@@ -8,6 +8,9 @@ export { default as Platforms } from './Platforms';
 export { default as ServiceList } from './ServiceList';
 export { default as ServicesSlide } from './ServicesSlide';
 export { default as Tags } from './Tags';
+export { default as Logo } from './Logo';
+
+export { default as SmoothScroll } from './SmoothScroll';
 
 export { default as SideNav } from './hero/SideNav';
 export { default as FirstSection } from './hero/FirstSection';
