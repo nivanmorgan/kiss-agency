@@ -1,5 +1,6 @@
 import React, { useState, useRef, Suspense, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import {
   Points,
   PointMaterial,
@@ -9,6 +10,28 @@ import {
 import * as random from 'maath/random/dist/maath-random.esm';
 import { motion } from 'framer-motion-3d';
 import { useTransform, useScroll } from 'framer-motion';
+
+import logo from '../../assets/imgs/kiss-agency-logo.png';
+
+const Cube = () => {
+  const ref = useRef(null);
+  // *LOGO CUBE
+  const texture = useLoader(TextureLoader, logo);
+  //   *AUTHOMATIC ROTATION
+  useFrame((state, delta) => {
+    ref.current.rotation.x -= delta * 0.25;
+    // ref.current.rotation.y -= delta * 0.25;
+    ref.current.rotation.z -= delta * 0.25;
+  });
+
+  return (
+    <mesh ref={ref}>
+      <boxGeometry args={[0.35, 0.35, 0.35]} />
+      {/* <meshStandardMaterial color="white" /> */}
+      <meshStandardMaterial map={texture} />
+    </mesh>
+  );
+};
 
 const Stars = (props) => {
   const ref = useRef();
@@ -33,6 +56,9 @@ const Stars = (props) => {
   const scale = useTransform(scrollY, [0, 2000], [1, 0.7]);
   const rotate = useTransform(scrollY, [0, 2000], [0, Math.PI]);
 
+  // // *LOGO CUBE
+  // const texture = useLoader(TextureLoader, logo);
+
   return (
     <motion.group
       transition={{ type: 'spring', stiffness: 700, damping: 35 }}
@@ -49,6 +75,8 @@ const Stars = (props) => {
           depthWrite={false}
         />
       </Points>
+
+      <Cube />
     </motion.group>
   );
 };
@@ -63,8 +91,11 @@ const Cubes = () => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
+        <ambientLight intensity={10} />
+        <directionalLight position={[2, 1, 1]} />
         <Suspense fallback={null}>
           <Stars />
+          {/* <Cube /> */}
         </Suspense>
 
         <Preload all />

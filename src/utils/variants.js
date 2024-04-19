@@ -15,7 +15,7 @@ export const slideInRight = {
 };
 
 export const slideInBottom = {
-  initial: { opacity: 0, x: 10, y: 50 },
+  initial: { opacity: 0, x: 10, y: 70 },
   animate: (i) => ({
     opacity: 1,
     x: 0,
