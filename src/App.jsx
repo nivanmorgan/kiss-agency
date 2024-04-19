@@ -48,7 +48,7 @@ function App() {
       if (screenSize.width >= 768) {
         if (
           scrollTop >= screenSize.height * 2.3 &&
-          scrollTop <= screenSize.height * 3.5
+          scrollTop <= screenSize.height * 4.5
         ) {
           setSticky(true);
         } else {
@@ -57,7 +57,7 @@ function App() {
       } else {
         if (
           scrollTop >= screenSize.width * 2 &&
-          scrollTop <= screenSize.height * 3.5
+          scrollTop <= screenSize.height * 4
         ) {
           setSticky(true);
         } else {

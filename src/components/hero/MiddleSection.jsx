@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { motion, useTransform, useSpring } from 'framer-motion';
 
-import logo from '../../assets/imgs/kiss-agency-logo.svg';
+import logo from '../../assets/imgs/kiss-agency-logo.png';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;

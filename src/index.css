@@ -11,6 +11,10 @@
     --white:#FFFFFF;
 }
 
+body{
+    overflow-x:hidden;
+}
+
 *{
     font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
@@ -29,6 +33,7 @@ p{
 span{
     @apply text-[--gray]
 }
+
 
 h1,h2,h3{
     @apply text-[--black] font-bold

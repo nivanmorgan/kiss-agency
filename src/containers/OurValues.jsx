@@ -1,4 +1,6 @@
-import React from 'react';
+import { useRef, useState, useEffect } from 'react';
+
+import { motion, useAnimate, stagger, useScroll } from 'framer-motion';
 
 import { Heading, Tags, Blog } from '../components';
 import { values } from '../utils/constants';
@@ -24,6 +26,7 @@ const OurValues = () => {
               link={value.link}
               img={value.img}
               type={value.type}
+              i={i}
             />
           ))}
         </div>
