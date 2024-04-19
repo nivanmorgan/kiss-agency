@@ -22,6 +22,36 @@ const getWindowsDimension = () => {
   };
 };
 
+const Stars = (props) => {
+  const ref = useRef();
+  const [sphere, setSphere] = useState(null);
+
+  useEffect(() => {
+    setSphere(() => random.inSphere(new Float32Array(3000), { radius: 5 }));
+    console.log(sphere);
+  }, []);
+
+  //   *AUTOMATIC ROTATION
+  useFrame((state, delta) => {
+    ref.current.rotation.x -= delta / 10;
+    ref.current.rotation.y -= delta / 15;
+  });
+
+  return (
+    <group>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
+        <PointMaterial
+          transparent
+          color="#f272c8"
+          size={0.003}
+          sizeAttenuation={true}
+          depthWrite={false}
+        />
+      </Points>
+    </group>
+  );
+};
+
 const Planet = ({ scrollYProgress }) => {
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
@@ -40,7 +70,7 @@ const Planet = ({ scrollYProgress }) => {
 
   //   *SCROLL
   const scale = useTransform(scrollYProgress, [0.75, 1], [0.75, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, Math.PI * 2]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, Math.PI * 1.5]);
 
   return (
     <motion.group
@@ -51,7 +81,7 @@ const Planet = ({ scrollYProgress }) => {
     >
       <primitive
         object={planet.scene}
-        scale={screenSize.width >= 700 ? 2.5 : 1.8}
+        scale={screenSize.width >= 700 ? 2.25 : 1.8}
         position-y={0}
         rotation-y={0}
       />
@@ -79,6 +109,7 @@ const Globe = ({ scrollYProgress }) => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
+        <Stars />
         <Planet scrollYProgress={scrollYProgress} />
 
         <Preload all />

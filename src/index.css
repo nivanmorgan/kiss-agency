@@ -42,7 +42,7 @@ h1{
 }
 
 .navlinks{
-    @apply font-bold text-[--black] capitalize hover:bg-[--black]
+    @apply font-bold text-[--black] capitalize hover:bg-[--black] hover:text-[--white] p-2
 }
 .btn-1{
     @apply text-[--white] bg-[--black] font-bold py-2 px-4 capitalize cursor-pointer
@@ -60,7 +60,7 @@ h1{
 }
 
 .section-py{
-    @apply py-[25px] md:py-[35px] lg:py-[60px]
+    @apply py-[105px] md:py-[115px] lg:py-[140px] mt-[-80px]
 }
 
 .footer-header-space, .footer-header-space div{

@@ -81,7 +81,7 @@ export const navigation = [
   },
   {
     text: 'About us',
-    link: '#about us',
+    link: '#about',
   },
   {
     text: 'Our values',

@@ -1,5 +1,5 @@
 import './App.css';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 import {
@@ -10,7 +10,13 @@ import {
   DigitalSolutions,
   Contact,
 } from './containers';
-import { Navbar, Footer, SmoothScroll, SideNav } from './components';
+import {
+  Navbar,
+  Footer,
+  SmoothScroll,
+  SideNav,
+  StarCanvas,
+} from './components';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -42,7 +48,7 @@ function App() {
       if (screenSize.width >= 768) {
         if (
           scrollTop >= screenSize.height * 2.3 &&
-          scrollTop <= screenSize.height * 4.9
+          scrollTop <= screenSize.height * 3.5
         ) {
           setSticky(true);
         } else {
@@ -51,7 +57,7 @@ function App() {
       } else {
         if (
           scrollTop >= screenSize.width * 2 &&
-          scrollTop <= screenSize.height * 4.9
+          scrollTop <= screenSize.height * 3.5
         ) {
           setSticky(true);
         } else {
@@ -74,12 +80,21 @@ function App() {
       <Contact />
 
       {/* Footer and Navbar */}
-      {sticky && (
-        <div className="fixed top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen">
-          <SideNav animate />
-        </div>
-      )}
+      <AnimatePresence>
+        {sticky && (
+          <motion.div
+            initial={{ x: -10, opacity: 0 }}
+            whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
+            exit={{ x: -10, opacity: 0 }}
+            className="fixed top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen"
+          >
+            <SideNav animate />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <Navbar />
+      {/* <StarCanvas /> */}
       <Footer />
     </SmoothScroll>
   );

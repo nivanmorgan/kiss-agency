@@ -3,7 +3,7 @@ import logo from '../assets/imgs/kiss-agency-logo.svg';
 
 const Footer = () => {
   return (
-    <div className="py-[25px] md:py-[50px] bg-[--white]">
+    <div id="contact" className="py-[25px] md:py-[50px] bg-[--white]">
       <div className="container grid grid-cols-1 lg:grid-cols-5 gap-[25px] lg:gap-[50px]">
         <div className="lg:col-span-2 footer-header-space">
           <img

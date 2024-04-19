@@ -5,7 +5,10 @@ import { solutions } from '../utils/constants';
 
 const DigitalSolutions = () => {
   return (
-    <div className="w-full relative mt-[50px] section-py">
+    <div
+      id="digital-solutions"
+      className="w-full relative mt-[50px] section-py"
+    >
       <div className="container grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="space-y-7 lg:space-y-10">
           <Heading

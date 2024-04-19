@@ -43,12 +43,16 @@ const Hero = () => {
   const containerTranslation = useMotionValue(0);
   const xTranslation = useTransform(
     scrollYProgress,
-    [0.1, 0.9],
+    [0.1, 0.95],
     [0, screenSize.width - width]
   );
 
   return (
-    <div ref={container} className="h-[600vh] relative pointer-events-none">
+    <div
+      id="home"
+      ref={container}
+      className="h-[600vh] relative pointer-events-none"
+    >
       <motion.div className="sticky top-0 left-0 w-full h-screen ">
         <motion.div
           //   ref={scrollContainer}
