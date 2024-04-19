@@ -36,7 +36,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      if (scrollTop >= screenSize.height * 4) {
+      if (scrollTop >= screenSize.height * 4.9) {
         setScrolledOffHero(true);
       } else {
         setScrolledOffHero(false);

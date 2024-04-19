@@ -50,13 +50,14 @@ const FirstSection = ({ scrollYProgress }) => {
   return (
     <div className="flex gap-0 !w-screen !min-w-[100vw] !max-w-[100vw] !md:w-[50vw] md:!min-w-[50vw] md:!max-w-[50vw] justify-start h-screen">
       <div className="relative h-full flex flex-col w-full">
-        <div className="h-[80vh] bg-[--black] w-full">
+        <div className="relative h-[80vh] bg-[--black] w-full">
           {/* <img
             src={hero1}
             alt="hero"
             className="w-full h-[80vh] object-cover"
           /> */}
           <Cubes />
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-auto" />
         </div>
         <div className="relative flex flex-col justify-center h-full">
           <div className="flex justify-center">

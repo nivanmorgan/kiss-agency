@@ -41,8 +41,8 @@ function App() {
       const scrollTop = window.scrollY;
       if (screenSize.width >= 768) {
         if (
-          scrollTop >= screenSize.height &&
-          scrollTop <= screenSize.height * 3
+          scrollTop >= screenSize.height * 2.3 &&
+          scrollTop <= screenSize.height * 4.9
         ) {
           setSticky(true);
         } else {
@@ -50,8 +50,8 @@ function App() {
         }
       } else {
         if (
-          scrollTop >= screenSize.width * 2 + 60 &&
-          scrollTop <= screenSize.height * 3
+          scrollTop >= screenSize.width * 2 &&
+          scrollTop <= screenSize.height * 4.9
         ) {
           setSticky(true);
         } else {
@@ -74,12 +74,12 @@ function App() {
       <Contact />
 
       {/* Footer and Navbar */}
-      {/* {sticky && (
+      {sticky && (
         <div className="fixed top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen">
-          <SideNav />
+          <SideNav animate />
         </div>
-      )} */}
-      {/* <Navbar /> */}
+      )}
+      <Navbar />
       <Footer />
     </SmoothScroll>
   );
