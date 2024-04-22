@@ -11,9 +11,9 @@
     --white:#FFFFFF;
 }
 
-body{
+/* body{
     overflow-x:hidden;
-}
+} */
 
 *{
     font-family: "Open Sans", sans-serif;
@@ -28,7 +28,7 @@ a{
 }
 
 p{
-    @apply text-sm text-[--gray] !leading-[160%]
+    @apply text-sm text-[--gray] !leading-[170%]
 }
 span{
     @apply text-[--gray]
@@ -39,7 +39,7 @@ h1,h2,h3{
     @apply text-[--black] font-bold
 }
 h1{
-    @apply text-[1.65rem] md:text-3xl lg:text-5xl !leading-[110%]
+    @apply text-[1.65rem] md:text-3xl lg:text-5xl !leading-[120%]
 }
 
 .container{
@@ -97,16 +97,3 @@ h1{
 .form-grid textarea{
     @apply py-[0.7rem] px-5 text-sm placeholder:text-sm placeholder:text-[--gray] block w-full lg:col-span-2 focus:border-none focus:outline-[--neutral]
 }
-
-
-
-
-.flex-container{
-    @apply min-w-[auto] md:min-w-[100vw] max-w-[100vw] w-full relative h-full items-center flex flex-nowrap md:px-[2rem] lg:px-[4rem] xl:px-[6rem] md:gap-[1rem] pointer-events-auto
-}
-.flex-content-box{
-    @apply flex-1 min-w-[100vw] md:min-w-[auto] px-[2rem]
-}
-/* .horizontal-p{
-    @apply px-5 
-} */

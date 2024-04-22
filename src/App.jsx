@@ -9,10 +9,7 @@ import {
   Services,
   DigitalSolutions,
   Contact,
-} from './container_mobile';
-
-import { Hero as DesktopView } from './containers';
-
+} from './containers';
 import {
   Navbar,
   Footer,
@@ -74,38 +71,36 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   return (
-    <SmoothScroll>
-      <div className="hidden xl:block">
-        <DesktopView />
-      </div>
-      <div className="xl:hidden">
+    <>
+      <SmoothScroll>
         <Hero />
-        <About />
-        <OurValues />
-        <Services />
-        <DigitalSolutions />
-        <Contact />
+        <div className="overflow-x-hidden relative">
+          <About />
+          <OurValues />
+          <Services />
+          <DigitalSolutions />
+          <Contact />
 
-        <Footer />
-      </div>
+          {/* Footer and Navbar */}
+          <AnimatePresence>
+            {sticky && (
+              <motion.div
+                initial={{ x: -10, opacity: 0 }}
+                whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
+                exit={{ x: -10, opacity: 0 }}
+                className="fixed top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen"
+              >
+                <SideNav animate />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-      {/* Footer and Navbar */}
-      {/* <AnimatePresence>
-        {sticky && (
-          <motion.div
-            initial={{ x: -10, opacity: 0 }}
-            whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
-            exit={{ x: -10, opacity: 0 }}
-            className="fixed top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen"
-          >
-            <SideNav animate />
-          </motion.div>
-        )}
-      </AnimatePresence> */}
-
-      {/* <Navbar /> */}
-      {/* <StarCanvas /> */}
-    </SmoothScroll>
+          <Navbar />
+          {/* <StarCanvas /> */}
+          <Footer />
+        </div>
+      </SmoothScroll>
+    </>
   );
 }
 

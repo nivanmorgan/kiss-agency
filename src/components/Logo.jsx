@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/imgs/kiss-agency-logo.png';
+import logo from '../assets/imgs/kiss-logo.gif';
 
 const Logo = () => {
   return (
