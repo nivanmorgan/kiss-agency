@@ -80,15 +80,23 @@ const MiddleSection = ({ scrollYProgress }) => {
         <span>Business</span> With
         <br />
         <span>KISS</span> Design
-        <motion.a
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-          href="#about"
-          className=" lg:absolute lg:bottom-0 right-0 btn-1-v2 !font-medium text-sm md:text-base lg:mb-[4vw] block mt-7 md:mt-12 lg:mt-0 pointer-events-auto"
+        <motion.div
+          // whileHover={{ scale: 1.1 }}
+          // whileTap={{ scale: 0.9 }}
+          // transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+          // href="#about"
+          className=" lg:absolute lg:bottom-0 right-0 mt-7 md:mt-12 lg:mt-0 pointer-events-auto flex"
         >
-          Learn More
-        </motion.a>
+          <motion.a
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            href="#about"
+            className="btn-1-v2 !font-medium text-sm md:text-base lg:mb-[4vw] block pointer-events-auto w-auto"
+          >
+            Learn More
+          </motion.a>
+        </motion.div>
       </motion.h1>
     </div>
   );

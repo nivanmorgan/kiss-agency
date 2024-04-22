@@ -3,6 +3,11 @@ import blog2 from '../assets/imgs/blog2.jpeg';
 import blog3 from '../assets/imgs/blog3.jpeg';
 import blog4 from '../assets/imgs/blog4.jpeg';
 
+import handshake from '../assets/lottie/handshake.json';
+import innovative from '../assets/lottie/innovative.json';
+import clientCentric from '../assets/lottie/clientCentric.json';
+import review from '../assets/lottie/review.json';
+
 import service1 from '../assets/icons/service1.svg';
 import service2 from '../assets/icons/service2.svg';
 import service3 from '../assets/icons/service3.svg';
@@ -24,6 +29,8 @@ export const values = [
       'Experience a service that revolves around you. From personalized solutions to dedicated support, we prioritize your satisfaction, making every collaboration a seamless journey toward success.',
     link: '#',
     img: blog1,
+    lottie: clientCentric,
+    clip: [0, 100],
     type: ['t', 'l'],
   },
   {
@@ -32,6 +39,8 @@ export const values = [
       'We set ourselves apart through an unwavering commitment to quality. From design aesthetics to the functionality of our solutions, we ensure a level of precision that exceeds industry standards.',
     link: '#',
     img: blog2,
+    lottie: review,
+    clip: [0, 100],
     type: ['t', 'r'],
   },
   {
@@ -40,6 +49,8 @@ export const values = [
       'Embrace the future with our innovative approach to design, development, and marketing. We stay ahead of the curve, incorporating the latest trends and technologies to deliver solutions that are not just current but future-proof.',
     link: '#',
     img: blog3,
+    lottie: innovative,
+    clip: [20, 80],
     type: ['b', 'l'],
   },
   {
@@ -48,6 +59,8 @@ export const values = [
       'Integrity is the backbone of our operations. We prioritize honesty, transparency, and ethical practices in all our interactions. Our collaborative spirit  ensures each project benefits from the diverse expertise within our team and beyond',
     link: '#',
     img: blog4,
+    lottie: handshake,
+    clip: [20, 80],
     type: ['b', 'r'],
   },
 ];

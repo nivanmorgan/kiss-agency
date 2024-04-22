@@ -9,14 +9,6 @@ import {
 import { FirstSection, MiddleSection, LastSection } from '../components';
 import useMeasure from 'react-use-measure';
 
-import {
-  About,
-  OurValues,
-  Services,
-  DigitalSolutions,
-  Contact,
-} from '../containers';
-
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
   return {
@@ -74,12 +66,6 @@ const Hero = () => {
             <FirstSection scrollYProgress={scrollYProgress} />
             <MiddleSection scrollYProgress={scrollYProgress} />
             <LastSection scrollYProgress={scrollYProgress} />
-
-            <About />
-            <OurValues />
-            <Services scrollYProgress={scrollYProgress} />
-            <DigitalSolutions />
-            <Contact />
           </motion.div>
         </motion.div>
       </motion.div>

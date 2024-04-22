@@ -40,7 +40,7 @@ const LastSection = ({ scrollYProgress }) => {
   const springSpanY = useSpring(spanY, { damping: 25 });
 
   return (
-    <div className="w-full min-w-[100vw] md:w-[50vw] md:min-w-[50vw] h-[85vh] md:h-[85vh] lg:h-[80vh]">
+    <div className="w-full min-w-[100vw] max-w-[100vw] md:w-[50vw] md:min-w-[50vw] h-[85vh] md:h-[85vh] lg:h-[80vh]">
       <div className="relative w-full h-full pl-5 lg:pl-[30px] pb-5 lg:pb-[20px]">
         <motion.span
           style={{ translateX: springSpanX, translateY: springSpanY }}

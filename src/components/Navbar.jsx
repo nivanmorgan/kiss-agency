@@ -5,6 +5,7 @@ import { CgMenuLeftAlt } from 'react-icons/cg';
 import { MdClose } from 'react-icons/md';
 // import logo from '../assets/imgs/kiss-agency-logo.png';
 import { navigation } from '../utils/constants';
+import { slideInRight, slideInBottom } from '../utils/variants';
 
 import Logo from './Logo';
 
@@ -71,7 +72,15 @@ const Navbar = () => {
             </div>
             <div className="hidden lg:flex flex-1 justify-between items-center w-full">
               {navigation.slice(4, 6).map(({ text, link }, i) => (
-                <a key={i} href={link} className="navlinks">
+                <a
+                  // variants={slideInBottom}
+                  // initial="initial"
+                  // whileInView="animate"
+                  // custom={0}
+                  key={i}
+                  href={link}
+                  className="navlinks"
+                >
                   {text}
                 </a>
               ))}

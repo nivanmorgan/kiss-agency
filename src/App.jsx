@@ -9,7 +9,10 @@ import {
   Services,
   DigitalSolutions,
   Contact,
-} from './containers';
+} from './container_mobile';
+
+import { Hero as DesktopView } from './containers';
+
 import {
   Navbar,
   Footer,
@@ -72,15 +75,22 @@ function App() {
   }, []);
   return (
     <SmoothScroll>
-      <Hero />
-      <About />
-      <OurValues />
-      <Services />
-      <DigitalSolutions />
-      <Contact />
+      <div className="hidden xl:block">
+        <DesktopView />
+      </div>
+      <div className="xl:hidden">
+        <Hero />
+        <About />
+        <OurValues />
+        <Services />
+        <DigitalSolutions />
+        <Contact />
+
+        <Footer />
+      </div>
 
       {/* Footer and Navbar */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {sticky && (
           <motion.div
             initial={{ x: -10, opacity: 0 }}
@@ -91,11 +101,10 @@ function App() {
             <SideNav animate />
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
-      <Navbar />
+      {/* <Navbar /> */}
       {/* <StarCanvas /> */}
-      <Footer />
     </SmoothScroll>
   );
 }
