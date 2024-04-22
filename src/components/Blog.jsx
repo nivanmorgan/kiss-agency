@@ -20,20 +20,20 @@ const Blog = ({ title, excerpt, link, img, type, lottie, clip, i }) => {
         initial="initial"
         animate="animate"
         custom={1}
-        className="relative bg-[--neutral] py-5"
+        className="w-full relative bg-[--neutral] py-5 overflow-clip"
       >
-        {/* <span
-          className={`absolute w-[50%] h-[90px] bg-[--neutral] border-2 border-[--black] ${
+        <span
+          className={`absolute z-[-1] w-[50%] h-[90px] bg-[--white] border-2 border-[--black] ${
             type[0] === 't' ? 'top-[-10px]' : 'bottom-[-10px]'
           } ${type[1] === 'l' ? 'left-[-10px]' : 'right-[-10px]'} `}
         ></span>
-        <img
+        {/* <img
           src={img}
           alt={title}
           className="relative h-[100px] w-full object-cover"
         /> */}
         <div
-          className={`!my-[-${clip[0]}%] flex object-contain p-0 m-0 ${
+          className={`relative !my-[-${clip[0]}%] flex object-contain p-0 m-0 ${
             i === 2 && 'scale-[1.8]'
           } ${i === 3 && 'scale-[1.3]'} `}
         >
@@ -43,6 +43,7 @@ const Blog = ({ title, excerpt, link, img, type, lottie, clip, i }) => {
               objectFit: 'cover',
               width: '100%',
               height: '200px',
+              overflow: 'clip',
               // clipPath: `polygon(0% 0%, 0% ${clip[0]}%, 100% ${clip[0]}%, 100% ${clip[1]}%, 0% ${clip[1]}%)`,
               // background: 'blue',
             }}

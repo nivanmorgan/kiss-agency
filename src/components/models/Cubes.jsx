@@ -11,12 +11,21 @@ import * as random from 'maath/random/dist/maath-random.esm';
 import { motion } from 'framer-motion-3d';
 import { useTransform, useScroll } from 'framer-motion';
 
-import logo from '../../assets/imgs/kiss-agency-logo.png';
+import face1 from '../../assets/textures/face-1.png';
+import face2 from '../../assets/textures/face-2.png';
+import face3 from '../../assets/textures/face-3.png';
+import face4 from '../../assets/textures/face-4.png';
+import face5 from '../../assets/textures/face-5.png';
 
 const Cube = () => {
   const ref = useRef(null);
   // *LOGO CUBE
-  const texture = useLoader(TextureLoader, logo);
+  const texture1 = useLoader(TextureLoader, face2);
+  const texture2 = useLoader(TextureLoader, face3);
+  const texture3 = useLoader(TextureLoader, face4);
+  const texture4 = useLoader(TextureLoader, face5);
+  const texture5 = useLoader(TextureLoader, face1);
+  const texture6 = useLoader(TextureLoader, face1);
   //   *AUTHOMATIC ROTATION
   useFrame((state, delta) => {
     ref.current.rotation.x -= delta * 0.25;
@@ -28,7 +37,12 @@ const Cube = () => {
     <mesh ref={ref}>
       <boxGeometry args={[0.35, 0.35, 0.35]} />
       {/* <meshStandardMaterial color="white" /> */}
-      <meshStandardMaterial map={texture} />
+      <meshStandardMaterial map={texture1} attach="material-0" />
+      <meshStandardMaterial map={texture2} attach="material-1" />
+      <meshStandardMaterial map={texture3} attach="material-2" />
+      <meshStandardMaterial map={texture4} attach="material-3" />
+      <meshStandardMaterial map={texture5} attach="material-4" />
+      <meshStandardMaterial map={texture6} attach="material-5" />
     </mesh>
   );
 };
@@ -91,8 +105,8 @@ const Cubes = () => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
-        <ambientLight intensity={10} />
-        <directionalLight position={[2, 1, 1]} />
+        <ambientLight intensity={1} />
+        <directionalLight position={[1, 1, 1]} intensity={5} />
         <Suspense fallback={null}>
           <Stars />
           {/* <Cube /> */}

@@ -59,7 +59,7 @@ const Navbar = () => {
           transition={{ duration: 0.5, type: 'tween' }}
           className={` bg-white fixed top-0 left-0 w-full h-[70px] lg:h-[80px] items-center justify-center shadow z-[1000000]`}
         >
-          <div className="container py-5 flex items-center justify-between gap-[25px] xl:gap-[50px] relative">
+          <div className="container flex items-center justify-between gap-[25px] xl:gap-[50px] relative h-full">
             <div className="hidden lg:flex flex-1 justify-between items-center w-full">
               {navigation.slice(0, 4).map(({ text, link }, i) => (
                 <a key={i} href={link} className="navlinks">

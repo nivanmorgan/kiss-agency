@@ -9,14 +9,6 @@ import {
 import { FirstSection, MiddleSection, LastSection } from '../components';
 import useMeasure from 'react-use-measure';
 
-import {
-  About,
-  OurValues,
-  Services,
-  DigitalSolutions,
-  Contact,
-} from '../containers';
-
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
   return {
@@ -59,9 +51,9 @@ const Hero = () => {
     <div
       id="home"
       ref={container}
-      className="h-[600vh] relative pointer-events-none"
+      className="h-[600vh] relative top-0 left-0 w-full pointer-events-none bg-blue-800"
     >
-      <motion.div className="sticky top-0 left-0 w-full h-screen ">
+      <motion.div className="sticky top-0 left-0 w-full h-screen bg-red-700">
         <motion.div
           //   ref={scrollContainer}
           className="relative h-screen w-full bg-[--white] overflow-x-scroll no-scrollbar overflow-y-hidden"
@@ -74,12 +66,6 @@ const Hero = () => {
             <FirstSection scrollYProgress={scrollYProgress} />
             <MiddleSection scrollYProgress={scrollYProgress} />
             <LastSection scrollYProgress={scrollYProgress} />
-
-            <About />
-            <OurValues />
-            <Services scrollYProgress={scrollYProgress} />
-            <DigitalSolutions />
-            <Contact />
           </motion.div>
         </motion.div>
       </motion.div>
