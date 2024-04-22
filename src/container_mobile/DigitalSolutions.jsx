@@ -8,8 +8,11 @@ import { solutions } from '../utils/constants';
 
 const DigitalSolutions = () => {
   return (
-    <div id="digital-solutions" className="flex-container !min-w-[1240px">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+    <div
+      id="digital-solutions"
+      className="w-full relative mt-[50px] section-py"
+    >
+      <div className="container grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="space-y-7 lg:space-y-10">
           <Heading
             tag="Digital Solutions"
@@ -21,7 +24,7 @@ const DigitalSolutions = () => {
             content="We Integrate Intelligence Into Your Digital Solutions, Fostering Efficiency And Innovation"
           />
         </div>
-        <div className="max-h-[40vh] overflow-auto">
+        <div>
           <Accordion />
         </div>
         <div className="col-span-1 lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-5">

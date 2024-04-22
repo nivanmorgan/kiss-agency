@@ -99,8 +99,7 @@ const ContactForm = () => {
             <textarea
               name="message"
               id=""
-              rows="10"
-              name="message"
+              rows="5"
               value={message}
               onChange={handleChangeInput}
             ></textarea>
