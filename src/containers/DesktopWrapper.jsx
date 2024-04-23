@@ -66,7 +66,7 @@ const DesktopWrapper = () => {
   return (
     <div
       ref={container}
-      className="h-[600vh] relative top-0 left-0 w-full pointer-events-none bg-blue-700"
+      className="h-[600vh] relative top-0 left-0 w-full pointer-events-none bg-blue-700 hidden xl:block"
     >
       <div className="!sticky top-0 left-0 w-full h-screen bg-red-600">
         <motion.div className="relative h-screen w-full bg-[--white] overflow-x-scroll no-scrollbar overflow-y-hidden">
