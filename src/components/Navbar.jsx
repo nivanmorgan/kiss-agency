@@ -49,7 +49,7 @@ const Navbar = () => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       if (screenSize.width >= 768) {
-        if (scrollTop >= screenSize.height * 2.7) {
+        if (scrollTop >= screenSize.height * 2.2) {
           setScrolledOffHero(true);
         } else {
           setScrolledOffHero(false);

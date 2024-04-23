@@ -6,7 +6,14 @@ import {
   useTransform,
   animate,
 } from 'framer-motion';
-import { FirstSection, MiddleSection, LastSection } from '../components';
+import {
+  About,
+  OurValues,
+  Services,
+  DigitalSolutions,
+  Contact,
+} from '../containers';
+import { Footer } from '../components';
 import useMeasure from 'react-use-measure';
 import { useNavStore } from '../utils/config';
 
@@ -18,7 +25,7 @@ const getWindowsDimension = () => {
   };
 };
 
-const Hero = () => {
+const DesktopWrapper = () => {
   // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
@@ -56,31 +63,40 @@ const Hero = () => {
     [0.1, 0.8],
     [0, screenSize.width - width]
   );
-
   return (
     <div
-      id="home"
       ref={container}
-      className="h-[400vh] relative top-0 left-0 w-full pointer-events-none "
+      className="h-[600vh] relative top-0 left-0 w-full pointer-events-none bg-blue-700"
     >
-      <motion.div className="sticky top-0 left-0 w-full h-screen ">
-        <motion.div
-          //   ref={scrollContainer}
-          className="relative h-screen w-full bg-[--white] overflow-x-scroll no-scrollbar overflow-y-hidden"
-        >
+      <div className="!sticky top-0 left-0 w-full h-screen bg-red-600">
+        <motion.div className="relative h-screen w-full bg-[--white] overflow-x-scroll no-scrollbar overflow-y-hidden">
           <motion.div
             ref={scrollContainer}
             style={{ translateX: xTranslation }}
             className="absolute top-0 left-0 w-auto h-screen flex flex-nowrap gap-0"
           >
-            <FirstSection scrollYProgress={scrollYProgress} />
-            <MiddleSection scrollYProgress={scrollYProgress} />
-            <LastSection scrollYProgress={scrollYProgress} />
+            <div className="desktop-section-container">
+              <About />
+            </div>
+
+            <div className="desktop-section-container">
+              <OurValues />{' '}
+            </div>
+            <div className="desktop-section-container">
+              <Services />{' '}
+            </div>
+            <div className="desktop-section-container">
+              <DigitalSolutions />{' '}
+            </div>
+            <div className="desktop-section-container !flex-col xl:!overflow-auto no-scrollbar">
+              <Contact />
+              <Footer />
+            </div>
           </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
     </div>
   );
 };
 
-export default Hero;
+export default DesktopWrapper;

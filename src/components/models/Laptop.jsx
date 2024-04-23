@@ -212,13 +212,13 @@ const Laptop = () => {
           {/* <Sky scale={1000} sunPosition={[0, 0.4, 0]} /> */}
           {/* <Environment file={environment} /> */}
         </Suspense>
-        <ContactShadows
-          position={[0, -4.5, 0]}
+        {/* <ContactShadows
+          position={[0, -3.5, 0]}
           opacity={0.4}
           scale={40}
           blur={1.75}
           far={4.5}
-        />
+        /> */}
       </Canvas>
     </div>
   );
