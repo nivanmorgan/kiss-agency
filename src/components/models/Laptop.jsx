@@ -127,7 +127,7 @@ const Laptop = () => {
       screenSize.width > 700 ? screenSize.height * 1.5 : screenSize.height * 1,
       screenSize.height * 3.5,
     ],
-    [screenSize.width > 700 ? 1 : 0.5, screenSize.width > 700 ? 1.5 : 1.25]
+    [screenSize.width > 1024 ? 1 : 0.5, screenSize.width > 1024 ? 1.5 : 1.25]
   );
   //   const starScale = useTransform(
   //     scrollY,
