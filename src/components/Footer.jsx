@@ -13,7 +13,7 @@ const Footer = () => {
       whileInView="animate"
       custom={0}
       id="contact"
-      className="py-[25px] md:py-[50px] bg-[--white] !pb-[50px] lg:!pb-[100px]"
+      className="py-[25px] md:py-[50px] bg-[--white] !pb-[80px] lg:!pb-[100px]"
     >
       <div className="container grid grid-cols-1 lg:grid-cols-5 gap-[25px] lg:gap-[50px]">
         <div className="lg:col-span-2 footer-header-space">
