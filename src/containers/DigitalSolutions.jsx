@@ -3,7 +3,7 @@ import Lottie from 'lottie-react';
 
 import laptopGuy from '../assets/lottie/typing.json';
 
-import { Heading, Accordion } from '../components';
+import { Heading, Accordion, DottedNavigation } from '../components';
 import { solutions } from '../utils/constants';
 
 const DigitalSolutions = () => {
@@ -57,6 +57,7 @@ const DigitalSolutions = () => {
           ))}
         </div>
       </div>
+      <DottedNavigation />
     </div>
   );
 };

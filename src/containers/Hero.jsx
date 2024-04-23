@@ -8,6 +8,7 @@ import {
 } from 'framer-motion';
 import { FirstSection, MiddleSection, LastSection } from '../components';
 import useMeasure from 'react-use-measure';
+import { useNavStore } from '../utils/config';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -18,9 +19,9 @@ const getWindowsDimension = () => {
 };
 
 const Hero = () => {
+  // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
-  // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
   useEffect(() => {
     const handleResize = () => {
       setScreenSize(getWindowsDimension());
@@ -30,6 +31,15 @@ const Hero = () => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // !NAVIGATION
+  const navId = useNavStore((state) => state.navId);
+
+  useEffect(() => {
+    if (navId === 'about') {
+      window.scrollTo({ top: screenSize.height * 4 });
+    }
+  }, [navId]);
 
   // *HORIZONTAL SCROLL
   let [scrollContainer, { width }] = useMeasure();

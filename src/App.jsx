@@ -12,7 +12,13 @@ import {
   DigitalSolutions,
   Contact,
 } from './containers';
-import { Navbar, Footer, SmoothScroll, SideNav,FixedNavbar } from './components';
+import {
+  Navbar,
+  Footer,
+  SmoothScroll,
+  SideNav,
+  FixedNavbar,
+} from './components';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -72,12 +78,14 @@ function App() {
   return (
     <>
       <SmoothScroll>
-        {navId === 'home' || navId === "about"  ? (
+        {navId === 'home' || navId === 'about' ? (
           <>
             <Hero />
             <About />
           </>
-        ):<></>}
+        ) : (
+          <></>
+        )}
         {/* {navId === 'about' && (
           <>
             <Hero />
@@ -105,7 +113,7 @@ function App() {
                   initial={{ x: -10, opacity: 0 }}
                   whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
                   exit={{ x: -10, opacity: 0 }}
-                  className="fixed  top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen"
+                  className="fixed  top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] min-h-screen"
                 >
                   <SideNav animate />
                 </motion.div>
@@ -113,8 +121,14 @@ function App() {
             </AnimatePresence>
           )}
 
-{navId === "home" || navId === "about" ? (<Navbar/>):(<FixedNavbar/>)}
-          <Navbar />
+          {navId === 'home' ? (
+            <Navbar />
+          ) : navId === 'about' ? (
+            <Navbar />
+          ) : (
+            <FixedNavbar />
+          )}
+          {/* <Navbar /> */}
         </div>
       </SmoothScroll>
     </>

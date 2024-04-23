@@ -26,7 +26,7 @@ const AccordionCard = ({ i, heading, content, expanded, setExpanded }) => {
         >
           <FaCaretUp
             className={`${
-              isOpen ? '!text-white' : ''
+              isOpen ? '!text-white' : '!text-white'
             } block h-[17.5px] w-[17.5px]`}
           />
         </motion.div>

@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 
 import { motion, useAnimate, stagger, useScroll } from 'framer-motion';
 
-import { Heading, Tags, Blog } from '../components';
+import { Heading, Tags, Blog, DottedNavigation } from '../components';
 import { values } from '../utils/constants';
 
 const OurValues = () => {
@@ -33,6 +33,7 @@ const OurValues = () => {
           ))}
         </div>
       </div>
+      <DottedNavigation />
     </div>
   );
 };
