@@ -116,16 +116,16 @@ const Laptop = () => {
   const rotate = useTransform(
     scrollY,
     [
-      screenSize.width > 700 ? screenSize.height * 3.5 : screenSize.height * 3,
-      screenSize.height * 5.5,
+      screenSize.width > 700 ? screenSize.height * 1.5 : screenSize.height * 1,
+      screenSize.height * 3.5,
     ],
     [0, -4]
   );
   const scale = useTransform(
     scrollY,
     [
-      screenSize.width > 700 ? screenSize.height * 3.5 : screenSize.height * 3,
-      screenSize.height * 5.5,
+      screenSize.width > 700 ? screenSize.height * 1.5 : screenSize.height * 1,
+      screenSize.height * 3.5,
     ],
     [screenSize.width > 700 ? 1 : 0.5, screenSize.width > 700 ? 1.5 : 1.25]
   );
@@ -141,37 +141,37 @@ const Laptop = () => {
   const hinge = useTransform(
     scrollY,
     [
-      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
+      screenSize.width > 700 ? screenSize.height * 2.5 : screenSize.height * 2,
       //   screenSize.width > 700 ? screenSize.height * 5 : screenSize.height * 4.5,
       //   screenSize.width > 700 ? screenSize.height * 5.25 : screenSize.height * 5,
       //   screenSize.width > 700
       //     ? screenSize.height * 5.5
       //     : screenSize.height * 5.5,
-      screenSize.height * 5,
+      screenSize.height * 3,
     ],
     [1.57, -0.425]
   );
   const rotateX = useTransform(
     scrollY,
     [
-      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
-      screenSize.height * 6,
+      screenSize.width > 700 ? screenSize.height * 2.5 : screenSize.height * 2,
+      screenSize.height * 4,
     ],
     [Math.cos(10) / 20.5, 1.3]
   );
   const rotateY = useTransform(
     scrollY,
     [
-      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
-      screenSize.height * 6,
+      screenSize.width > 700 ? screenSize.height * 2.5 : screenSize.height * 2,
+      screenSize.height * 4,
     ],
     [0, Math.sin(10) / 4]
   );
   const rotateZ = useTransform(
     scrollY,
     [
-      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
-      screenSize.height * 6,
+      screenSize.width > 700 ? screenSize.height * 2.5 : screenSize.height * 2,
+      screenSize.height * 4,
     ],
     [0, 0.03]
   );
@@ -179,9 +179,9 @@ const Laptop = () => {
     scrollY,
     [
       screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
-      screenSize.height * 6,
+      screenSize.height * 4,
     ],
-    [-1, screenSize.width > 700 ? -4.5 : -5]
+    [-1, screenSize.width > 700 ? -2.5 : -3.5]
   );
 
   return (

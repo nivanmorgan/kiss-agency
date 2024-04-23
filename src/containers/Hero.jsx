@@ -51,7 +51,7 @@ const Hero = () => {
     <div
       id="home"
       ref={container}
-      className="h-[600vh] relative top-0 left-0 w-full pointer-events-none bg-blue-800"
+      className="h-[400vh] relative top-0 left-0 w-full pointer-events-none bg-blue-800"
     >
       <motion.div className="sticky top-0 left-0 w-full h-screen bg-red-700">
         <motion.div
