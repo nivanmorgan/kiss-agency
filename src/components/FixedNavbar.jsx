@@ -45,37 +45,9 @@ const Navbar = () => {
   const [menuToggled, setMenuToggled] = useState(false);
   const [scrolledOffHero, setScrolledOffHero] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      if (navId === 'home') {
-        if (screenSize.width >= 768) {
-          if (scrollTop >= screenSize.height * 2.7) {
-            setScrolledOffHero(true);
-          } else {
-            setScrolledOffHero(false);
-          }
-        } else {
-          if (scrollTop >= screenSize.height * 2.5) {
-            setScrolledOffHero(true);
-          } else {
-            setScrolledOffHero(false);
-          }
-        }
-      } else {
-        setScrolledOffHero(true);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
     <>
       <AnimatePresence>
-        {scrolledOffHero && (
           <motion.div
             initial={{ y: -10, opacity: 0.5 }}
             whileInView={{ y: [-10, 0], opacity: [0.5, 1] }}
@@ -134,7 +106,6 @@ const Navbar = () => {
               </div>
             </div>
           </motion.div>
-        )}
       </AnimatePresence>
       {/* popup */}
       <AnimatePresence>

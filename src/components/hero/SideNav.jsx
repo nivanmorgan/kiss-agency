@@ -1,21 +1,31 @@
 import React from 'react';
 
 import { motion } from 'framer-motion';
+import { useNavStore } from '../../utils/config';
 
 import { navigation } from '../../utils/constants';
 
-const NavLink = ({ text, link, contact }) => (
-  <div className={`vertical-text`}>
-    <a
-      href={link}
-      className={`capitalize text-[13px] font-bold ${
-        contact && 'bg-[--black] text-[--white] py-4 px-2 block text-nowrap'
-      }`}
-    >
-      {text}
-    </a>
-  </div>
-);
+const NavLink = ({ text, link, contact }) => {
+  const updateNavId = useNavStore((state) => state.updateNavId);
+  const navigate = (link) => {
+    window.scrollTo({ top: 0 });
+    updateNavId(link);
+  };
+
+  return (
+    <div className={`vertical-text`}>
+      <a
+        // href={link}
+        onClick={() => (contact ? navigate('contact') : navigate(link))}
+        className={`capitalize text-[13px] font-bold cursor-pointer ${
+          contact && 'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
+        }`}
+      >
+        {text}
+      </a>
+    </div>
+  );
+};
 
 const SideNav = ({ y, animate }) => {
   return (

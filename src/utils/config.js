@@ -1,11 +1,32 @@
-import { create } from "zustand";
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
 
-const useStore = create((set) => ({
-	bears: 0,
-	increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-	removeAllBears: () => set({ bears: 0 }),
-	updateBears: (newBears) => set({ bears: newBears }),
+const navigations = [
+  'home',
+  'about',
+  'values',
+  'services',
+  'digital-solutions',
+  'contact',
+];
+
+export const useNavStore = create((set) => ({
+  navId: 'home',
+  updateNavId: (id) => set({ navId: id }),
 }));
+
+// export const useNavStore = create(
+//   persist(
+//     (set, get) => ({
+//       navId: 'home',
+//       updateNavId: (id) => set({ navId: id }),
+//     }),
+//     {
+//       name: 'kiss-agency-nav-data',
+//       storage: createJSONStorage(() => sessionStorage),
+//     }
+//   )
+// );
 
 // function BearCounter() {
 // 	const bears = useStore((state) => state.bears);

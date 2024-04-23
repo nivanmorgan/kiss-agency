@@ -12,7 +12,7 @@ import {
   DigitalSolutions,
   Contact,
 } from './containers';
-import { Navbar, Footer, SmoothScroll, SideNav,FixedNavbar } from './components';
+import { Navbar, Footer, SmoothScroll, SideNav } from './components';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -26,9 +26,9 @@ function App() {
   // !NAVIGATION
   const navId = useNavStore((state) => state.navId);
 
-  // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
+  // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
   useEffect(() => {
     const handleResize = () => {
       setScreenSize(getWindowsDimension());
@@ -72,18 +72,18 @@ function App() {
   return (
     <>
       <SmoothScroll>
-        {navId === 'home' || navId === "about"  ? (
+        {navId === 'home' && (
           <>
             <Hero />
             <About />
           </>
-        ):<></>}
-        {/* {navId === 'about' && (
+        )}
+        {navId === 'about' && (
           <>
             <Hero />
             <About />
           </>
-        )} */}
+        )}
         <div className="overflow-hidden relative">
           {navId === 'values' && <OurValues />}
           {navId === 'services' && <Services />}
@@ -105,7 +105,7 @@ function App() {
                   initial={{ x: -10, opacity: 0 }}
                   whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
                   exit={{ x: -10, opacity: 0 }}
-                  className="fixed  top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen"
+                  className="fixed top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] h-screen"
                 >
                   <SideNav animate />
                 </motion.div>
@@ -113,7 +113,6 @@ function App() {
             </AnimatePresence>
           )}
 
-{navId === "home" || navId === "about" ? (<Navbar/>):(<FixedNavbar/>)}
           <Navbar />
         </div>
       </SmoothScroll>

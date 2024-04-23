@@ -3,6 +3,7 @@ export { default as Blog } from './Blog';
 export { default as ContactForm } from './ContactForm';
 export { default as Footer } from './Footer';
 export { default as Heading } from './Heading';
+export { default as FixedNavbar } from './FixedNavbar';
 export { default as Navbar } from './Navbar';
 export { default as Platforms } from './Platforms';
 export { default as ServiceList } from './ServiceList';

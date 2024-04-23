@@ -90,27 +90,27 @@ export const solutions = [
 export const navigation = [
   {
     text: 'Home',
-    link: '#home',
+    link: 'home',
   },
   {
     text: 'About us',
-    link: '#about',
+    link: 'about',
   },
   {
     text: 'Our values',
-    link: '#our-values',
+    link: 'values',
   },
   {
     text: 'Our services',
-    link: '#our-services',
+    link: 'services',
   },
   {
     text: 'Digital solutions',
-    link: '#digital-solutions',
+    link: 'digital-solutions',
   },
   {
     text: 'Subscribe',
-    link: '#subscribe',
+    link: 'contact',
   },
 ];
 
