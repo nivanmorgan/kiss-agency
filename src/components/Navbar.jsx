@@ -146,7 +146,10 @@ const Navbar = () => {
                   <a
                     key={i}
                     // href={link}
-                    onClick={() => navigateToFunction(link)}
+                    onClick={() => {
+                      navigateToFunction(link);
+                      setMenuToggled(false);
+                    }}
                     className="navlinks !text-[7vw] !font-semibold"
                   >
                     {text}
