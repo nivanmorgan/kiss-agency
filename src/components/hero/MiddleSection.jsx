@@ -45,7 +45,7 @@ const MiddleSection = ({ scrollYProgress }) => {
         <div className="w-full pl-[25px] lg:pl-[100px] md:pr-[50px] grid grid-cols-1 lg:grid-cols-2">
           <motion.div
             style={{ translateX: springLOGOX }}
-            className="h-[60px] self-start hidden lg:block"
+            className="h-[60px] self-start hidden lg:block opacity-0"
           >
             <img
               src={logo}

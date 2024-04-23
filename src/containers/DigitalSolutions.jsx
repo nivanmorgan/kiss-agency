@@ -1,4 +1,7 @@
 import React from 'react';
+import Lottie from 'lottie-react';
+
+import laptopGuy from '../assets/lottie/typing.json';
 
 import { Heading, Accordion } from '../components';
 import { solutions } from '../utils/constants';
@@ -30,13 +33,25 @@ const DigitalSolutions = () => {
               key={i}
               className="flex flex-col md:flex-row items-center gap-5 p-2 border-2 border-[--gray]"
             >
-              <div className="w-full md:w-[150px] min-w-[150px] h-[100px]">
+              <div className="pb-2 w-full min-w-[150px] bg-[--neutral]">
+                <Lottie
+                  animationData={laptopGuy}
+                  style={{
+                    objectFit: 'cover',
+                    width: '100%',
+                    height: '125px',
+                    // clipPath: `polygon(0% 0%, 0% ${clip[0]}%, 100% ${clip[0]}%, 100% ${clip[1]}%, 0% ${clip[1]}%)`,
+                    // background: 'blue',
+                  }}
+                />
+              </div>
+              {/* <div className="w-full md:w-[150px] min-w-[150px] h-[100px]">
                 <img
                   src={solution.img}
                   alt={solution.text}
                   className="w-full h-full object-cover"
                 />
-              </div>
+              </div> */}
               <p>{solution.text}</p>
             </div>
           ))}

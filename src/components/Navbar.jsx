@@ -50,45 +50,88 @@ const Navbar = () => {
   }, []);
 
   return (
-    <AnimatePresence>
-      {scrolledOffHero && (
-        <motion.div
-          initial={{ y: -10, opacity: 0.5 }}
-          whileInView={{ y: [-10, 0], opacity: [0.5, 1] }}
-          exit={{ y: -10, opacity: 0 }}
-          transition={{ duration: 0.5, type: 'tween' }}
-          className={` bg-white fixed top-0 left-0 w-full h-[70px] lg:h-[80px] items-center justify-center shadow z-[1000000]`}
-        >
-          <div className="container flex items-center justify-between gap-[25px] xl:gap-[50px] relative h-full">
-            <div className="hidden lg:flex flex-1 justify-between items-center w-full">
-              {navigation.slice(0, 4).map(({ text, link }, i) => (
-                <a key={i} href={link} className="navlinks">
-                  {text}
+    <>
+      <AnimatePresence>
+        {scrolledOffHero && (
+          <motion.div
+            initial={{ y: -10, opacity: 0.5 }}
+            whileInView={{ y: [-10, 0], opacity: [0.5, 1] }}
+            exit={{ y: -10, opacity: 0 }}
+            transition={{ duration: 0.5, type: 'tween' }}
+            className={` bg-white fixed top-0 left-0 w-full h-[70px] lg:h-[80px] items-center justify-center shadow z-[1000000]`}
+          >
+            <div className="container flex items-center justify-between gap-[25px] xl:gap-[50px] relative h-full">
+              <div className="hidden lg:flex flex-1 justify-between items-center w-full">
+                {navigation.slice(0, 4).map(({ text, link }, i) => (
+                  <a key={i} href={link} className="navlinks">
+                    {text}
+                  </a>
+                ))}
+              </div>
+              <div className="">
+                <Logo />
+              </div>
+              <div className="hidden lg:flex flex-1 justify-between items-center w-full">
+                {navigation.slice(4, 6).map(({ text, link }, i) => (
+                  <a
+                    // variants={slideInBottom}
+                    // initial="initial"
+                    // whileInView="animate"
+                    // custom={0}
+                    key={i}
+                    href={link}
+                    className="navlinks"
+                  >
+                    {text}
+                  </a>
+                ))}
+                <a href="#contact" className="btn-1">
+                  Contact Us
                 </a>
-              ))}
-            </div>
-            <div className="">
-              <Logo />
-            </div>
-            <div className="hidden lg:flex flex-1 justify-between items-center w-full">
-              {navigation.slice(4, 6).map(({ text, link }, i) => (
-                <a
-                  // variants={slideInBottom}
-                  // initial="initial"
-                  // whileInView="animate"
-                  // custom={0}
-                  key={i}
-                  href={link}
-                  className="navlinks"
+              </div>
+              <div className="lg:hidden flex items-center">
+                <button
+                  className="z-[10]"
+                  onClick={() => setMenuToggled((toggled) => !toggled)}
                 >
-                  {text}
-                </a>
-              ))}
-              <a href="#contact" className="btn-1">
-                Contact Us
-              </a>
+                  {menuToggled ? (
+                    <MdClose className="text-[--black] text-2xl" />
+                  ) : (
+                    <CgMenuLeftAlt className="text-[--black] text-2xl" />
+                  )}
+                </button>
+              </div>
             </div>
-            <div className="lg:hidden flex items-center">
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* popup */}
+      <AnimatePresence>
+        {menuToggled && (
+          <motion.div className="fixed top-0 left-0 w-full h-screen bg-[#ffffffaa] backdrop-blur z-[1000000]">
+            <div className="flex flex-col gap-[5vh] h-full justify-start items-center pt-[10vh]">
+              <div>
+                <Logo />
+              </div>
+
+              <div className="flex flex-col gap-[3vh] justify-center items-center ">
+                {navigation.map(({ text, link }, i) => (
+                  <a
+                    key={i}
+                    href={link}
+                    className="navlinks !text-[7vw] !font-semibold"
+                  >
+                    {text}
+                  </a>
+                ))}
+                <a href="#contact" className="btn-1-v2 mt-5">
+                  Contact Us
+                </a>
+              </div>
+            </div>
+
+            {/* *TOGGLE BUTTON */}
+            <div className="fixed top-0 left-0 w-full h-[80px] container flex items-center justify-end">
               <button
                 className="z-[10]"
                 onClick={() => setMenuToggled((toggled) => !toggled)}
@@ -100,36 +143,10 @@ const Navbar = () => {
                 )}
               </button>
             </div>
-
-            {/* popup */}
-            {menuToggled && (
-              <div className="fixed top-0 left-0 w-full h-screen bg-[#ffffffaa] backdrop-blur">
-                <div className="flex flex-col gap-[5vh] h-full justify-start items-center pt-[10vh]">
-                  <div>
-                    <Logo />
-                  </div>
-
-                  <div className="flex flex-col gap-[3vh] justify-center items-center ">
-                    {navigation.map(({ text, link }, i) => (
-                      <a
-                        key={i}
-                        href={link}
-                        className="navlinks !text-[7vw] !font-semibold"
-                      >
-                        {text}
-                      </a>
-                    ))}
-                    <a href="#contact" className="btn-1-v2 mt-5">
-                      Contact Us
-                    </a>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

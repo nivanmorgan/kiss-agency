@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import hero2 from '../../assets/imgs/hero-2.png';
-import { Globe } from '../../components';
+import { Laptop } from '../../components';
 import { useTransform, motion, useSpring } from 'framer-motion';
 
 const getWindowsDimension = () => {
@@ -40,7 +40,7 @@ const LastSection = ({ scrollYProgress }) => {
   const springSpanY = useSpring(spanY, { damping: 25 });
 
   return (
-    <div className="w-full min-w-[100vw] max-w-[100vw] md:w-[50vw] md:min-w-[50vw] h-[85vh] md:h-[85vh] lg:h-[80vh]">
+    <div className="w-full min-w-[100vw] max-w-[100vw] md:w-[50vw] md:min-w-[50vw] h-[85vh] md:h-[85vh] lg:h-[90vh]">
       <div className="relative w-full h-full pl-5 lg:pl-[30px] pb-5 lg:pb-[20px]">
         <motion.span
           style={{ translateX: springSpanX, translateY: springSpanY }}
@@ -52,7 +52,7 @@ const LastSection = ({ scrollYProgress }) => {
             alt="hero"
             className="relative w-full h-full object-cover"
           /> */}
-          <Globe scrollYProgress={scrollYProgress} />
+          <Laptop />
           <div className="absolute top-0 left-0 w-full h-full bg-transparent pointer-events-auto" />
         </div>
       </div>
