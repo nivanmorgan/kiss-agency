@@ -24,7 +24,7 @@ const Navbar = () => {
   const updateNavId = useNavStore((state) => state.updateNavId);
 
   const navigateToFunction = async (link) => {
-    window.scrollTo({ top: 0 })
+    window.scrollTo({ top: 0 });
     setScrolledOffHero(true);
     updateNavId(link);
   };
@@ -48,22 +48,18 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      if (navId === 'home') {
-        if (screenSize.width >= 768) {
-          if (scrollTop >= screenSize.height * 2.7) {
-            setScrolledOffHero(true);
-          } else {
-            setScrolledOffHero(false);
-          }
+      if (screenSize.width >= 768) {
+        if (scrollTop >= screenSize.height * 2.7) {
+          setScrolledOffHero(true);
         } else {
-          if (scrollTop >= screenSize.height * 2.5) {
-            setScrolledOffHero(true);
-          } else {
-            setScrolledOffHero(false);
-          }
+          setScrolledOffHero(false);
         }
       } else {
-        setScrolledOffHero(true);
+        if (scrollTop >= screenSize.height * 2.5) {
+          setScrolledOffHero(true);
+        } else {
+          setScrolledOffHero(false);
+        }
       }
     };
 

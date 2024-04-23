@@ -3,7 +3,7 @@ import useMeasure from 'react-use-measure';
 
 import { useScroll, useTransform, motion } from 'framer-motion';
 
-import { Heading, Platforms } from '../components';
+import { Heading, Platforms, DottedNavigation } from '../components';
 import dashboard from '../assets/imgs/dashboard.jpeg';
 
 const About = () => {
@@ -27,7 +27,7 @@ const About = () => {
     <div
       ref={container}
       id="about"
-      className="w-full relative lg:h-screen section-py "
+      className="w-full relative lg:h-screen section-py !mt-0 lg:!mt-[50px]"
     >
       <div
         // ref={contentContainer}
@@ -76,6 +76,7 @@ const About = () => {
           </motion.div>
         </div>
       </div>
+      <DottedNavigation />
     </div>
   );
 };

@@ -32,13 +32,13 @@ const SideNav = ({ y, animate }) => {
     <motion.div
       style={{ translateY: y && y }}
       transition={{ type: animate ? 'spring' : 'tween' }}
-      className="absolute w-full h-full bg-[--neutral] overflow-y-scroll no-scrollbar pointer-events-auto"
+      className="absolute w-full h-full min-h-screen bg-[--neutral] overflow-y-scroll no-scrollbar pointer-events-auto"
     >
-      <div className="flex flex-col-reverse items-center justify-center gap-4 py-[2rem] ">
+      <div className="flex flex-col-reverse items-center justify-center gap-4 py-[2rem] min-h-screen">
         {navigation.map((nav, i) => (
           <NavLink key={i} text={nav.text} link={nav.link} />
         ))}
-        <NavLink contact text="contact us" link="#contact" />
+        <NavLink contact text="contact us" link="contact" />
       </div>
     </motion.div>
   );

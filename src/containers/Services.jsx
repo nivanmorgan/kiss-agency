@@ -1,5 +1,10 @@
 import { useRef } from 'react';
-import { Heading, ServicesSlide, ServiceList } from '../components';
+import {
+  Heading,
+  ServicesSlide,
+  ServiceList,
+  DottedNavigation,
+} from '../components';
 
 const Services = () => {
   const container = useRef();
@@ -25,6 +30,7 @@ const Services = () => {
           <ServiceList container={container} />
         </div>
       </div>
+      <DottedNavigation />
     </div>
   );
 };
