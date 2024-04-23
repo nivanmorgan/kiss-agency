@@ -11,6 +11,7 @@ import {
   Services,
   DigitalSolutions,
   Contact,
+  DesktopWrapper,
 } from './containers';
 import {
   Navbar,
@@ -53,7 +54,7 @@ function App() {
       if (screenSize.width >= 768) {
         if (
           scrollTop >= screenSize.height * 1 &&
-          scrollTop <= screenSize.height * 2.5
+          scrollTop <= screenSize.height * 2
         ) {
           setSticky(true);
         } else {
@@ -78,33 +79,17 @@ function App() {
   return (
     <>
       <SmoothScroll>
-        {navId === 'home' || navId === 'about' ? (
-          <>
-            <Hero />
-            <About />
-          </>
-        ) : (
-          <></>
-        )}
-        {/* {navId === 'about' && (
-          <>
-            <Hero />
-            <About />
-          </>
-        )} */}
+        <Hero />
+        <DesktopWrapper />
         <div className="overflow-hidden relative">
-          {navId === 'values' && <OurValues />}
-          {navId === 'services' && <Services />}
-          {navId === 'digital-solutions' && <DigitalSolutions />}
-          {navId === 'contact' && (
-            <>
-              <Contact /> <Footer />
-            </>
-          )}
-          {/* <Services />
-          <DigitalSolutions />
-          <Contact /> */}
-
+          <div className="overflow-hidden relative xl:hidden">
+            <About />
+            <OurValues />
+            <Services />
+            <DigitalSolutions />
+            <Contact />
+            <Footer />
+          </div>
           {/* Footer and Navbar */}
           {navId === 'home' && (
             <AnimatePresence>
@@ -120,14 +105,14 @@ function App() {
               )}
             </AnimatePresence>
           )}
-
-          {navId === 'home' ? (
+          <Navbar />
+          {/* {navId === 'home' ? (
             <Navbar />
           ) : navId === 'about' ? (
             <Navbar />
           ) : (
             <FixedNavbar />
-          )}
+          )} */}
           {/* <Navbar /> */}
         </div>
       </SmoothScroll>

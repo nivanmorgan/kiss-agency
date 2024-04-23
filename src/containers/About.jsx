@@ -76,7 +76,7 @@ const About = () => {
           </motion.div>
         </div>
       </div>
-      <DottedNavigation />
+      {/* <DottedNavigation /> */}
     </div>
   );
 };

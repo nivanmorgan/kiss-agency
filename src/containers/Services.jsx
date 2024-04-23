@@ -14,8 +14,8 @@ const Services = () => {
       id="our-services"
       className="w-full relative mt-[50px] section-py"
     >
-      <div className="container grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <div className="space-y-7 lg:space-y-10">
+      <div className="container grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-5">
+        <div className="space-y-7 lg:space-y-10 xl:pr-10">
           <Heading
             tag="Our Services"
             header={['Tailored to', 'Your Business', 'Needs']}
@@ -30,7 +30,7 @@ const Services = () => {
           <ServiceList container={container} />
         </div>
       </div>
-      <DottedNavigation />
+      {/* <DottedNavigation /> */}
     </div>
   );
 };

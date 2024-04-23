@@ -65,7 +65,7 @@ h1{
 }
 
 .section-py{
-    @apply pt-[10px] lg:pt-[20px] pb-[75px] lg:pb-[100px] mt-[100px]
+    @apply pt-[10px] lg:pt-[20px] pb-[75px] lg:pb-[100px] mt-[100px] xl:mt-[80px] xl:pt-0 xl:pb-0
 }
 
 .footer-header-space, .footer-header-space div{
@@ -96,4 +96,11 @@ h1{
 
 .form-grid textarea{
     @apply py-[0.7rem] px-5 text-sm placeholder:text-sm placeholder:text-[--gray] block w-full lg:col-span-2 focus:border-none focus:outline-[--neutral]
+}
+
+
+
+/* *DESKTOP HORIZONTAL SCROLL */
+.desktop-section-container{
+    @apply min-w-[100vw] h-screen flex items-center pointer-events-auto
 }

@@ -13,7 +13,7 @@ const Blog = ({ title, excerpt, link, img, type, lottie, clip, i }) => {
       initial="initial"
       whileInView="animate"
       custom={0}
-      className="relative flex flex-col blog-card lg:min-w-[300px]"
+      className="relative flex flex-col blog-card lg:min-w-[300px] xl:min-w-[200px"
     >
       <motion.div
         variants={slideInRight}
