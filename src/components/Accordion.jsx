@@ -18,7 +18,7 @@ const AccordionCard = ({ i, heading, content, expanded, setExpanded }) => {
         onClick={() => setExpanded(isOpen ? false : i)}
         className="px-5 py-3 cursor-pointer flex justify-between items-center"
       >
-        <h2 className={isOpen ? '!text-white' : ''}>{heading}</h2>
+        <h2 className={isOpen ? '!text-white' : 'text-white'}>{heading}</h2>
         <motion.div
           animate={{
             rotateX: isOpen ? '180deg' : '0deg',

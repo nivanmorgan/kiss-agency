@@ -10,13 +10,7 @@ import {
   DigitalSolutions,
   Contact,
 } from './containers';
-import {
-  Navbar,
-  Footer,
-  SmoothScroll,
-  SideNav,
-  StarCanvas,
-} from './components';
+import { Navbar, Footer, SmoothScroll, SideNav } from './components';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -74,8 +68,8 @@ function App() {
     <>
       <SmoothScroll>
         <Hero />
-        <div className="overflow-x-hidden relative">
-          <About />
+        <About />
+        <div className="overflow-hidden relative">
           <OurValues />
           <Services />
           <DigitalSolutions />
@@ -96,7 +90,6 @@ function App() {
           </AnimatePresence>
 
           <Navbar />
-          {/* <StarCanvas /> */}
           <Footer />
         </div>
       </SmoothScroll>

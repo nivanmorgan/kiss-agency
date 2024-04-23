@@ -27,15 +27,15 @@ const About = () => {
     <div
       ref={container}
       id="about"
-      className="w-full relative h-[200vh] lg:h-[200vh]"
+      className="w-full relative lg:h-screen section-py "
     >
       <div
-        ref={contentContainer}
-        className="sticky top-0 mt-[50px] section-py container grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10"
+        // ref={contentContainer}
+        className="container grid grid-cols-1 lg:grid-cols-2 gap-10 lg:h-full"
       >
         <motion.div
-          style={{ y: displaceY }}
-          className="space-y-7 lg:space-y-10 order-2 md:order-1"
+          // style={{ y: displaceY }}
+          className="space-y-7 lg:space-y-10 order-2 lg:order-1 lg:self-center lg:h-fit"
         >
           <Heading
             tag="About Us"
@@ -44,7 +44,7 @@ const About = () => {
           />
           <Platforms container={container} />
         </motion.div>
-        <div className="md:absolute top-0 right-0 md:w-[50vw] md:h-full flex items-center md:pl-[50px] lg:pl-[70px]">
+        <div className="lg:absolute top-0 right-0 lg:w-[50%] lg:h-screen flex items-center lg:pl-[70px]">
           <motion.div className="relative pl-[10px] lg:pl-[25px] pt-[25px] md:pt-[35px] lg:pt-[50px] pb-[15px] lg:pb-[25px] overflow-hidden">
             <div
               //   style={{ scale: imgScale }}

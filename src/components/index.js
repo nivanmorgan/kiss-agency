@@ -21,3 +21,4 @@ export { default as LastSection } from './hero/LastSection';
 export { default as Cubes } from './models/Cubes';
 export { default as Globe } from './models/Globe';
 export { default as StarCanvas } from './models/StarCanvas';
+export { default as Laptop } from './models/Laptop';

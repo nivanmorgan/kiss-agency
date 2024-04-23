@@ -43,7 +43,7 @@ const Hero = () => {
   const containerTranslation = useMotionValue(0);
   const xTranslation = useTransform(
     scrollYProgress,
-    [0.1, 0.95],
+    [0.1, 0.8],
     [0, screenSize.width - width]
   );
 

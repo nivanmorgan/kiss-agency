@@ -8,7 +8,7 @@ import { a as web } from '@react-spring/web';
 import { useScroll, useTransform } from 'framer-motion';
 import { motion, MotionCanvas } from 'framer-motion-3d';
 
-import { Loader as CanvasLoader } from '../../components';
+import { Loader as CanvasLoader, StarCanvas } from '../../components';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -89,7 +89,7 @@ function Model({
   );
 }
 
-const Laptop = ({ container }) => {
+const Laptop = () => {
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
   useEffect(() => {
     const handleResize = () => {
@@ -106,55 +106,86 @@ const Laptop = ({ container }) => {
   // We turn this into a spring animation that interpolates between 0 and 1
   const props = useSpring({ open: Number(open) });
 
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'end end'],
-  });
+  const { scrollY } = useScroll();
+
+  //   const { scrollYProgress } = useScroll({
+  //     target: container,
+  //     offset: ['start start', 'end start'],
+  //   });
 
   const rotate = useTransform(
-    scrollYProgress,
-    [0, 0.35, screenSize.width > 700 ? 0.5 : 0.5],
-    [1, -1, -3]
+    scrollY,
+    [
+      screenSize.width > 700 ? screenSize.height * 3.5 : screenSize.height * 3,
+      screenSize.height * 5.5,
+    ],
+    [0, -4]
   );
   const scale = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [screenSize.width > 700 ? 1 : 0.5, screenSize.width > 700 ? 2 : 1.5]
-  );
-
-  // const open = useTransform(
-  // 	scrollYProgress,
-  // 	[0, 1],
-  // 	[0.5, screenSize.width > 700 ? 2 : 1]
-  // );
-  const hinge = useTransform(
-    scrollYProgress,
+    scrollY,
     [
-      0,
-      screenSize.width > 700 ? 0.35 : 0.3,
-      screenSize.width > 700 ? 0.4 : 0.45,
-      screenSize.width > 700 ? 0.45 : 0.65,
-      1,
+      screenSize.width > 700 ? screenSize.height * 3.5 : screenSize.height * 3,
+      screenSize.height * 5.5,
     ],
-    [1.57, 1.57, 0, -0.425, -0.425]
+    [screenSize.width > 700 ? 1 : 0.5, screenSize.width > 700 ? 1.5 : 1.25]
+  );
+  //   const starScale = useTransform(
+  //     scrollY,
+  //     [
+  //       screenSize.width > 700 ? screenSize.height * 3.5 : screenSize.height * 3,
+  //       screenSize.height * 5.5,
+  //     ],
+  //     [screenSize.width > 700 ? 1 : 0.5, screenSize.width > 700 ? 1.5 : 1.25]
+  //   );
+
+  const hinge = useTransform(
+    scrollY,
+    [
+      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
+      //   screenSize.width > 700 ? screenSize.height * 5 : screenSize.height * 4.5,
+      //   screenSize.width > 700 ? screenSize.height * 5.25 : screenSize.height * 5,
+      //   screenSize.width > 700
+      //     ? screenSize.height * 5.5
+      //     : screenSize.height * 5.5,
+      screenSize.height * 5,
+    ],
+    [1.57, -0.425]
   );
   const rotateX = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [Math.cos(10) / 1.5, 1.3]
+    scrollY,
+    [
+      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
+      screenSize.height * 6,
+    ],
+    [Math.cos(10) / 20.5, 1.3]
   );
-  const rotateY = useTransform(scrollYProgress, [0, 1], [0, Math.sin(10) / 4]);
-  const rotateZ = useTransform(scrollYProgress, [0, 1], [0, 0.03]);
+  const rotateY = useTransform(
+    scrollY,
+    [
+      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
+      screenSize.height * 6,
+    ],
+    [0, Math.sin(10) / 4]
+  );
+  const rotateZ = useTransform(
+    scrollY,
+    [
+      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
+      screenSize.height * 6,
+    ],
+    [0, 0.03]
+  );
   const positionY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, screenSize.width > 700 ? -4.5 : -5]
+    scrollY,
+    [
+      screenSize.width > 700 ? screenSize.height * 4.5 : screenSize.height * 4,
+      screenSize.height * 6,
+    ],
+    [-1, screenSize.width > 700 ? -4.5 : -5]
   );
-  const sunZ = useTransform(scrollYProgress, [0, 1], [0, 10]);
-  const sunX = useTransform(scrollYProgress, [0, 1], [0, 2]);
 
   return (
-    <div className="w-full h-screen translate-y-[-24px]">
+    <div className="w-full h-full">
       <Canvas dpr={[1, 2]} camera={{ position: [0, 0, -30], fov: 35 }}>
         <three.pointLight
           position={[10, 10, 10]}
@@ -175,9 +206,10 @@ const Laptop = ({ container }) => {
               positionY={positionY}
               hinge={hinge}
             />
+            <StarCanvas />
           </motion.group>
           <ambientLight intensity={5} />
-          <Sky scale={1000} sunPosition={[0, 0.4, 0]} />
+          {/* <Sky scale={1000} sunPosition={[0, 0.4, 0]} /> */}
           {/* <Environment file={environment} /> */}
         </Suspense>
         <ContactShadows
