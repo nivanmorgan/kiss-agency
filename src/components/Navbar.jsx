@@ -6,7 +6,12 @@ import { MdClose } from 'react-icons/md';
 // import logo from '../assets/imgs/kiss-agency-logo.png';
 import { navigation } from '../utils/constants';
 import { slideInRight, slideInBottom } from '../utils/variants';
-import { useNavStore } from '../utils/config';
+import {
+  useNavStore,
+  useAboutWidthStore,
+  useContainerWidthStore,
+  useValuesWidthStore,
+} from '../utils/config';
 
 import Logo from './Logo';
 
@@ -22,12 +27,9 @@ const Navbar = () => {
   // !NAVIGATION
   const navId = useNavStore((state) => state.navId);
   const updateNavId = useNavStore((state) => state.updateNavId);
-
-  const navigateToFunction = async (link) => {
-    window.scrollTo({ top: 0 });
-    setScrolledOffHero(true);
-    updateNavId(link);
-  };
+  const containerWidth = useContainerWidthStore((state) => state.width);
+  const aboutWidth = useAboutWidthStore((state) => state.width);
+  const valuesWidth = useValuesWidthStore((state) => state.width);
 
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
@@ -41,6 +43,12 @@ const Navbar = () => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const navigateToFunction = async (link) => {
+    window.scrollTo({ top: 0 });
+    setScrolledOffHero(true);
+    updateNavId(link);
+  };
 
   const [menuToggled, setMenuToggled] = useState(false);
   const [scrolledOffHero, setScrolledOffHero] = useState(false);
@@ -68,6 +76,51 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // NAVIGATION SCROLL
+  const heroScrollSize = screenSize.height * 4;
+  const wrapperScrollSize = screenSize.height * 6;
+
+  // const horizontalScrollWidth = screenSize.height * 6
+
+  // const aboutWidth= screenSize.width
+
+  // const valuesWidth= screenSize.width
+  // const aboutWidth= screenSize.width
+  // const aboutWidth= screenSize.width
+
+  // const aboutPoint = heroScrollSize;
+
+  // console.log(aboutWidth);
+  // console.log(containerWidth);
+
+  const contactPoint = heroScrollSize + wrapperScrollSize - 0;
+  const aboutPoint = heroScrollSize;
+  const valuesPoint =
+    15 +
+    heroScrollSize +
+    (screenSize.width / containerWidth) * wrapperScrollSize;
+  const servicesPoint =
+    20 + valuesPoint + (valuesWidth / containerWidth) * wrapperScrollSize;
+  const solutionsPoint =
+    15 +
+    servicesPoint +
+    (screenSize.width / containerWidth) * wrapperScrollSize;
+
+  const scrollPoints = [
+    { top: 0, behavior: 'smooth' },
+    { top: aboutPoint, behavior: 'smooth' },
+    { top: valuesPoint, behavior: 'smooth' },
+    { top: servicesPoint, behavior: 'smooth' },
+    { top: solutionsPoint, behavior: 'smooth' },
+    { top: contactPoint, behavior: 'smooth' },
+    { top: aboutPoint, behavior: 'smooth' },
+    { top: aboutPoint, behavior: 'smooth' },
+    {
+      top: heroScrollSize + wrapperScrollSize - screenSize.height,
+      behavior: 'smooth',
+    },
+  ];
+
   return (
     <>
       <AnimatePresence>
@@ -81,40 +134,58 @@ const Navbar = () => {
           >
             <div className="container flex items-center justify-between gap-[25px] xl:gap-[50px] relative h-full">
               <div className="hidden lg:flex flex-1 justify-between items-center w-full">
-                {navigation.slice(0, 4).map(({ text, link }, i) => (
-                  <a
-                    key={i}
-                    onClick={() => navigateToFunction(link)}
-                    className={`navlinks`}
-                  >
-                    {text}
-                  </a>
-                ))}
+                {navigation.slice(0, 4).map(({ text, link }, i) =>
+                  screenSize.width >= 1280 ? (
+                    <a
+                      key={i}
+                      // onClick={() => navigateToFunction(link)}
+                      onClick={() => window.scrollTo(scrollPoints[i])}
+                      // href={'#' + link}
+                      className={`navlinks`}
+                    >
+                      {text}
+                    </a>
+                  ) : (
+                    <a key={i} href={'#' + link} className={`navlinks`}>
+                      {text}
+                    </a>
+                  )
+                )}
               </div>
               <div className="">
                 <Logo />
               </div>
               <div className="hidden lg:flex flex-1 justify-between items-center w-full">
-                {navigation.slice(4, 6).map(({ text, link }, i) => (
+                {navigation.slice(4, 6).map(({ text, link }, i) =>
+                  screenSize.width >= 1280 ? (
+                    <a
+                      onClick={() => window.scrollTo(scrollPoints[i + 4])}
+                      key={i}
+                      // onClick={() => navigateToFunction(link)}
+                      className="navlinks"
+                    >
+                      {text}
+                    </a>
+                  ) : (
+                    <a key={i} href={'#' + link} className="navlinks">
+                      {text}
+                    </a>
+                  )
+                )}
+                {screenSize.width >= 1280 ? (
                   <a
-                    // variants={slideInBottom}
-                    // initial="initial"
-                    // whileInView="animate"
-                    // custom={0}
-                    key={i}
-                    // href={link}
-                    onClick={() => navigateToFunction(link)}
-                    className="navlinks"
+                    onClick={() =>
+                      window.scrollTo(scrollPoints[scrollPoints.length - 1])
+                    }
+                    className="btn-1"
                   >
-                    {text}
+                    Contact Us
                   </a>
-                ))}
-                <a
-                  onClick={() => navigateToFunction('contact')}
-                  className="btn-1"
-                >
-                  Contact Us
-                </a>
+                ) : (
+                  <a href="#contact" className="btn-1">
+                    Contact Us
+                  </a>
+                )}
               </div>
               <div className="lg:hidden flex items-center">
                 <button
@@ -142,25 +213,51 @@ const Navbar = () => {
               </div>
 
               <div className="flex flex-col gap-[3vh] justify-center items-center ">
-                {navigation.map(({ text, link }, i) => (
+                {navigation.map(({ text, link }, i) =>
+                  screenSize.width >= 1280 ? (
+                    <a
+                      key={i}
+                      onClick={() => {
+                        // navigateToFunction(link);
+                        window.scrollTo(scrollPoints[i]);
+                        setMenuToggled(false);
+                      }}
+                      className="navlinks !text-[7vw] !font-semibold"
+                    >
+                      {text}
+                    </a>
+                  ) : (
+                    <a
+                      key={i}
+                      href={'#' + link}
+                      onClick={() => {
+                        setMenuToggled(false);
+                      }}
+                      className="navlinks !text-[7vw] !font-semibold"
+                    >
+                      {text}
+                    </a>
+                  )
+                )}
+                {screenSize.width >= 1280 ? (
                   <a
-                    key={i}
-                    // href={link}
                     onClick={() => {
-                      navigateToFunction(link);
+                      window.scrollTo(scrollPoints[scrollPoints.length - 1]);
                       setMenuToggled(false);
                     }}
-                    className="navlinks !text-[7vw] !font-semibold"
+                    className="btn-1-v2 mt-5"
                   >
-                    {text}
+                    Contact Us
                   </a>
-                ))}
-                <a
-                  onClick={() => navigateToFunction('contact')}
-                  className="btn-1-v2 mt-5"
-                >
-                  Contact Us
-                </a>
+                ) : (
+                  <a
+                    href={'#contact'}
+                    onClick={() => setMenuToggled(false)}
+                    className="btn-1-v2 mt-5"
+                  >
+                    Contact Us
+                  </a>
+                )}
               </div>
             </div>
 

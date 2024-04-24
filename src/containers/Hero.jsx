@@ -48,6 +48,7 @@ const Hero = () => {
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start start', 'end end'],
+    layoutEffect: false,
   });
 
   const containerTranslation = useMotionValue(0);

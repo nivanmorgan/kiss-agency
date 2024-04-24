@@ -15,7 +15,8 @@ import {
 } from '../containers';
 import { Footer } from '../components';
 import useMeasure from 'react-use-measure';
-import { useNavStore } from '../utils/config';
+import { useNavStore, useContainerWidthStore } from '../utils/config';
+import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
 const getWindowsDimension = () => {
   const { innerWidth: width, innerHeight: height } = window;
@@ -26,11 +27,16 @@ const getWindowsDimension = () => {
 };
 
 const DesktopWrapper = () => {
+  const updateSectionWidth = useContainerWidthStore(
+    (state) => state.updateWidth
+  );
   // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
+  let [scrollContainer, { width }] = useMeasure();
 
   useEffect(() => {
     const handleResize = () => {
+      updateSectionWidth(width);
       setScreenSize(getWindowsDimension());
     };
 
@@ -49,31 +55,42 @@ const DesktopWrapper = () => {
   }, [navId]);
 
   // *HORIZONTAL SCROLL
-  let [scrollContainer, { width }] = useMeasure();
   const container = useRef();
   //   const scrollContainer = useRef();
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start start', 'end end'],
+    layoutEffect: false,
   });
 
   const containerTranslation = useMotionValue(0);
   const xTranslation = useTransform(
     scrollYProgress,
-    [0.1, 0.8],
+    [0, 1],
     [0, screenSize.width - width]
   );
+
+  useEffect(() => {
+    updateSectionWidth(width);
+  }, [width]);
+
+  useEffect(() => {
+    updateSectionWidth(width);
+  }, []);
+
+  // *WIDTH OF EACH SECTION
+
   return (
     <div
       ref={container}
       className="h-[600vh] relative top-0 left-0 w-full pointer-events-none bg-blue-700 hidden xl:block"
     >
       <div className="!sticky top-0 left-0 w-full h-screen bg-red-600">
-        <motion.div className="relative h-screen w-full bg-[--white] overflow-x-scroll no-scrollbar overflow-y-hidden">
+        <motion.div className="relative h-screen w-full bg-[--white] no-scrollbar overflow-hidden pointer-events-none">
           <motion.div
             ref={scrollContainer}
             style={{ translateX: xTranslation }}
-            className="absolute top-0 left-0 w-auto h-screen flex flex-nowrap gap-0"
+            className="absolute top-0 left-0 w-auto h-screen flex flex-nowrap gap-0 pointer-events-none"
           >
             <div className="desktop-section-container">
               <About />

@@ -11,7 +11,7 @@ const Services = () => {
   return (
     <div
       ref={container}
-      id="our-services"
+      // id="services"
       className="w-full relative mt-[50px] section-py"
     >
       <div className="container grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-5">

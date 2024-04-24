@@ -42,7 +42,7 @@ const AccordionCard = ({ i, heading, content, expanded, setExpanded }) => {
               open: { opacity: 1, height: 'auto' },
               collapsed: { opacity: 0, height: 0 },
             }}
-            className="space-y-5 py-5"
+            className="space-y-5 py-5 xl:max-h-[27vh xl:overflow-aut"
           >
             {content.map(({ title, text }, i) => (
               <div key={i} className="space-y-2">

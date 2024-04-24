@@ -1,15 +1,43 @@
 import { useRef, useState, useEffect } from 'react';
 
-import { motion, useAnimate, stagger, useScroll } from 'framer-motion';
+import { motion, useAnimate, stagger } from 'framer-motion';
 
 import { Heading, Tags, Blog, DottedNavigation } from '../components';
 import { values } from '../utils/constants';
 
+import useMeasure from 'react-use-measure';
+import { useValuesWidthStore } from '../utils/config';
+
 const OurValues = () => {
+  let [container, { width }] = useMeasure();
+  const updateSectionWidth = useValuesWidthStore((state) => state.updateWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      updateSectionWidth(width);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    updateSectionWidth(width);
+  }, [width]);
+
+  useEffect(() => {
+    updateSectionWidth(width);
+  }, []);
+
   return (
-    <div id="our-values" className="w-full relative mt-[50px] section-py">
+    <div
+      ref={container}
+      // id="values"
+      className="w-full relative mt-[50px] section-py"
+    >
       <div className="container grid grid-cols-1 xl:grid-cols- gap-y-10 xl:gap-[50px] xl:flex xl:!max-w-full xl:pl-[8rem]">
-        <div className="space-y-7 lg:space-y-10 w-full md:w-[85%] xl:w-full col-span-2 flex flex-col justify-center xl:min-w-[500px]">
+        <div className="space-y-7 lg:space-y-10 w-full md:w-[85%] xl:w-full col-span-2 flex flex-col justify-center xl:min-w-[500px] xl:max-w-[500px]">
           <Heading
             tag="Our Values"
             header={['Why', 'Choose Us']}

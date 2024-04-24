@@ -8,7 +8,7 @@ import {
 } from '@react-three/drei';
 import * as random from 'maath/random/dist/maath-random.esm';
 import { motion } from 'framer-motion-3d';
-import { useTransform, useScroll } from 'framer-motion';
+import { useTransform } from 'framer-motion';
 
 const StarCanvas = ({ scale }) => {
   const ref = useRef();

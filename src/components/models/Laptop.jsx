@@ -111,6 +111,7 @@ const Laptop = () => {
   //   const { scrollYProgress } = useScroll({
   //     target: container,
   //     offset: ['start start', 'end start'],
+  // layoutEffect: false,
   //   });
 
   const rotate = useTransform(
