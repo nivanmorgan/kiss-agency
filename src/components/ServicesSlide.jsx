@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 import { services } from '../utils/constants';
@@ -11,6 +11,14 @@ import 'swiper/css/free-mode';
 
 import { Autoplay, EffectCoverflow, FreeMode } from 'swiper/modules';
 
+const getWindowsDimension = () => {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+};
+
 const ServiceCard = ({ icon, title, text }) => {
   return (
     <div className="flex flex-col w-full gap-3 items-center justify-center p-5 bg-[--neutral] h-[90%] text-center cursor-grab group hover:bg-[--black] hover:text-[--neutral] shadow-2xl shadow-[--white]">
@@ -22,6 +30,18 @@ const ServiceCard = ({ icon, title, text }) => {
 };
 
 const ServicesSlide = () => {
+  // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
+  const [screenSize, setScreenSize] = useState(getWindowsDimension());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(getWindowsDimension());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   return (
     <motion.div
       variants={slideInBottom}
@@ -34,7 +54,7 @@ const ServicesSlide = () => {
         grabCursor={false}
         centeredSlides={true}
         loop={true}
-        slidesPerView="auto"
+        slidesPerView={'auto'}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
@@ -47,7 +67,7 @@ const ServicesSlide = () => {
           slideShadows: false,
         }}
         modules={[Autoplay, EffectCoverflow, FreeMode]}
-        className="swiper_container"
+        className="swiper_container w-full"
       >
         {[...services, ...services].map(({ icon, title, text }, i) => (
           <SwiperSlide key={i}>

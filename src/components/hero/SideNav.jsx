@@ -1,22 +1,35 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 import { useNavStore } from '../../utils/config';
 
+import {
+  useAboutWidthStore,
+  useContainerWidthStore,
+  useValuesWidthStore,
+} from '../../utils/config';
 import { navigation } from '../../utils/constants';
 
-const NavLink = ({ text, link, contact }) => {
-  const updateNavId = useNavStore((state) => state.updateNavId);
-  const navigate = (link) => {
-    window.scrollTo({ top: 0 });
-    updateNavId(link);
+const getWindowsDimension = () => {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
   };
+};
+
+const NavLink = ({ text, link, contact }) => {
+  // const updateNavId = useNavStore((state) => state.updateNavId);
+  // const navigate = (link) => {
+  //   window.scrollTo({ top: 0 });
+  //   updateNavId(link);
+  // };
 
   return (
     <div className={`vertical-text`}>
       <a
-        // href={link}
-        onClick={() => (contact ? navigate('contact') : navigate(link))}
+        href={'#' + link}
+        // onClick={() => (contact ? navigate('contact') : navigate(link))}
         className={`capitalize text-[13px] font-bold cursor-pointer ${
           contact && 'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
         }`}
@@ -28,6 +41,51 @@ const NavLink = ({ text, link, contact }) => {
 };
 
 const SideNav = ({ y, animate }) => {
+  // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
+  const [screenSize, setScreenSize] = useState(getWindowsDimension());
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(getWindowsDimension());
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const containerWidth = useContainerWidthStore((state) => state.width);
+  const aboutWidth = useAboutWidthStore((state) => state.width);
+  const valuesWidth = useValuesWidthStore((state) => state.width);
+
+  // NAVIGATION SCROLL
+  const heroScrollSize = screenSize.height * 4;
+  const wrapperScrollSize = screenSize.height * 6;
+
+  const aboutPoint = heroScrollSize;
+  const valuesPoint =
+    heroScrollSize + (screenSize.width / containerWidth) * wrapperScrollSize;
+  const servicesPoint =
+    valuesPoint + (valuesWidth / containerWidth) * wrapperScrollSize;
+  const solutionsPoint =
+    servicesPoint + (screenSize.width / containerWidth) * wrapperScrollSize;
+  const contactPoint = heroScrollSize + wrapperScrollSize - screenSize.height;
+
+  const scrollPoints = [
+    { top: 0, behavior: 'smooth' },
+    { top: aboutPoint, behavior: 'smooth' },
+    { top: valuesPoint, behavior: 'smooth' },
+    { top: servicesPoint, behavior: 'smooth' },
+    { top: solutionsPoint, behavior: 'smooth' },
+    { top: contactPoint, behavior: 'smooth' },
+    { top: aboutPoint, behavior: 'smooth' },
+    { top: aboutPoint, behavior: 'smooth' },
+    {
+      top: heroScrollSize + wrapperScrollSize - screenSize.height,
+      behavior: 'smooth',
+    },
+  ];
+
   return (
     <motion.div
       style={{ translateY: y && y }}
@@ -36,7 +94,12 @@ const SideNav = ({ y, animate }) => {
     >
       <div className="flex flex-col-reverse items-center justify-center gap-4 py-[2rem] min-h-screen">
         {navigation.map((nav, i) => (
-          <NavLink key={i} text={nav.text} link={nav.link} />
+          <NavLink
+            key={i}
+            text={nav.text}
+            link={nav.link}
+            scrollPoints={scrollPoints}
+          />
         ))}
         <NavLink contact text="contact us" link="contact" />
       </div>

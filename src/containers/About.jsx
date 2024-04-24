@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import useMeasure from 'react-use-measure';
 
 import { useScroll, useTransform, motion } from 'framer-motion';
@@ -6,27 +6,54 @@ import { useScroll, useTransform, motion } from 'framer-motion';
 import { Heading, Platforms, DottedNavigation } from '../components';
 import dashboard from '../assets/imgs/dashboard.jpeg';
 
+import { useAboutWidthStore } from '../utils/config';
+
 const About = () => {
-  const container = useRef();
+  // const container = useRef();
+  let [container, { width }] = useMeasure();
+  const updateSectionWidth = useAboutWidthStore((state) => state.updateWidth);
 
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start start', 'end end'],
-  });
+  // *updateSectionWidth(width);
+  // useEffect(() => {
+  //   updateSectionWidth(width);
+  // }, [width]);
 
-  let [contentContainer, { width }] = useMeasure();
-  const displaceY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [width >= 600 ? 300 : 100, 0]
-  );
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
-  const imgZ = useTransform(scrollYProgress, [0, 1], [0, -300]);
+  // const { scrollYProgress } = useScroll({
+  //   target: container,
+  //   offset: ['start start', 'end end'],
+  // });
+
+  // // let [contentContainer, { width }] = useMeasure();
+  // const displaceY = useTransform(
+  //   scrollYProgress,
+  //   [0, 1],
+  //   [width >= 600 ? 300 : 100, 0]
+  // );
+  // const imgScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
+  // const imgZ = useTransform(scrollYProgress, [0, 1], [0, -300]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      updateSectionWidth(width);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    updateSectionWidth(width);
+  }, [width]);
+
+  useEffect(() => {
+    updateSectionWidth(width);
+  }, []);
 
   return (
     <div
-      ref={container}
       id="about"
+      ref={container}
       className="w-full relative lg:h-screen section-py !mt-0 lg:!mt-[50px]"
     >
       <div
@@ -48,7 +75,7 @@ const About = () => {
           <motion.div className="relative pl-[10px] lg:pl-[25px] pt-[25px] md:pt-[35px] lg:pt-[50px] pb-[15px] lg:pb-[25px] overflow-hidden">
             <div
               //   style={{ scale: imgScale }}
-              className="h-[240px] w-[110%] md:h-[65vh] md:max-h-[500px] max-h-[600px] bg-[--neutral] rounded-l-2xl md:rounded-l-[1.65rem] xl:rounded-l-[1.8rem]"
+              className="h-[240px] w-[110%] xl:w-full md:h-[65vh] md:max-h-[500px] max-h-[600px] bg-[--neutral] rounded-l-2xl md:rounded-l-[1.65rem] xl:rounded-l-[1.8rem]"
             >
               {/* Floaters */}
               <motion.span

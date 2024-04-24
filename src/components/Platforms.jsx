@@ -19,16 +19,17 @@ const Platforms = ({ container }) => {
 
   const containerTranslation = useMotionValue(0);
 
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ['start end', 'end start'],
-  });
+  // const { scrollYProgress } = useScroll({
+  //   target: container,
+  //   offset: ['start end', 'end start'],
+  //   layoutEffect: false,
+  // });
 
-  const xTranslation = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [-width / 4 - 8, 0]
-  );
+  // const xTranslation = useTransform(
+  //   scrollYProgress,
+  //   [0, 1],
+  //   [-width / 4 - 8, 0]
+  // );
   // console.log(scrollYProgress);
 
   //   useEffect(() => {
@@ -52,13 +53,18 @@ const Platforms = ({ container }) => {
         <h3>Platforms</h3>
         <motion.div
           ref={ref}
-          style={{ x: containerTranslation }}
+          // style={{ x: containerTranslation }}
           className="overflow-x-auto no-scrollbar max-w-[300px]"
         >
           <motion.div
-            style={{ translateX: xTranslation }}
+            // style={{ translateX: xTranslation }}
             className="flex gap-4"
           >
+            <img src={logo1} className="w-[45px] h-[45px] object-contain p-1" />
+            <img src={logo2} className="w-[45px] h-[45px] object-contain" />
+            <img src={logo3} className="w-[45px] h-[45px] object-contain" />
+            <img src={logo4} className="w-[45px] h-[45px] object-contain" />
+            <img src={logo5} className="w-[45px] h-[45px] object-contain" />
             <img src={logo1} className="w-[45px] h-[45px] object-contain p-1" />
             <img src={logo2} className="w-[45px] h-[45px] object-contain" />
             <img src={logo3} className="w-[45px] h-[45px] object-contain" />

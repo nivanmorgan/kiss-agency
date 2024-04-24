@@ -19,6 +19,7 @@ const ServiceList = ({ container }) => {
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ['start end', 'end start'],
+    layoutEffect: false,
   });
 
   const xTranslation = useTransform(
