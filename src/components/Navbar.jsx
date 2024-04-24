@@ -93,14 +93,18 @@ const Navbar = () => {
   // console.log(aboutWidth);
   // console.log(containerWidth);
 
+  const contactPoint = heroScrollSize + wrapperScrollSize - 0;
   const aboutPoint = heroScrollSize;
   const valuesPoint =
-    heroScrollSize + (screenSize.width / containerWidth) * wrapperScrollSize;
+    15 +
+    heroScrollSize +
+    (screenSize.width / containerWidth) * wrapperScrollSize;
   const servicesPoint =
-    valuesPoint + (valuesWidth / containerWidth) * wrapperScrollSize;
+    20 + valuesPoint + (valuesWidth / containerWidth) * wrapperScrollSize;
   const solutionsPoint =
-    servicesPoint + (screenSize.width / containerWidth) * wrapperScrollSize;
-  const contactPoint = heroScrollSize + wrapperScrollSize - screenSize.height;
+    15 +
+    servicesPoint +
+    (screenSize.width / containerWidth) * wrapperScrollSize;
 
   const scrollPoints = [
     { top: 0, behavior: 'smooth' },
@@ -226,9 +230,9 @@ const Navbar = () => {
                     <a
                       key={i}
                       href={'#' + link}
-                      // onClick={() => {
-                      //   setMenuToggled(false);
-                      // }}
+                      onClick={() => {
+                        setMenuToggled(false);
+                      }}
                       className="navlinks !text-[7vw] !font-semibold"
                     >
                       {text}
@@ -248,9 +252,7 @@ const Navbar = () => {
                 ) : (
                   <a
                     href={'#contact'}
-                    // onClick={() =>
-                    //   window.scrollTo(scrollPoints[scrollPoints.length - 1])
-                    // }
+                    onClick={() => setMenuToggled(false)}
                     className="btn-1-v2 mt-5"
                   >
                     Contact Us

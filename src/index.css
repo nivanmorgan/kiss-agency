@@ -65,7 +65,7 @@ h1{
 }
 
 .section-py{
-    @apply pt-[10px] lg:pt-[20px] pb-[75px] lg:pb-[100px] mt-[100px] xl:mt-[80px] xl:pt-0 xl:pb-0
+    @apply pt-[110px] lg:pt-[150px] pb-[50px] lg:pb-[50px] !mt-[-80px] xl:mt-[-80px] xl:pt-0 xl:pb-0
 }
 
 .footer-header-space, .footer-header-space div{

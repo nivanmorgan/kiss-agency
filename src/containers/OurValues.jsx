@@ -33,7 +33,7 @@ const OurValues = () => {
   return (
     <div
       ref={container}
-      id="values"
+      // id="values"
       className="w-full relative mt-[50px] section-py"
     >
       <div className="container grid grid-cols-1 xl:grid-cols- gap-y-10 xl:gap-[50px] xl:flex xl:!max-w-full xl:pl-[8rem]">

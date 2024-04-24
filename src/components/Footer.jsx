@@ -12,8 +12,7 @@ const Footer = () => {
       initial="initial"
       whileInView="animate"
       custom={0}
-      id="contact"
-      className="py-[25px] md:py-[50px] xl:py-10 bg-[--white] !pb-[75px] lg:!pb-[100px] xl:!min-h-[175px] xl:max-h-[175px]  xl:h-full"
+      className="py-[25px] md:py-[50px] xl:py-10 bg-[--white] xl:!min-h-[175px] xl:max-h-[175px]  xl:h-full"
     >
       <div className="container grid grid-cols-1 lg:grid-cols-5 gap-[25px] lg:gap-[50px]">
         <div className="lg:col-span-2 footer-header-space">

@@ -18,7 +18,7 @@ const getWindowsDimension = () => {
   };
 };
 
-const NavLink = ({ text, link, contact }) => {
+const NavLink = ({ text, link, contact, scrollPoint }) => {
   // const updateNavId = useNavStore((state) => state.updateNavId);
   // const navigate = (link) => {
   //   window.scrollTo({ top: 0 });
@@ -27,15 +27,28 @@ const NavLink = ({ text, link, contact }) => {
 
   return (
     <div className={`vertical-text`}>
-      <a
-        href={'#' + link}
-        // onClick={() => (contact ? navigate('contact') : navigate(link))}
-        className={`capitalize text-[13px] font-bold cursor-pointer ${
-          contact && 'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
-        }`}
-      >
-        {text}
-      </a>
+      {scrollPoint ? (
+        <a
+          onClick={() => window.scrollTo(scrollPoint)}
+          className={`capitalize text-[13px] font-bold cursor-pointer ${
+            contact &&
+            'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
+          }`}
+        >
+          {text}
+        </a>
+      ) : (
+        <a
+          href={'#' + link}
+          // onClick={() => (contact ? navigate('contact') : navigate(link))}
+          className={`capitalize text-[13px] font-bold cursor-pointer ${
+            contact &&
+            'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
+          }`}
+        >
+          {text}
+        </a>
+      )}
     </div>
   );
 };
@@ -62,14 +75,18 @@ const SideNav = ({ y, animate }) => {
   const heroScrollSize = screenSize.height * 4;
   const wrapperScrollSize = screenSize.height * 6;
 
+  const contactPoint = heroScrollSize + wrapperScrollSize - 0;
   const aboutPoint = heroScrollSize;
   const valuesPoint =
-    heroScrollSize + (screenSize.width / containerWidth) * wrapperScrollSize;
+    15 +
+    heroScrollSize +
+    (screenSize.width / containerWidth) * wrapperScrollSize;
   const servicesPoint =
-    valuesPoint + (valuesWidth / containerWidth) * wrapperScrollSize;
+    20 + valuesPoint + (valuesWidth / containerWidth) * wrapperScrollSize;
   const solutionsPoint =
-    servicesPoint + (screenSize.width / containerWidth) * wrapperScrollSize;
-  const contactPoint = heroScrollSize + wrapperScrollSize - screenSize.height;
+    15 +
+    servicesPoint +
+    (screenSize.width / containerWidth) * wrapperScrollSize;
 
   const scrollPoints = [
     { top: 0, behavior: 'smooth' },
@@ -93,15 +110,22 @@ const SideNav = ({ y, animate }) => {
       className="absolute w-full h-full min-h-screen bg-[--neutral] overflow-y-scroll no-scrollbar pointer-events-auto"
     >
       <div className="flex flex-col-reverse items-center justify-center gap-4 py-[2rem] min-h-screen">
-        {navigation.map((nav, i) => (
+        {navigation.map((nav, i) =>
+          screenSize.width >= 1280 ? (
+            <NavLink key={i} text={nav.text} scrollPoint={scrollPoints[i]} />
+          ) : (
+            <NavLink key={i} text={nav.text} link={nav.link} />
+          )
+        )}
+        {screenSize.width >= 1280 ? (
           <NavLink
-            key={i}
-            text={nav.text}
-            link={nav.link}
-            scrollPoints={scrollPoints}
+            contact
+            text="contact us"
+            scrollPoint={scrollPoints[scrollPoints.length - 1]}
           />
-        ))}
-        <NavLink contact text="contact us" link="contact" />
+        ) : (
+          <NavLink contact text="contact us" link="contact" />
+        )}
       </div>
     </motion.div>
   );

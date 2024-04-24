@@ -52,7 +52,7 @@ const About = () => {
 
   return (
     <div
-      id="about"
+      // id="about"
       ref={container}
       className="w-full relative lg:h-screen section-py !mt-0 lg:!mt-[50px]"
     >

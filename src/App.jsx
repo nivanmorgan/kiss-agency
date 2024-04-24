@@ -83,12 +83,22 @@ function App() {
         <DesktopWrapper />
         <div className="overflow-hidden relative">
           <div className="overflow-hidden relative xl:hidden">
-            <About />
-            <OurValues />
-            <Services />
-            <DigitalSolutions />
-            <Contact />
-            <Footer />
+            <div id="about">
+              <About />
+            </div>
+            <div id="values">
+              <OurValues />
+            </div>
+            <div id="services">
+              <Services />
+            </div>
+            <div id="digital-solutions">
+              <DigitalSolutions />
+            </div>
+            <div id="contact">
+              <Contact />
+              <Footer />
+            </div>
           </div>
           {/* Footer and Navbar */}
           {navId === 'home' && (
