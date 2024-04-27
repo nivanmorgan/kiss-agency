@@ -26,9 +26,9 @@ const Footer = () => {
           <p>{footerSectionText.text}</p>
         </div>
         <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 footer-header-space gap-[25px]">
-          <div>
+          <div className="mt-[8px]">
             <h2>Call</h2>
-            <p className="flex flex-col">
+            <p>
               {footerSectionText.contact.map((phoneNumber, id) => (
                 <a href={`tel:${phoneNumber}`} key={id}>
                   {phoneNumber}
