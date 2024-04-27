@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Logo, DottedNavigation } from '../components';
 
 import { slideInRight, slideInBottom } from '../utils/variants';
+import { footerSectionText } from '../utils/constants';
 
 const Footer = () => {
   return (
@@ -22,26 +23,30 @@ const Footer = () => {
             className="w-auto h-[45px] lg:h-[50px] object-contain"
           /> */}
           <Logo />
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+          <p>{footerSectionText.text}</p>
         </div>
         <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 footer-header-space gap-[25px]">
           <div>
             <h2>Call</h2>
-            <p>+122 - 123456789</p>
+            <p className="flex flex-col">
+              {footerSectionText.contact.map((phoneNumber, id) => (
+                <a href={`tel:${phoneNumber}`} key={id}>
+                  {phoneNumber}
+                </a>
+              ))}
+            </p>
           </div>
           <div>
             <h2>Mail</h2>
-            <p>loremipsum@info.com</p>
+            <p>
+              <a href={`mailto:${footerSectionText.mail}`}>
+                {footerSectionText.mail}
+              </a>
+            </p>
           </div>
           <div>
             <h2>Location</h2>
-            <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum
-            </p>
+            <p>{footerSectionText.location}</p>
           </div>
         </div>
       </div>

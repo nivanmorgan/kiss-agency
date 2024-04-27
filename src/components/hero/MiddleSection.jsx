@@ -40,8 +40,8 @@ const MiddleSection = ({ scrollYProgress }) => {
   const springTextIMGX = useSpring(textImgX, { damping: 25 });
 
   return (
-    <div className="w-screen min-w-[100vw] h-screen flex flex-col items-center justify-around lg:justify-between gap-0">
-      <div className="flex flex-col lg:h-full justify-center w-full">
+    <div className="w-screen min-w-[100vw] h-screen flex flex-col items-center justify-around lg:justify-start gap-0 lg:gap-[10vh pt-8">
+      <div className="flex flex-col justify-center w-full">
         <div className="w-full pl-[25px] lg:pl-[100px] md:pr-[50px] grid grid-cols-1 lg:grid-cols-2">
           <motion.div
             style={{ translateX: springLOGOX }}
@@ -71,33 +71,35 @@ const MiddleSection = ({ scrollYProgress }) => {
           </motion.div>
         </div>
       </div>
-      <motion.h1
-        style={{ translateX: springHX }}
-        className="text-[15vw] lg:text-[11vw] font-medium !leading-[100%] lg:!leading-[90%] pb-[2.5vw] relative pr-[25px] px-5 lg:px-0"
-      >
-        Elevate Your
-        <br />
-        <span>Business</span> With
-        <br />
-        <span>KISS</span> Design
-        <motion.div
-          // whileHover={{ scale: 1.1 }}
-          // whileTap={{ scale: 0.9 }}
-          // transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-          // href="#about"
-          className=" lg:absolute lg:bottom-0 right-0 mt-7 md:mt-12 lg:mt-0 pointer-events-auto flex"
+      <div className="h-full  flex flex-col justify-center">
+        <motion.h1
+          style={{ translateX: springHX }}
+          className="text-[15vw] lg:text-[10vw] font-medium !leading-[100%] lg:!leading-[85%] pb-[2.5vw] relative pr-[25px] px-5 lg:px-0"
         >
-          <motion.a
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-            href="#about"
-            className="btn-1-v2 !font-medium text-sm md:text-base lg:mb-[4vw] block pointer-events-auto w-auto"
+          Elevate Your
+          <br />
+          <span>Business</span> With
+          <br />
+          <span>KISS</span> Design
+          <motion.div
+            // whileHover={{ scale: 1.1 }}
+            // whileTap={{ scale: 0.9 }}
+            // transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+            // href="#about"
+            className=" lg:absolute lg:bottom-0 right-0 mt-7 md:mt-12 lg:mt-0 pointer-events-auto flex"
           >
-            Learn More
-          </motion.a>
-        </motion.div>
-      </motion.h1>
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+              href="tel:+515-207-2540"
+              className="btn-1-v2 !font-medium text-sm md:text-base lg:mb-[4vw] block pointer-events-auto w-auto"
+            >
+              Call Now
+            </motion.a>
+          </motion.div>
+        </motion.h1>
+      </div>
     </div>
   );
 };
