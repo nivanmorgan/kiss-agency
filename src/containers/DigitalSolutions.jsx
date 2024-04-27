@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import laptopGuy from '../assets/lottie/typing.json';
 
 import { Heading, Accordion, DottedNavigation } from '../components';
-import { solutions } from '../utils/constants';
+import { digitalSolutionsSectionText, solutions } from '../utils/constants';
 import { slideInRight, slideInBottom } from '../utils/variants';
 
 const DigitalSolutions = () => {
@@ -17,13 +17,9 @@ const DigitalSolutions = () => {
       <div className="container grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-5">
         <div className="space-y-7 lg:space-y-10">
           <Heading
-            tag="Digital Solutions"
-            header={[
-              'From Machine Learning',
-              'Algorithms to AI-powered',
-              'Applications',
-            ]}
-            content="We Integrate Intelligence Into Your Digital Solutions, Fostering Efficiency And Innovation"
+            tag={digitalSolutionsSectionText.tag}
+            header={digitalSolutionsSectionText.heading}
+            content={digitalSolutionsSectionText.text}
           />
         </div>
         <div className="xl:h-[50vh] xl:overflow-auto">
@@ -38,15 +34,21 @@ const DigitalSolutions = () => {
               key={i}
               className="flex flex-col md:flex-row items-center gap-5 p-2 border-2 border-[--gray]"
             >
-              <div className="pb-2 w-full min-w-[150px] bg-[--neutral]">
+              <div
+                className={`pb-2 w-full min-w-[150px] bg-[--neutral] flex items-center justify-center h-full ${
+                  i === 1 && 'pt-5 !pb-0'
+                }`}
+              >
                 <Lottie
-                  animationData={laptopGuy}
+                  animationData={solution.img}
                   style={{
                     objectFit: 'cover',
                     width: '100%',
                     height: '125px',
-                    // clipPath: `polygon(0% 0%, 0% ${clip[0]}%, 100% ${clip[0]}%, 100% ${clip[1]}%, 0% ${clip[1]}%)`,
-                    // background: 'blue',
+                    clipPath:
+                      i === 1
+                        ? `polygon(0% 0%, 100% 0%, 100% 80%, 0% 80%)`
+                        : '',
                   }}
                 />
               </div>

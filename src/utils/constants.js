@@ -15,13 +15,14 @@ import service4 from '../assets/icons/service4.svg';
 import service5 from '../assets/icons/service5.svg';
 import service6 from '../assets/icons/service6.svg';
 
-import solution1 from '../assets/imgs/solution1.jpeg';
-import solution2 from '../assets/imgs/solution2.jpeg';
+import solution1 from '../assets/lottie/typing.json';
+import solution2 from '../assets/lottie/graphs.json';
 
 import icon1 from '../assets/imgs/service-i-1.svg';
 import icon2 from '../assets/imgs/service-i-2.svg';
 import icon3 from '../assets/imgs/service-i-3.svg';
 
+// * OUR VALUES
 export const values = [
   {
     title: 'Client-Centric',
@@ -65,6 +66,7 @@ export const values = [
   },
 ];
 
+// * SERVICES LISTED BELOW OUR SERVICES
 export const serviceList = [
   { icon: service1, text: 'Digital Agencies' },
   { icon: service2, text: 'Product Designers' },
@@ -74,19 +76,21 @@ export const serviceList = [
   { icon: service6, text: 'Developers' },
 ];
 
+// * THE TWO SECTIONS BELOW DIGITAL SOLUTIONS
 export const solutions = [
   {
     img: solution1,
     text:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa.',
+      'Unlock the true potential of your digital solutions with our strategic AI services. From optimizing user experiences to streamlining complex processes, our AI expertise opens doors to innovation.',
   },
   {
     img: solution2,
     text:
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa.',
+      'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives.',
   },
 ];
 
+// * NAVIGATION
 export const navigation = [
   {
     text: 'Home',
@@ -114,13 +118,13 @@ export const navigation = [
   },
 ];
 
-// *FOR THE CAROUSEL
+// * THE SERVICES CAROUSEL
 export const services = [
   {
     icon: icon1,
     title: 'Web Design Excellence',
     text:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      'Crafting seamless and visually compelling web experiences is our expertise. Our web design services blend aesthetics with functionality to create websites that leave a lasting impression.',
   },
   {
     icon: icon2,
@@ -134,8 +138,63 @@ export const services = [
     text:
       'Our graphic design services bring your brand to life with visually stunning elements that captivate and communicate. Elevate your brand with our artistic and strategic approach to graphic design.',
   },
+  {
+    icon: icon1,
+    title: 'Web Development',
+    text:
+      'Elevate your online presence with our cutting-edge web development services. From sleek corporate websites to dynamic e-commerce platforms, we bring your vision to life with a focus on functionality and user experience.',
+  },
+  {
+    icon: icon2,
+    title: 'App Development',
+    text:
+      'Dive into the mobile realm with our app development services. We specialize in creating custom applications for iOS and Android, ensuring a seamless user experience and optimal performance.',
+  },
+  {
+    icon: icon3,
+    title: 'AI Development',
+    text:
+      'Explore the potential of artificial intelligence with our development expertise. From machine learning algorithms to AI-powered applications, we integrate intelligence into your digital solutions, fostering efficiency and innovation.',
+  },
+  {
+    icon: icon1,
+    title: 'Cloud Hosting',
+    text:
+      'Elevate your online presence with our cutting-edge web development services. From sleek corporate websites to dynamic e-commerce platforms, we bring your vision to life with a focus on functionality and user experience.',
+  },
+  {
+    icon: icon2,
+    title: 'Software Development',
+    text:
+      'We offer comprehensive product development services. Our expert team will guide you through ideation, conceptualization, design, development, testing, and deployment to ensure a seamless journey for your project. ',
+  },
+  {
+    icon: icon3,
+    title: 'Website Maintenance',
+    text:
+      'Explore the potential of artificial intelligence with our development expertise. From machine learning algorithms to AI-powered applications, we integrate intelligence into your digital solutions, fostering efficiency and innovation.',
+  },
+  {
+    icon: icon1,
+    title: 'Digital Marketing',
+    text:
+      'Boost your online presence with our digital marketing services. We offer a holistic approach, including content marketing, email campaigns, and online advertising, to ensure your brand reaches the right audience.',
+  },
+  {
+    icon: icon2,
+    title: 'SEO (Search Engine Optimization)',
+    text:
+      'Enhance your website’s visibility and ranking with our SEO services. Our strategies are tailored to increase organic traffic, improve search engine rankings, and elevate your brand’s online authority.',
+  },
+  {
+    icon: icon3,
+    title: 'Social Media Marketing',
+    text:
+      'Leverage the power of social media with our marketing services. From content creation to targeted campaigns, we amplify your brand across social platforms, engaging your audience and fostering brand loyalty.',
+  },
 ];
 
+// CONTENTS OF THE ACCORDION IN DIGITAL SOLUTIONS SECTION
 export const accordionContent = [
   {
     heading: 'Revolutionizing Possibilities with Artificial Intelligence',
@@ -148,7 +207,7 @@ export const accordionContent = [
       {
         title: 'Tailored AI Solutions:',
         text:
-          'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives',
+          'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives.',
       },
       {
         title: 'Cutting-Edge Technologies:',
@@ -161,19 +220,19 @@ export const accordionContent = [
     heading: 'AI in Design and Development',
     content: [
       {
-        title: 'Strategic AI Integration:',
+        title: 'Smart Design Solutions:',
         text:
-          'Unlock the true potential of your digital solutions with our strategic AI services. From optimizing user experiences to streamlining complex processes, our AI expertise opens doors to innovation.',
+          'Witness the evolution of design with AI integration. Our design solutions are not just visually stunning; they are smart, intuitive, and tailored to engage users on a whole new level.',
       },
       {
-        title: 'Tailored AI Solutions:',
+        title: 'Efficient Development Processes:',
         text:
-          'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives',
+          'In the realm of development, AI accelerates processes, ensuring efficiency without compromising quality. Experience the power of AI-driven development that delivers results faster and with unparalleled precision.',
       },
       {
-        title: 'Cutting-Edge Technologies:',
+        title: 'Innovative User Experiences:',
         text:
-          'Explore the forefront of technology with our AI services. We leverage cutting-edge advancements, including machine learning and natural language processing, to bring you solutions that go beyond the ordinary.',
+          'Redefine user experiences through innovative AI applications. From intuitive interfaces to predictive features, our AI in design and development aims to make every interaction meaningful and memorable.',
       },
     ],
   },
@@ -181,20 +240,77 @@ export const accordionContent = [
     heading: 'AI in Marketing',
     content: [
       {
-        title: 'Strategic AI Integration:',
+        title: 'Data-Driven Marketing:',
         text:
-          'Unlock the true potential of your digital solutions with our strategic AI services. From optimizing user experiences to streamlining complex processes, our AI expertise opens doors to innovation.',
+          'AI revolutionizes marketing by providing insights beyond traditional analytics. Harness the power of data-driven strategies that ensure your marketing efforts are targeted, effective, and result-oriented.',
       },
       {
-        title: 'Tailored AI Solutions:',
+        title: 'Personalized Campaigns:',
         text:
-          'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives',
+          'Say goodbye to generic marketing. Our AI-driven marketing solutions enable personalized campaigns, reaching your audience with content that resonates and converts.',
       },
       {
-        title: 'Cutting-Edge Technologies:',
+        title: 'Automation for Efficiency:',
         text:
-          'Explore the forefront of technology with our AI services. We leverage cutting-edge advancements, including machine learning and natural language processing, to bring you solutions that go beyond the ordinary.',
+          'Experience the efficiency of automated marketing processes. From lead generation to nurturing, our AI solutions automate tasks, allowing your team to focus on strategy and creativity.',
       },
     ],
   },
 ];
+
+// * SECTIONS HEADING TEXTS
+// * ABOUT
+export const aboutSectionText = {
+  tag: 'About Us',
+  heading: ['Crafting', "Tomorrow's Experience"],
+  text:
+    'Our Mission is to drive the digital evolution by delivering unparalleled solutions in Design, Software & Web Development, Digital Marketing, & AI Engineering. We are dedicated to staying ahead of the curve, embracing challenges, and redefining industry standards. We are determined to be the strategic partner that propels businesses into the future.',
+};
+
+export const ourValuesSectionText = {
+  tag: 'Our Values',
+  heading: ['Why', 'Choose Us'],
+  text:
+    'Our Mission is to drive the digital evolution by delivering unparalleled solutions in Design, Software & Web Development, Digital Marketing, & AI Engineering. We are dedicated to staying ahead of the curve, embracing challenges, and redefining industry standards. We are determined to be the strategic partner that propels businesses into the future.',
+  keywords: [
+    'Artificial Intelligence',
+    'Integrations',
+    'Saas',
+    'Cloud Services',
+    'Designers',
+    'Marketing',
+  ],
+};
+
+export const servicesSectionText = {
+  tag: 'Our Services',
+  heading: ['Tailored to', 'Your Business', 'Needs'],
+  text:
+    'Our Mission is to drive the digital evolution by delivering unparalleled solutions in Design, Software & Web Development, Digital Marketing, & AI Engineering. We are dedicated to staying ahead of the curve, embracing challenges, and redefining industry standards. We are determined to be the strategic partner that propels businesses into the future.',
+};
+
+export const digitalSolutionsSectionText = {
+  tag: 'Digital Solutions',
+  heading: [
+    'From Machine Learning',
+    'Algorithms to AI-powered',
+    'Applications',
+  ],
+  text:
+    'We Integrate Intelligence Into Your Digital Solutions, Fostering Efficiency And Innovation',
+};
+
+export const subscribeSectionText = {
+  tag: 'Subscribe Us',
+  heading: ['Dicover how we can', 'evolve your vision'],
+  text:
+    'Enter your email to discover how our services can transform your ideas into reality',
+};
+
+export const footerSectionText = {
+  text:
+    'Your Vision, Our Expertise: Crafting Innovative Solutions In Design, Development, Digital Marketing, And AI.',
+  contact: ['+515-207-2540'],
+  mail: 'info@kissagency.co',
+  location: 'Remote',
+};

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { motion } from 'framer-motion';
-import { services } from '../utils/constants';
+// import { services } from '../utils/constants';
 import { slideInRight, slideInBottom } from '../utils/variants';
 
 import { Swiper, SwiperSlide, useSwiperSlide } from 'swiper/react';
@@ -29,7 +29,7 @@ const ServiceCard = ({ icon, title, text }) => {
   );
 };
 
-const ServicesSlide = () => {
+const ServicesSlide = ({ services }) => {
   // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
   const [screenSize, setScreenSize] = useState(getWindowsDimension());
 

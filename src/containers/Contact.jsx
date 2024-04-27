@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Heading, ContactForm } from '../components';
+import { subscribeSectionText } from '../utils/constants';
 
 const Contact = () => {
   return (
@@ -9,9 +10,9 @@ const Contact = () => {
       <div className="relative container grid grid-cols-1 md:grid-cols-2 gap-10 h-full">
         <div className="space-y-7 lg:space-y-10 flex items-center h-full">
           <Heading
-            tag="Subscribe Us"
-            header={['Dicover how we can', 'evolve your vision']}
-            content="Enter your email to discover how our services can transform your ideas into reality"
+            tag={subscribeSectionText.tag}
+            header={subscribeSectionText.heading}
+            content={subscribeSectionText.text}
           />
         </div>
         <div className="flex items-center">

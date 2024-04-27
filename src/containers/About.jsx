@@ -8,6 +8,8 @@ import dashboard from '../assets/imgs/dashboard.jpeg';
 
 import { useAboutWidthStore } from '../utils/config';
 
+import { aboutSectionText } from '../utils/constants';
+
 const About = () => {
   // const container = useRef();
   let [container, { width }] = useMeasure();
@@ -65,9 +67,9 @@ const About = () => {
           className="space-y-7 lg:space-y-10 order-2 lg:order-1 lg:self-center lg:h-fit"
         >
           <Heading
-            tag="About Us"
-            header={['Crafting', "Tomorrow's Experience"]}
-            content="Our Mission is to drive the digital evolution by delivering unparalleled solutions in Design, Software & Web Development, Digital Marketing, & AI Engineering. We are dedicated to staying ahead of the curve, embracing challenges, and redefining industry standards. We are determined to be the strategic partner that propels businesses into the future"
+            tag={aboutSectionText.tag}
+            header={aboutSectionText.heading}
+            content={aboutSectionText.text}
           />
           <Platforms container={container} />
         </motion.div>
