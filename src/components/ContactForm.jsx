@@ -99,9 +99,10 @@ const ContactForm = () => {
             <textarea
               name="message"
               id=""
-              rows="3"
+              // rows={"3"}
               value={message}
               onChange={handleChangeInput}
+              className="h-[200px] xl:h-auto xl:min-h-[100px]"
             ></textarea>
           </div>
           <div className="pt-4 pb-2">
