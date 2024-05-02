@@ -1,6 +1,6 @@
 import './App.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavStore } from './utils/config';
 
@@ -19,7 +19,6 @@ import {
 	SmoothScroll,
 	SideNav,
 	FixedNavbar,
-	Cubes,
 } from './components';
 
 const getWindowsDimension = () => {
@@ -79,56 +78,54 @@ function App() {
 	}, []);
 	return (
 		<>
-			<Suspense fallback={<Cubes />}>
-				<SmoothScroll>
-					<Hero />
-					<DesktopWrapper />
-					<div className="overflow-hidden relative">
-						<div className="overflow-hidden relative xl:hidden">
-							<div id="about">
-								<About />
-							</div>
-							<div id="values">
-								<OurValues />
-							</div>
-							<div id="services">
-								<Services />
-							</div>
-							<div id="digital-solutions">
-								<DigitalSolutions />
-							</div>
-							<div id="contact">
-								<Contact />
-								<Footer />
-							</div>
+			<SmoothScroll>
+				<Hero />
+				<DesktopWrapper />
+				<div className="overflow-hidden relative">
+					<div className="overflow-hidden relative xl:hidden">
+						<div id="about">
+							<About />
 						</div>
-						{/* Footer and Navbar */}
-						{navId === 'home' && (
-							<AnimatePresence>
-								{sticky && (
-									<motion.div
-										initial={{ x: -10, opacity: 0 }}
-										whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
-										exit={{ x: -10, opacity: 0 }}
-										className="fixed  top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] min-h-screen"
-									>
-										<SideNav animate />
-									</motion.div>
-								)}
-							</AnimatePresence>
-						)}
-						<Navbar />
-						{/* {navId === 'home' ? (
+						<div id="values">
+							<OurValues />
+						</div>
+						<div id="services">
+							<Services />
+						</div>
+						<div id="digital-solutions">
+							<DigitalSolutions />
+						</div>
+						<div id="contact">
+							<Contact />
+							<Footer />
+						</div>
+					</div>
+					{/* Footer and Navbar */}
+					{navId === 'home' && (
+						<AnimatePresence>
+							{sticky && (
+								<motion.div
+									initial={{ x: -10, opacity: 0 }}
+									whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
+									exit={{ x: -10, opacity: 0 }}
+									className="fixed  top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] min-h-screen"
+								>
+									<SideNav animate />
+								</motion.div>
+							)}
+						</AnimatePresence>
+					)}
+					<Navbar />
+					{/* {navId === 'home' ? (
             <Navbar />
           ) : navId === 'about' ? (
             <Navbar />
           ) : (
             <FixedNavbar />
           )} */}
-						{/* <Navbar /> */}
-					</div>
-				</SmoothScroll>
-			</Suspense>
+					{/* <Navbar /> */}
+				</div>
+			</SmoothScroll>
 		</>
 	);
 }
