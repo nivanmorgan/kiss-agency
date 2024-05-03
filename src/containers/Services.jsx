@@ -15,7 +15,7 @@ const Services = () => {
 	const { scrollYProgress } = useScroll({
 		target: container,
 		offset: ['start end', 'end start'],
-		layoutEffect: false,
+		// layoutEffect: false,
 	});
 
 	return (
