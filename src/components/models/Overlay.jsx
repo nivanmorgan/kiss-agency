@@ -9,7 +9,12 @@ import {
 } from '@react-three/drei';
 import * as random from 'maath/random/dist/maath-random.esm';
 import { motion } from 'framer-motion-3d';
-import { useTransform, useScroll } from 'framer-motion';
+import {
+	useTransform,
+	useScroll,
+	AnimatePresence,
+	motion as m,
+} from 'framer-motion';
 
 import face1 from '../../assets/textures/face-1.png';
 import face2 from '../../assets/textures/face-2.png';
@@ -75,9 +80,9 @@ const Stars = (props) => {
 
 	return (
 		<motion.group
-			transition={{ type: 'spring', stiffness: 700, damping: 35 }}
-			animate={{ scale: [0, 1] }}
-			scale={[scale, scale, scale]}
+			// transition={{ type: 'spring', stiffness: 700, damping: 35 }}
+			// animate={{ scale: [0, 1] }}
+			// scale={[scale, scale, scale]}
 			rotation={[0, rotate, Math.PI / 4]}
 		>
 			<Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
@@ -95,10 +100,14 @@ const Stars = (props) => {
 	);
 };
 
-const Cubes = () => {
+const Overlay = () => {
+	const [cubeOverlay, setCubeOverlay] = useState(true);
 	return (
-		<div className="w-full h-[80vh]">
-			<Canvas camera={{ position: [0, 0, 1] }}>
+		<div className="w-full h-full bg-black  pointer-events-none">
+			<Canvas
+				camera={{ position: [0, 0, 1] }}
+				gl={{ preserveDrawingBuffer: true }}
+			>
 				<OrbitControls
 					//   autoRotate
 					enableZoom={false}
@@ -108,8 +117,14 @@ const Cubes = () => {
 				<ambientLight intensity={1} />
 				<directionalLight position={[1, 1, 1]} intensity={5} />
 				<Suspense fallback={null}>
+					{/* <AnimatePresence>
+						{cubeOverlay && (
+							<motion.group>
+								<Stars />
+							</motion.group>
+						)}
+					</AnimatePresence> */}
 					<Stars />
-					{/* <Cube /> */}
 				</Suspense>
 
 				<Preload all />
@@ -118,4 +133,4 @@ const Cubes = () => {
 	);
 };
 
-export default Cubes;
+export default Overlay;

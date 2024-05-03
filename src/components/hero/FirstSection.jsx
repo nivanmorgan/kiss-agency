@@ -35,6 +35,17 @@ const FirstSection = ({ scrollYProgress }) => {
 	);
 	const springYTranslate = useSpring(yTranslate, { damping: 35 });
 
+	const containerWidth = useTransform(
+		scrollYProgress,
+		[0, screenSize.width >= 768 ? 0.25 : 0.35],
+		[
+			// screenSize.width,
+			screenSize.width >= 768 ? screenSize.width / 2 : screenSize.width,
+			screenSize.width >= 768 ? screenSize.width / 2 : screenSize.width,
+		]
+	);
+	const springContainerWidth = useSpring(containerWidth, { damping: 35 });
+
 	// *ON CLICK SCROLL TO
 	const handleScrollTo = () => {
 		window.scrollTo({
@@ -48,17 +59,19 @@ const FirstSection = ({ scrollYProgress }) => {
 	};
 
 	return (
-		<div className="flex gap-0 !w-screen !min-w-[100vw] !max-w-[100vw] !md:w-[50vw] md:!min-w-[50vw] md:!max-w-[50vw] justify-start h-screen">
+		<motion.div
+			layout
+			style={{ width: springContainerWidth }}
+			className="flex gap-0 justify-start h-screen"
+		>
 			<div className="relative h-full flex flex-col w-full">
-				<div className="relative h-[80vh] bg-[--black] w-full">
-					{/* <img
-            src={hero1}
-            alt="hero"
-            className="w-full h-[80vh] object-cover"
-          /> */}
+				<motion.div
+					style={{ width: springContainerWidth }}
+					className="relative h-[80vh] bg-[--black] w-full"
+				>
 					<Cubes />
 					<div className="absolute top-0 left-0 w-full h-full pointer-events-auto" />
-				</div>
+				</motion.div>
 				<div className="relative flex flex-col justify-center h-full">
 					<div className="flex justify-center">
 						<motion.a
@@ -98,7 +111,7 @@ const FirstSection = ({ scrollYProgress }) => {
           <SideNav y={yTranslate} />
         </div> */}
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

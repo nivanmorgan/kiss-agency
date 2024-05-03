@@ -19,6 +19,7 @@ import {
 	SmoothScroll,
 	SideNav,
 	FixedNavbar,
+	Overlay,
 } from './components';
 
 const getWindowsDimension = () => {
@@ -32,6 +33,9 @@ const getWindowsDimension = () => {
 function App() {
 	// !NAVIGATION
 	const navId = useNavStore((state) => state.navId);
+
+	// *OVERLAY CONSTANTS
+	const [cubeOverlay, setCubeOverlay] = useState(true);
 
 	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
@@ -70,15 +74,23 @@ function App() {
 					setSticky(false);
 				}
 			}
+
+			if (scrollTop >= screenSize.height) {
+				setCubeOverlay(false);
+			} else {
+				setCubeOverlay(true);
+			}
 		};
 
 		window.addEventListener('scroll', handleScroll);
 
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
+
 	return (
 		<>
 			<SmoothScroll>
+				{/* <div className="w-full h-[100vh]" /> */}
 				<Hero />
 				<DesktopWrapper />
 				<div className="overflow-hidden relative">
@@ -125,6 +137,20 @@ function App() {
           )} */}
 					{/* <Navbar /> */}
 				</div>
+
+				{/* <AnimatePresence>
+					{cubeOverlay && (
+						<motion.div
+							initial={{ opacity: 0, scale: 0 }}
+							animate={{ opacity: 1, scale: 1 }}
+							exit={{ opacity: 0, scale: 0 }}
+							transition={{ type: 'tween', duration: 1 }}
+							className="w-full h-[100vh] fixed top-0 left-0  pointer-events-none"
+						>
+							<Overlay />
+						</motion.div>
+					)}
+				</AnimatePresence> */}
 			</SmoothScroll>
 		</>
 	);
