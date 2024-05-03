@@ -70,6 +70,7 @@ const Hero = () => {
 					className="relative h-screen w-full bg-[--white] overflow-x-scroll no-scrollbar overflow-y-hidden"
 				>
 					<motion.div
+						layout
 						ref={scrollContainer}
 						style={{ translateX: xTranslation }}
 						className="absolute top-0 left-0 w-auto h-screen flex flex-nowrap gap-0"

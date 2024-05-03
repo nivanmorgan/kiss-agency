@@ -10,6 +10,7 @@ export { default as ServiceList } from './ServiceList';
 export { default as ServicesSlide } from './ServicesSlide';
 export { default as Tags } from './Tags';
 export { default as Logo } from './Logo';
+export { default as SocialButton } from './SocialButton';
 
 export { default as SmoothScroll } from './SmoothScroll';
 export { default as Loader } from './Loader';
@@ -24,3 +25,4 @@ export { default as Cubes } from './models/Cubes';
 export { default as Globe } from './models/Globe';
 export { default as StarCanvas } from './models/StarCanvas';
 export { default as Laptop } from './models/Laptop';
+export { default as Overlay } from './models/Overlay';

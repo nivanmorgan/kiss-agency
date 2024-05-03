@@ -2,82 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
-
-:root{
-    --gray: #8A8A8E;
-    --black: #000000;
-    --neutral: #F2F2F7;
-    --dark: #1C1C1E;
-    --white:#FFFFFF;
+:root {
+	--gray: #8a8a8e;
+	--black: #000000;
+	--neutral: #f2f2f7;
+	--dark: #1c1c1e;
+	--white: #ffffff;
 }
 
 /* body{
     overflow-x:hidden;
 } */
 
-*{
-    font-family: "Open Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-variation-settings:
-        "wdth" 100;
-    box-sizing: border-box;
+* {
+	font-family: 'Open Sans', sans-serif;
+	font-optical-sizing: auto;
+	font-variation-settings: 'wdth' 100;
+	box-sizing: border-box;
 }
 
-a{
-    @apply text-sm
+a {
+	@apply text-sm;
 }
 
-p{
-    @apply text-sm text-[--gray] !leading-[170%]
+p {
+	@apply text-sm text-[--gray] !leading-[170%];
 }
-span{
-    @apply text-[--gray]
-}
-
-
-h1,h2,h3{
-    @apply text-[--black] font-bold
-}
-h1{
-    @apply text-[1.65rem] md:text-3xl lg:text-5xl !leading-[120%]
+span {
+	@apply text-[--gray];
 }
 
-.container{
-    @apply px-5 md:px-[3rem] lg:px-[4rem] max-w-[1240px] mx-auto
+h1,
+h2,
+h3 {
+	@apply text-[--black] font-bold;
+}
+h1 {
+	@apply text-[1.65rem] md:text-3xl lg:text-5xl !leading-[120%];
 }
 
-.navlinks{
-    @apply font-bold text-[--black] capitalize hover:bg-[--black] hover:text-[--white] p-2 cursor-pointer
-}
-.btn-1{
-    @apply text-[--white] bg-[--black] font-bold py-2 px-4 capitalize cursor-pointer flex items-center justify-center
-}
-.btn-1-v2{
-    @apply text-[--white] bg-[--black] font-bold py-3 px-6 capitalize cursor-pointer flex items-center justify-center
+.container {
+	@apply px-5 md:px-[3rem] lg:px-[4rem] max-w-[1240px] mx-auto;
 }
 
-.btn-2{
-    @apply text-[--black] font-bold border-b-2 border-[--black] cursor-pointer
+.navlinks {
+	@apply font-bold text-[--black] capitalize hover:bg-[--black] hover:text-[--white] p-2 cursor-pointer;
+}
+.btn-1 {
+	@apply text-[--white] bg-[--black] font-bold py-2 px-4 capitalize cursor-pointer flex items-center justify-center;
+}
+.btn-1-v2 {
+	@apply text-[--white] bg-[--black] font-bold py-3 px-6 capitalize cursor-pointer flex items-center justify-center;
 }
 
-.btn-2-v2{
-    @apply text-[--white] bg-[--black] font-bold border-2 border-[--white] cursor-pointer h-[50px] md:h-[55px] w-[180px] md:w-[200px] text-lg lg:text-2xl rounded-[2rem] pb-1 flex items-center justify-center
+.btn-2 {
+	@apply text-[--black] font-bold border-b-2 border-[--black] cursor-pointer;
 }
 
-.section-py{
-    @apply pt-[110px] lg:pt-[150px] pb-[50px] lg:pb-[50px] !mt-[-80px] xl:!mt-[80px] xl:pt-0 xl:pb-0
+.btn-2-v2 {
+	@apply text-[--white] bg-[--black] font-bold border-2 border-[--white] cursor-pointer h-[50px] md:h-[55px] w-[180px] md:w-[200px] text-lg lg:text-2xl rounded-[2rem] pb-1 flex items-center justify-center;
 }
 
-.footer-header-space, .footer-header-space div{
-    @apply space-y-2
+.section-py {
+	@apply pt-[110px] lg:pt-[150px] pb-[50px] lg:pb-[50px] !mt-[-80px] xl:!mt-[80px] xl:pt-0 xl:pb-0;
 }
 
-.swiper_container{
-    @apply h-[80vh] max-h-[420px] md:h-[385px] relative
+.footer-header-space,
+.footer-header-space div {
+	@apply space-y-2;
 }
 
-.swiper_container .swiper-slide{
-    @apply w-[70vw] md:w-[300px] relative
+.swiper_container {
+	@apply h-[80vh] max-h-[420px] md:h-[385px] relative;
+}
+
+.swiper_container .swiper-slide {
+	@apply w-[70vw] md:w-[300px] relative;
 }
 
 /* FORM */
@@ -86,21 +86,26 @@ h1{
 /* FORM */
 /* FORM */
 /* FORM */
-.form-grid{
-    @apply grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5
+.form-grid {
+	@apply grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-5;
 }
 
-.form-grid input{
-    @apply py-[0.7rem] px-5 text-sm placeholder:text-sm placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral]
+.form-grid input {
+	@apply py-[0.7rem] px-5 text-sm placeholder:text-sm placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral];
 }
 
-.form-grid textarea{
-    @apply py-[0.7rem] px-5 text-sm placeholder:text-sm placeholder:text-[--gray] block w-full lg:col-span-2 focus:border-none focus:outline-[--neutral]
+.form-grid textarea {
+	@apply py-[0.7rem] px-5 text-sm placeholder:text-sm placeholder:text-[--gray] block w-full lg:col-span-2 focus:border-none focus:outline-[--neutral];
 }
-
-
 
 /* *DESKTOP HORIZONTAL SCROLL */
-.desktop-section-container{
-    @apply min-w-[100vw] h-screen flex items-center pointer-events-auto
+.desktop-section-container {
+	@apply min-w-[100vw] h-screen flex items-center pointer-events-auto;
+}
+
+.logos-swiper-container {
+	@apply h-[150px];
+}
+.logos-swiper-container .swiper-slide {
+	@apply w-[170px] h-full mr-3;
 }
