@@ -93,17 +93,19 @@ const Navbar = ({ sectionInView }) => {
 	// console.log(aboutWidth);
 	// console.log(containerWidth);
 
-	const contactPoint = heroScrollSize + wrapperScrollSize - 0;
+	const contactPoint = heroScrollSize + wrapperScrollSize - screenSize.height;
 	const aboutPoint = heroScrollSize;
 	const valuesPoint =
-		15 +
+		18 +
 		heroScrollSize +
 		(screenSize.width / containerWidth) * wrapperScrollSize;
-	const servicesPoint =
-		20 + valuesPoint + (valuesWidth / containerWidth) * wrapperScrollSize;
 	const solutionsPoint =
-		15 +
-		servicesPoint +
+		-18 +
+		contactPoint -
+		(screenSize.width / containerWidth) * wrapperScrollSize;
+	const servicesPoint =
+		-9 +
+		solutionsPoint -
 		(screenSize.width / containerWidth) * wrapperScrollSize;
 
 	const scrollPoints = [
@@ -113,12 +115,12 @@ const Navbar = ({ sectionInView }) => {
 		{ top: servicesPoint, behavior: 'smooth' },
 		{ top: solutionsPoint, behavior: 'smooth' },
 		{ top: contactPoint, behavior: 'smooth' },
-		{ top: aboutPoint, behavior: 'smooth' },
-		{ top: aboutPoint, behavior: 'smooth' },
-		{
-			top: heroScrollSize + wrapperScrollSize - screenSize.height,
-			behavior: 'smooth',
-		},
+		// { top: aboutPoint, behavior: 'smooth' },
+		// { top: aboutPoint, behavior: 'smooth' },
+		// {
+		// 	top: heroScrollSize + wrapperScrollSize - screenSize.height,
+		// 	behavior: 'smooth',
+		// },
 	];
 
 	return (

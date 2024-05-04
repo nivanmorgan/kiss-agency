@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import useMeasure from 'react-use-measure';
 
 import { useScroll, useTransform, motion, useInView } from 'framer-motion';
@@ -14,44 +14,17 @@ const About = () => {
 	// const container = useRef();
 	let [container, { width }] = useMeasure();
 	const updateSectionWidth = useAboutWidthStore((state) => state.updateWidth);
-	// const isInView = useInView()
-
-	// *updateSectionWidth(width);
-	// useEffect(() => {
-	//   updateSectionWidth(width);
-	// }, [width]);
+	const [containerWidth, setContainerWidth] = useState(width);
 
 	const { scrollYProgress } = useScroll({
 		target: container,
 		offset: ['start start', 'end end'],
 	});
 
-	// // let [contentContainer, { width }] = useMeasure();
-	// const displaceY = useTransform(
-	//   scrollYProgress,
-	//   [0, 1],
-	//   [width >= 600 ? 300 : 100, 0]
-	// );
-	// const imgScale = useTransform(scrollYProgress, [0, 1], [1, 0.8]);
-	// const imgZ = useTransform(scrollYProgress, [0, 1], [0, -300]);
-
 	useEffect(() => {
-		const handleResize = () => {
-			updateSectionWidth(width);
-		};
-
-		window.addEventListener('resize', handleResize);
-
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	useEffect(() => {
-		updateSectionWidth(width);
-	}, [width]);
-
-	useEffect(() => {
-		updateSectionWidth(width);
-	}, []);
+		setContainerWidth(width);
+		return updateSectionWidth(containerWidth);
+	}, [containerWidth, width]);
 
 	return (
 		<div

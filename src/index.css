@@ -104,8 +104,8 @@ h1 {
 }
 
 .logos-swiper-container {
-	@apply h-[150px];
+	@apply h-[125px];
 }
 .logos-swiper-container .swiper-slide {
-	@apply w-[170px] h-full mr-3;
+	@apply w-[150px] h-full mr-3;
 }
