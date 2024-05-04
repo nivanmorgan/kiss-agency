@@ -1,20 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { fallDownVariant } from '../utils/variants';
 
 const Tags = ({ tags }) => {
-	const fallDownVariant = {
-		initial: { opacity: 0, x: 100, y: -100 },
-		animate: {
-			opacity: 1,
-			x: 0,
-			y: 0,
-			transition: {
-				type: 'spring',
-				stiffness: 500,
-				damping: 85,
-			},
-		},
-	};
 	return (
 		<motion.div className="flex flex-wrap gap-2">
 			{tags.map((tag, i) => (

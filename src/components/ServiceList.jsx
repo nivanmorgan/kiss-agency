@@ -23,7 +23,7 @@ const ServiceList = ({ scrollYProgress }) => {
 				variants={slideInBottom}
 				initial="initial"
 				whileInView="animate"
-				custom={0}
+				custom={2}
 				className="w-full relative"
 			>
 				<div className="flex gap-4">
