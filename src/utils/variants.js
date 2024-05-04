@@ -42,3 +42,38 @@ export const fallDownVariant = {
 		},
 	},
 };
+
+export const drawVariant = {
+	hidden: { pathLength: 0 },
+	visible: (i) => {
+		// const delay = 1 + i * 0.5;
+		const delay = 0;
+		return {
+			pathLength: [0, 1],
+			transition: {
+				pathLength: {
+					delay,
+					type: 'tween',
+					duration: 2,
+					bounce: 0,
+					repeat: Infinity,
+					repeatType: 'mirror',
+				},
+				opacity: { delay, duration: 0.01 },
+			},
+		};
+	},
+};
+
+export const opacityVariant = {
+	hidden: { fillOpacity: 0 },
+	visible: {
+		opacity: [0.5, 1],
+		transition: {
+			type: 'tween',
+			duration: 2,
+			repeat: Infinity,
+			repeatType: 'mirror',
+		},
+	},
+};

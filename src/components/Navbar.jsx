@@ -23,7 +23,7 @@ const getWindowsDimension = () => {
 	};
 };
 
-const Navbar = () => {
+const Navbar = ({ sectionInView }) => {
 	// !NAVIGATION
 	const navId = useNavStore((state) => state.navId);
 	const updateNavId = useNavStore((state) => state.updateNavId);
@@ -146,7 +146,14 @@ const Navbar = () => {
 											{text}
 										</a>
 									) : (
-										<a key={i} href={'#' + link} className={`navlinks`}>
+										<a
+											key={i}
+											href={'#' + link}
+											className={`navlinks ${
+												sectionInView === link &&
+												'!bg-[--black] !text-[--white]'
+											}`}
+										>
 											{text}
 										</a>
 									)
@@ -167,7 +174,14 @@ const Navbar = () => {
 											{text}
 										</a>
 									) : (
-										<a key={i} href={'#' + link} className="navlinks">
+										<a
+											key={i}
+											href={'#' + link}
+											className={`navlinks ${
+												sectionInView === link &&
+												'!bg-[--black] !text-[--white]'
+											}`}
+										>
 											{text}
 										</a>
 									)
@@ -233,7 +247,10 @@ const Navbar = () => {
 											onClick={() => {
 												setMenuToggled(false);
 											}}
-											className="navlinks !text-[7vw] !font-semibold"
+											className={`navlinks !text-[7vw] !font-semibold ${
+												sectionInView === link &&
+												'!bg-[--black] !text-[--white]'
+											}`}
 										>
 											{text}
 										</a>

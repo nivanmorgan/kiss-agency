@@ -26,3 +26,6 @@ export { default as Globe } from './models/Globe';
 export { default as StarCanvas } from './models/StarCanvas';
 export { default as Laptop } from './models/Laptop';
 export { default as Overlay } from './models/Overlay';
+
+export { default as ServiceOne } from './icons/ServiceOne';
+export { default as ServiceTwo } from './icons/ServiceTwo';
