@@ -1,6 +1,6 @@
 import './App.css';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
 
 import { useNavStore } from './utils/config';
 
@@ -33,6 +33,54 @@ const getWindowsDimension = () => {
 function App() {
 	// !NAVIGATION
 	const navId = useNavStore((state) => state.navId);
+	const [sectionInView, setSectionInView] = useState('home');
+
+	const about = useRef();
+	const values = useRef();
+	const services = useRef();
+	const digitalSolutions = useRef();
+	const contact = useRef();
+
+	const aboutIsInView = useInView(about, { margin: '-40% 50% 50% -50%' });
+	const valuesIsInView = useInView(values, { margin: '-40% 50% 50% -50%' });
+	const servicesIsInView = useInView(services, { margin: '-40% 50% 50% -50%' });
+	const digitalSolutionsIsInView = useInView(digitalSolutions, {
+		margin: '-40% 50% 50% -50%',
+	});
+	const contactIsInView = useInView(contact, { margin: '-40% 50% 50% -50%' });
+
+	useEffect(() => {
+		const navs = [
+			'home',
+			'about',
+			'values',
+			'services',
+			'digital-solutions',
+			'contact',
+		];
+		if (aboutIsInView) {
+			setSectionInView(navs[1]);
+		} else if (valuesIsInView) {
+			setSectionInView(navs[2]);
+		} else if (servicesIsInView) {
+			setSectionInView(navs[3]);
+		} else if (digitalSolutionsIsInView) {
+			setSectionInView(navs[4]);
+		} else if (contactIsInView) {
+			setSectionInView(navs[5]);
+		} else {
+			setSectionInView(navs[0]);
+		}
+
+		console.log(sectionInView);
+	}, [
+		sectionInView,
+		aboutIsInView,
+		valuesIsInView,
+		servicesIsInView,
+		digitalSolutionsIsInView,
+		contactIsInView,
+	]);
 
 	// *OVERLAY CONSTANTS
 	const [cubeOverlay, setCubeOverlay] = useState(true);
@@ -95,19 +143,19 @@ function App() {
 				<DesktopWrapper />
 				<div className="overflow-hidden relative">
 					<div className="overflow-hidden relative xl:hidden">
-						<div id="about">
+						<div ref={about} id="about">
 							<About />
 						</div>
-						<div id="values">
+						<div ref={values} id="values">
 							<OurValues />
 						</div>
-						<div id="services">
+						<div ref={services} id="services">
 							<Services />
 						</div>
-						<div id="digital-solutions">
+						<div ref={digitalSolutions} id="digital-solutions">
 							<DigitalSolutions />
 						</div>
-						<div id="contact">
+						<div ref={contact} id="contact">
 							<Contact />
 							<Footer />
 						</div>
@@ -127,7 +175,7 @@ function App() {
 							)}
 						</AnimatePresence>
 					)}
-					<Navbar />
+					<Navbar sectionInView={sectionInView} />
 					{/* {navId === 'home' ? (
             <Navbar />
           ) : navId === 'about' ? (

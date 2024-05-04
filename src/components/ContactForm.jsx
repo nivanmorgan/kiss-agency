@@ -60,7 +60,7 @@ const ContactForm = () => {
 				)
 				.then(
 					() => {
-						console.log('SUCCESS!');
+						// console.log('SUCCESS!');
 						setLoading(false);
 						setIsFormSubmitted(true);
 						playAudio(clapping);

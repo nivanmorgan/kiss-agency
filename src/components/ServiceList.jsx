@@ -8,7 +8,7 @@ import {
 } from 'framer-motion';
 import useMeasure from 'react-use-measure';
 import { slideInRight, slideInBottom } from '../utils/variants';
-
+import { ServiceOne, ServiceTwo } from '../components';
 import { serviceList } from '../utils/constants';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -17,13 +17,22 @@ import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
 
 const ServiceList = ({ scrollYProgress }) => {
+	// const icons = [
+	// 	<ServiceOne />,
+	// 	<ServiceTwo />,
+	// 	<ServiceOne />,
+	// 	<ServiceOne />,
+	// 	<ServiceOne />,
+	// 	<ServiceOne />,
+	// ];
+	// const iconsList = [...icons, ...icons, ...icons];
 	return (
 		<div className="w-full overflow-x-auto no-scrollbar">
 			<motion.div
 				variants={slideInBottom}
 				initial="initial"
 				whileInView="animate"
-				custom={0}
+				custom={2}
 				className="w-full relative"
 			>
 				<div className="flex gap-4">
@@ -54,6 +63,7 @@ const ServiceList = ({ scrollYProgress }) => {
 										alt={item.text}
 										className="w-[40px] h-[40px] object-contain"
 									/>
+									{/* {iconsList[i]} */}
 									<p className="font-bold xl:!leading-[130%]">{item.text}</p>
 								</div>
 							</SwiperSlide>

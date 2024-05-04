@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import useMeasure from 'react-use-measure';
 
-import { useScroll, useTransform, motion } from 'framer-motion';
+import { useScroll, useTransform, motion, useInView } from 'framer-motion';
 
 import { Heading, Platforms, DottedNavigation } from '../components';
 import dashboard from '../assets/imgs/dashboard.jpeg';
@@ -14,6 +14,7 @@ const About = () => {
 	// const container = useRef();
 	let [container, { width }] = useMeasure();
 	const updateSectionWidth = useAboutWidthStore((state) => state.updateWidth);
+	// const isInView = useInView()
 
 	// *updateSectionWidth(width);
 	// useEffect(() => {
