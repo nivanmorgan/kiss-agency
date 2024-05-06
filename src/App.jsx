@@ -72,7 +72,7 @@ function App() {
 			setSectionInView(navs[0]);
 		}
 
-		console.log(sectionInView);
+		// console.log(sectionInView);
 	}, [
 		sectionInView,
 		aboutIsInView,
