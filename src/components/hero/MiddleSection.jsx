@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import { motion, useTransform, useSpring } from 'framer-motion';
 import { revealText } from '../../utils/variants';
+import { FaPhone } from 'react-icons/fa6';
+import { footerSectionText } from '../../utils/constants';
 
 import logo from '../../assets/imgs/kiss-agency-logo.png';
 
@@ -137,9 +139,11 @@ const MiddleSection = ({ scrollYProgress }) => {
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-							href="tel:+515-207-2540"
+							// href="tel:+515-207-2540"
+							href={`tel:${footerSectionText.contact[0]}`}
 							className="btn-1-v2 !font-medium text-sm md:text-base lg:mb-[4vw] block pointer-events-auto w-auto"
 						>
+							<FaPhone className="mr-3" />
 							Call Now
 						</motion.a>
 					</motion.div>

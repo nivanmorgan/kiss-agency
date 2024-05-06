@@ -6,14 +6,18 @@ import { MdClose } from 'react-icons/md';
 // import logo from '../assets/imgs/kiss-agency-logo.png';
 import { navigation } from '../utils/constants';
 import { slideInRight, slideInBottom } from '../utils/variants';
+
+import { FaFacebookF, FaInstagram, FaPhone } from 'react-icons/fa6';
+import { BiMessageRounded } from 'react-icons/bi';
+import { footerSectionText } from '../utils/constants';
+import { Logo, DottedNavigation, SocialButton } from '../components';
+
 import {
 	useNavStore,
 	useAboutWidthStore,
 	useContainerWidthStore,
 	useValuesWidthStore,
 } from '../utils/config';
-
-import Logo from './Logo';
 
 const getWindowsDimension = () => {
 	const { innerWidth: width, innerHeight: height } = window;
@@ -114,6 +118,12 @@ const Navbar = ({ sectionInView }) => {
 		'contact',
 	];
 
+	const socialIcons = [
+		<FaFacebookF className="text-xl" />,
+		<FaInstagram className="text-2xl" />,
+		<BiMessageRounded className="text-2xl" />,
+	];
+
 	useEffect(() => {
 		const handleScroll = () => {
 			const scrollTop = window.scrollY;
@@ -145,10 +155,8 @@ const Navbar = ({ sectionInView }) => {
 								{navigation.slice(0, 4).map(({ text, link }, i) =>
 									screenSize.width >= 1280 ? (
 										<a
-											key={i}
-											// onClick={() => navigateToFunction(link)}
 											onClick={() => window.scrollTo(scrollPoints[i])}
-											// href={'#' + link}
+											key={i}
 											className={`navlinks ${
 												navPoint === link && '!bg-[--black] !text-[--white]'
 											}`}
@@ -178,7 +186,6 @@ const Navbar = ({ sectionInView }) => {
 										<a
 											onClick={() => window.scrollTo(scrollPoints[i + 4])}
 											key={i}
-											// onClick={() => navigateToFunction(link)}
 											className={`navlinks ${
 												navPoint === link && '!bg-[--black] !text-[--white]'
 											}`}
@@ -198,20 +205,24 @@ const Navbar = ({ sectionInView }) => {
 										</a>
 									)
 								)}
-								{screenSize.width >= 1280 ? (
-									<a
-										onClick={() =>
-											window.scrollTo(scrollPoints[scrollPoints.length - 1])
-										}
-										className="btn-1"
-									>
-										Contact Us
-									</a>
-								) : (
-									<a href="#contact" className="btn-1">
-										Contact Us
-									</a>
-								)}
+								{/* <div className="flex gap-2 pl-3">
+									{footerSectionText.socialMedia.map((sme, i) => (
+										<SocialButton
+											key={i}
+											link={sme.link}
+											icon={socialIcons[i]}
+										/>
+									))}
+								</div> */}
+								<motion.a
+									whileHover={{ scale: 1.1 }}
+									whileTap={{ scale: 0.9 }}
+									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+									href={`tel:${footerSectionText.contact[0]}`}
+									className="btn-1"
+								>
+									<FaPhone className="mr-2" /> Contact Us
+								</motion.a>
 							</div>
 							<div className="lg:hidden flex items-center">
 								<button
@@ -239,54 +250,30 @@ const Navbar = ({ sectionInView }) => {
 							</div>
 
 							<div className="flex flex-col gap-[3vh] justify-center items-center ">
-								{navigation.map(({ text, link }, i) =>
-									screenSize.width >= 1280 ? (
-										<a
-											key={i}
-											onClick={() => {
-												// navigateToFunction(link);
-												window.scrollTo(scrollPoints[i]);
-												setMenuToggled(false);
-											}}
-											className="navlinks !text-[7vw] !font-semibold"
-										>
-											{text}
-										</a>
-									) : (
-										<a
-											key={i}
-											href={'#' + link}
-											onClick={() => {
-												setMenuToggled(false);
-											}}
-											className={`navlinks !text-[7vw] !font-semibold ${
-												sectionInView === link &&
-												'!bg-[--black] !text-[--white]'
-											}`}
-										>
-											{text}
-										</a>
-									)
-								)}
-								{screenSize.width >= 1280 ? (
+								{navigation.map(({ text, link }, i) => (
 									<a
+										key={i}
+										href={'#' + link}
 										onClick={() => {
-											window.scrollTo(scrollPoints[scrollPoints.length - 1]);
 											setMenuToggled(false);
 										}}
-										className="btn-1-v2 mt-5"
+										className={`navlinks !text-[7vw] !font-semibold ${
+											sectionInView === link && '!bg-[--black] !text-[--white]'
+										}`}
 									>
-										Contact Us
+										{text}
 									</a>
-								) : (
-									<a
-										href={'#contact'}
-										onClick={() => setMenuToggled(false)}
-										className="btn-1-v2 mt-5"
-									>
-										Contact Us
-									</a>
-								)}
+								))}
+								<motion.a
+									whileHover={{ scale: 1.1 }}
+									whileTap={{ scale: 0.9 }}
+									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+									href={`tel:${footerSectionText.contact[0]}`}
+									onClick={() => setMenuToggled(false)}
+									className="btn-1-v2 mt-5"
+								>
+									<FaPhone className="mr-3" /> Contact Us
+								</motion.a>
 							</div>
 						</div>
 

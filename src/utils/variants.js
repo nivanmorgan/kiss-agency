@@ -15,7 +15,7 @@ export const slideInRight = {
 };
 
 export const slideInBottom = {
-	initial: { opacity: 0, x: 10, y: 70 },
+	initial: { opacity: 0, x: 10, y: 100 },
 	animate: (i) => ({
 		opacity: 1,
 		x: 0,
@@ -23,8 +23,8 @@ export const slideInBottom = {
 		transition: {
 			delay: i * 0.2,
 			type: 'spring',
-			stiffness: 1500,
-			damping: 585,
+			stiffness: 1000,
+			damping: 385,
 		},
 	}),
 };

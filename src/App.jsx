@@ -105,7 +105,7 @@ function App() {
 			const scrollTop = window.scrollY;
 			if (screenSize.width >= 768) {
 				if (
-					scrollTop >= screenSize.height * 1 &&
+					scrollTop >= screenSize.height * 1.35 &&
 					scrollTop <= screenSize.height * 2
 				) {
 					setSticky(true);
