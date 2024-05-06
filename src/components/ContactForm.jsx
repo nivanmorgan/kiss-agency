@@ -92,7 +92,10 @@ const ContactForm = () => {
 	};
 
 	return (
-		<div className="bg-[--neutral] w-full p-5 lg:p-7 space-y-5">
+		<div
+			id="contact-form"
+			className="bg-[--neutral] w-full p-5 lg:p-7 space-y-5"
+		>
 			<h2 className="text-xl lg:text-2xl">Form</h2>
 			{!isFormSubmitted ? (
 				<form
