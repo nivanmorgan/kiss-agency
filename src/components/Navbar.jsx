@@ -186,6 +186,7 @@ const Navbar = ({ sectionInView }) => {
 										<a
 											onClick={() => window.scrollTo(scrollPoints[i + 4])}
 											key={i}
+											// onClick={() => navigateToFunction(link)}
 											className={`navlinks ${
 												navPoint === link && '!bg-[--black] !text-[--white]'
 											}`}
