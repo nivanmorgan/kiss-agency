@@ -34,7 +34,7 @@ const Navbar = ({ sectionInView }) => {
 	const containerWidth = useContainerWidthStore((state) => state.width);
 	const aboutWidth = useAboutWidthStore((state) => state.width);
 	const valuesWidth = useValuesWidthStore((state) => state.width);
-	const [navPoint, setNavPoint] = useState('home');
+	const [navPoint, setNavPoint] = useState();
 
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
@@ -107,15 +107,7 @@ const Navbar = ({ sectionInView }) => {
 		{ top: servicesPoint, behavior: 'smooth' },
 		{ top: solutionsPoint, behavior: 'smooth' },
 		{ top: contactPoint, behavior: 'smooth' },
-	];
-
-	const navs = [
-		'home',
-		'about',
-		'values',
-		'services',
-		'digital-solutions',
-		'contact',
+		{ top: contactPoint * 100, behavior: 'smooth' }, //Just dub content for nav code
 	];
 
 	const socialIcons = [
@@ -127,17 +119,44 @@ const Navbar = ({ sectionInView }) => {
 	useEffect(() => {
 		const handleScroll = () => {
 			const scrollTop = window.scrollY;
-			for (let i = 0; i < scrollPoints.length; i++) {
-				if (scrollTop + screenSize.height / 2 >= scrollPoints[i].top) {
-					setNavPoint(navs[i]);
+
+			const navs = [
+				'home',
+				'about',
+				'values',
+				'services',
+				'digital-solutions',
+				'contact',
+			];
+			let scrollPos = 0;
+
+			if (scrollTop && navs) {
+				for (let i = 0; i < scrollPoints.length; i++) {
+					if (scrollPoints[i].top - screenSize.height / 1.5 <= scrollTop) {
+						scrollPos = i;
+					} else {
+						scrollPos = scrollPos;
+					}
 				}
 			}
+
+			// for (let i = 0; i < scrollPoints.length; i++) {
+			// 	if (scrollPoints[i].top <= scrollTop) {
+			// 		scrollPos = i;
+			// 	} else {
+			// 		scrollPos = scrollPos;
+			// 	}
+			// }
+
+			setNavPoint(navs[scrollPos]);
+			console.log(scrollPos);
+			console.log(navPoint);
 		};
 
 		window.addEventListener('scroll', handleScroll);
 
 		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
+	}, [scrollPoints]);
 
 	return (
 		<>
@@ -158,7 +177,7 @@ const Navbar = ({ sectionInView }) => {
 											onClick={() => window.scrollTo(scrollPoints[i])}
 											key={i}
 											className={`navlinks ${
-												navPoint === link && '!bg-[--black] !text-[--white]'
+												navPoint === link ? '!bg-[--black] !text-[--white]' : ''
 											}`}
 										>
 											{text}
@@ -186,9 +205,8 @@ const Navbar = ({ sectionInView }) => {
 										<a
 											onClick={() => window.scrollTo(scrollPoints[i + 4])}
 											key={i}
-											// onClick={() => navigateToFunction(link)}
 											className={`navlinks ${
-												navPoint === link && '!bg-[--black] !text-[--white]'
+												navPoint === link ? '!bg-[--black] !text-[--white]' : ''
 											}`}
 										>
 											{text}

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 import { useNavStore } from '../../utils/config';
-import { FaPhone } from 'react-icons/fa6';
+import { FaPhoneFlip } from 'react-icons/fa6';
 
 import {
 	useAboutWidthStore,
@@ -36,7 +36,7 @@ const NavLink = ({ text, link, contact, scrollPoint }) => {
 						'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
 					}`}
 				>
-					{contact && <FaPhone className="ttt rotate-180" />} {text}
+					{contact && <FaPhoneFlip className="rotate-180" />} {text}
 				</a>
 			) : (
 				<a
@@ -47,7 +47,7 @@ const NavLink = ({ text, link, contact, scrollPoint }) => {
 						'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
 					}`}
 				>
-					{contact && <FaPhone className="ttt rotate-180" />} {text}
+					{contact && <FaPhoneFlip className="rotate-180" />} {text}
 				</a>
 			)}
 		</div>
