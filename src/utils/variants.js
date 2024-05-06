@@ -23,8 +23,8 @@ export const slideInBottom = {
 		transition: {
 			delay: i * 0.2,
 			type: 'spring',
-			stiffness: 500,
-			damping: 85,
+			stiffness: 1500,
+			damping: 585,
 		},
 	}),
 };
@@ -74,6 +74,20 @@ export const opacityVariant = {
 			duration: 2,
 			repeat: Infinity,
 			repeatType: 'mirror',
+		},
+	},
+};
+
+export const revealText = {
+	initial: { opacity: 0, x: 0, y: 0 },
+	animate: {
+		opacity: 1,
+		x: [100, 0],
+		y: [-100, 0],
+		transition: {
+			type: 'spring',
+			stiffness: 500,
+			damping: 85,
 		},
 	},
 };
