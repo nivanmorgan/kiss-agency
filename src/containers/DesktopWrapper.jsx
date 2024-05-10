@@ -80,6 +80,7 @@ const DesktopWrapper = () => {
 
 	return (
 		<div
+			id="about"
 			ref={container}
 			className="h-[600vh] relative top-0 left-0 w-full pointer-events-none bg-blue-700 hidden xl:block"
 		>
