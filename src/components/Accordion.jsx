@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { accordionContent } from '../utils/constants';
+import { slideInBottom } from '../utils/variants';
 
 import { FaCaretUp } from 'react-icons/fa6';
 
@@ -76,7 +77,13 @@ const AccordionCard = ({ i, heading, content, expanded, setExpanded }) => {
 const Accordion = () => {
 	const [expanded, setExpanded] = useState(0);
 	return (
-		<div className="space-y-3">
+		<motion.div
+			variants={slideInBottom}
+			initial="initial"
+			whileInView="animate"
+			cuatom={1}
+			className="space-y-3"
+		>
 			{accordionContent.map(({ heading, content }, i) => (
 				<AccordionCard
 					key={i}
@@ -87,7 +94,7 @@ const Accordion = () => {
 					setExpanded={setExpanded}
 				/>
 			))}
-		</div>
+		</motion.div>
 	);
 };
 

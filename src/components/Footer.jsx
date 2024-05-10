@@ -7,7 +7,7 @@ import { Logo, DottedNavigation, SocialButton } from '../components';
 
 import {
 	slideInRight,
-	slideInBottom,
+	slideInBottom2,
 	fallDownVariant,
 } from '../utils/variants';
 import { footerSectionText } from '../utils/constants';
@@ -20,30 +20,24 @@ const Footer = () => {
 	];
 	return (
 		<motion.div
-			variants={slideInBottom}
+			// variants={slideInBottom2}
 			initial="initial"
 			whileInView="animate"
-			custom={0}
 			className="py-[25px] md:py-[50px] xl:py-10 bg-[--white] xl:!min-h-[175px] xl:max-h-[175px]  xl:h-full"
 		>
 			<div className="container grid grid-cols-1 lg:grid-cols-5 gap-[25px] lg:gap-[50px]">
 				<motion.div
-					variants={slideInBottom}
+					variants={slideInBottom2}
 					initial="initial"
 					whileInView="animate"
 					className="lg:col-span-2 footer-header-space"
 				>
-					{/* <img
-            src={logo}
-            alt="logo"
-            className="w-auto h-[45px] lg:h-[50px] object-contain"
-          /> */}
 					<Logo />
 					<p>{footerSectionText.text}</p>
 				</motion.div>
 				<div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 footer-header-space gap-[25px]">
 					<motion.div
-						variants={slideInBottom}
+						variants={slideInBottom2}
 						initial="initial"
 						whileInView="animate"
 						className="mt-[8px]"
@@ -58,7 +52,7 @@ const Footer = () => {
 						</p>
 					</motion.div>
 					<motion.div
-						variants={slideInBottom}
+						variants={slideInBottom2}
 						initial="initial"
 						whileInView="animate"
 					>
@@ -70,7 +64,7 @@ const Footer = () => {
 						</p>
 					</motion.div>
 					<motion.div
-						variants={slideInBottom}
+						variants={slideInBottom2}
 						initial="initial"
 						whileInView="animate"
 					>
