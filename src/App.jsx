@@ -106,7 +106,7 @@ function App() {
 			if (screenSize.width >= 768) {
 				if (
 					scrollTop >= screenSize.height * 1.35 &&
-					scrollTop <= screenSize.height * 2
+					scrollTop <= screenSize.height * 2.1
 				) {
 					setSticky(true);
 				} else {
@@ -115,7 +115,7 @@ function App() {
 			} else {
 				if (
 					scrollTop >= screenSize.width * 1.33 &&
-					scrollTop <= screenSize.height * 2
+					scrollTop <= screenSize.height * 2.1
 				) {
 					setSticky(true);
 				} else {
@@ -176,29 +176,7 @@ function App() {
 						</AnimatePresence>
 					)}
 					<Navbar sectionInView={sectionInView} />
-					{/* {navId === 'home' ? (
-            <Navbar />
-          ) : navId === 'about' ? (
-            <Navbar />
-          ) : (
-            <FixedNavbar />
-          )} */}
-					{/* <Navbar /> */}
 				</div>
-
-				{/* <AnimatePresence>
-					{cubeOverlay && (
-						<motion.div
-							initial={{ opacity: 0, scale: 0 }}
-							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0 }}
-							transition={{ type: 'tween', duration: 1 }}
-							className="w-full h-[100vh] fixed top-0 left-0  pointer-events-none"
-						>
-							<Overlay />
-						</motion.div>
-					)}
-				</AnimatePresence> */}
 			</SmoothScroll>
 		</>
 	);
