@@ -4,9 +4,10 @@ import { motion, useTransform, useSpring } from 'framer-motion';
 import { revealText } from '../../utils/variants';
 import { FaPhone } from 'react-icons/fa6';
 import { footerSectionText } from '../../utils/constants';
+import Lottie from 'lottie-react';
 
 import logo from '../../assets/imgs/kiss-agency-logo.png';
-
+import chart from '../../assets/lottie/chart.json';
 const getWindowsDimension = () => {
 	const { innerWidth: width, innerHeight: height } = window;
 	return {
@@ -48,11 +49,22 @@ const MiddleSection = ({ scrollYProgress }) => {
 
 	const titleText = ['Elevate', 'Your', 'Business ', 'With', 'Kiss ', 'Agency'];
 
-	// ['Agency', 'web', 'soft', 'AI', 'design', 'ads']
+	const kissBrands = ['Agency', 'web', 'soft', 'AI', 'design', 'ads'];
 
 	return (
 		<div className="relative w-screen min-w-[100vw] h-screen">
-			<div className="absolute bottom-0 left-0 w-full h-full">
+			{/* <div className="absolute top-[0%] left-0 w-full h-full opacity-10">
+				<Lottie
+					animationData={chart}
+					style={{
+						objectFit: 'cover',
+						width: '100%',
+						height: '100%',
+						overflow: 'clip',
+					}}
+				/>
+			</div> */}
+			{/* <div className="absolute bottom-0 left-0 w-full h-full">
 				<div className="w-full h-screen overflow-hidde">
 					{[1, 2, 3, 4].map((i) => (
 						<marquee
@@ -73,6 +85,31 @@ const MiddleSection = ({ scrollYProgress }) => {
 								)}
 							</h1>
 						</marquee>
+					))}
+				</div>
+			</div> */}
+			<div className="absolute bottom-0 left-0 w-full h-full">
+				<div className="w-full h-screen overflow-hidden opacity-5">
+					{[1, 2, 3, 4, 5, 6].map((i) => (
+						<motion.div
+							animate={i % 2 ? { x: [0, -1000, 0] } : { x: [-1000, 0, -1000] }}
+							transition={{ type: 'tween', duration: 35, repeat: Infinity }}
+							key={i}
+							// width="100%"
+							// direction={i % 2 ? 'left' : 'right'}
+							// behavior="scrolling"
+							// vspace="0%"
+							// hspace="0%"
+							// // scrollAmount={}
+							// height={screenSize.width >= 1024 ? '25%' : '15%'}
+							className="w-full h-[16.5%] lg:h-[25%]"
+						>
+							<h1 className="text-[16.5vh] lg:text-[25vh] leading-[100%] flex gap-5 uppercase text-nowrap">
+								{kissBrands.map((text, j) => (
+									<span key={j}>kiss {kissBrands[i]}</span>
+								))}
+							</h1>
+						</motion.div>
 					))}
 				</div>
 			</div>
