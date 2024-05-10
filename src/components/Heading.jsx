@@ -4,15 +4,30 @@ import { motion } from 'framer-motion';
 import {
 	slideInRight,
 	slideInBottom,
-	revealText,
+	revealText2,
 	fallDownVariant,
 } from '../utils/variants';
+
+const RevealText = ({ text, stagger }) => (
+	<motion.p
+		initial="initial"
+		whileInView="animate"
+		viewport={{ amount: 0.35 }}
+		transition={{ staggerChildren: stagger }}
+	>
+		{text.split('').map((char, i) => (
+			<motion.span variants={revealText2} key={i} className="">
+				{char}
+			</motion.span>
+		))}
+	</motion.p>
+);
 
 const Heading = ({ tag, header, content, btn }) => {
 	return (
 		<motion.div
 			// variants={slideInBottom}
-			transition={{ staggerChildren: 0.1 }}
+			transition={{ staggerChildren: 0.5 }}
 			initial="initial"
 			whileInView="animate"
 			viewport={{ amount: 0.25 }}
@@ -33,7 +48,9 @@ const Heading = ({ tag, header, content, btn }) => {
 					</span>
 				))}
 			</motion.h1>
-			<motion.p variants={slideInBottom}>{content}</motion.p>
+			<motion.p variants={slideInBottom}>
+				<RevealText text={content} stagger={0.01} />
+			</motion.p>
 			{btn && (
 				<motion.div className="pt-3 flex" variants={slideInBottom}>
 					<motion.a

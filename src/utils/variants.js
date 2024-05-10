@@ -91,3 +91,17 @@ export const revealText = {
 		},
 	},
 };
+
+export const revealText2 = {
+	initial: { opacity: 0.1, x: 0, y: 0 },
+	animate: {
+		opacity: 1,
+		x: [100, 0],
+		y: [-100, 0],
+		transition: {
+			type: 'spring',
+			stiffness: 500,
+			damping: 85,
+		},
+	},
+};
