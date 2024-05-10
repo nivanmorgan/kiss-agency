@@ -23,8 +23,8 @@ export const slideInBottom = {
 		transition: {
 			delay: i * 0.3,
 			type: 'spring',
-			stiffness: 1000,
-			damping: 385,
+			stiffness: 800,
+			damping: 285,
 		},
 	}),
 };

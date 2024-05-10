@@ -42,11 +42,11 @@ const MiddleSection = ({ scrollYProgress }) => {
 	);
 	const springTextIMGX = useSpring(textImgX, { damping: 25 });
 
-	const title1 = 'Elevate Your';
-	const title2 = 'Business ';
-	const title3 = 'With';
-	const title4 = 'Kiss ';
-	const title5 = 'Design';
+	// const agencyFocuses = ['Design', 'Agency', '']
+
+	// const [title5, settitle5] = useState(second)
+
+	const titleText = ['Elevate', 'Your', 'Business ', 'With', 'Kiss ', 'Agency'];
 
 	return (
 		<div className="w-screen min-w-[100vw] h-screen flex flex-col items-center justify-around lg:justify-start gap-0 lg:gap-[10vh pt-8">
@@ -86,48 +86,23 @@ const MiddleSection = ({ scrollYProgress }) => {
 					initial="initial"
 					whileInView="animate"
 					viewport={{ amount: 0.35 }}
-					transition={{ staggerChildren: 0.05 }}
-					className="text-[15vw] lg:text-[10vw] font-medium !leading-[100%] lg:!leading-[85%] pb-[2.5vw] relative pr-[25px] px-5 lg:px-0"
+					transition={{ staggerChildren: 0.08 }}
+					className="text-[15vw] lg:text-[9.5vw] font-semibold lg:font-medium !leading-[100%] lg:!leading-[85%] pb-[2.5vw] relative pr-[25px] px-5 lg:px-0 flex flex-wrap gap-x-2 gap-y-1 lg:gap-5 w-[100%] md:w-[70vw] max-w-[850px]"
 				>
-					{title1.split('').map((char, i) => (
-						<motion.span
-							variants={revealText}
-							key={i}
-							className="text-[--black]"
-						>
-							{char}
-						</motion.span>
+					{titleText.map((title, n) => (
+						<span key={n} className="flex">
+							{title.split('').map((char, i) => (
+								<motion.span
+									variants={revealText}
+									key={i}
+									className={n != 2 && n != 4 && 'text-[--black] block'}
+								>
+									{char}
+								</motion.span>
+							))}
+						</span>
 					))}
-					<br />
-					{title2.split('').map((char, i) => (
-						<motion.span variants={revealText} key={i} className="">
-							{char}
-						</motion.span>
-					))}
-					{title3.split('').map((char, i) => (
-						<motion.span
-							variants={revealText}
-							key={i}
-							className="text-[--black]"
-						>
-							{char}
-						</motion.span>
-					))}
-					<br />
-					{title4.split('').map((char, i) => (
-						<motion.span variants={revealText} key={i} className="">
-							{char}
-						</motion.span>
-					))}
-					{title5.split('').map((char, i) => (
-						<motion.span
-							variants={revealText}
-							key={i}
-							className="text-[--black]"
-						>
-							{char}
-						</motion.span>
-					))}
+
 					<motion.div
 						// whileHover={{ scale: 1.1 }}
 						// whileTap={{ scale: 0.9 }}
