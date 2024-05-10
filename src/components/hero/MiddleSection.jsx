@@ -48,101 +48,109 @@ const MiddleSection = ({ scrollYProgress }) => {
 
 	const titleText = ['Elevate', 'Your', 'Business ', 'With', 'Kiss ', 'Agency'];
 
+	// ['Agency', 'web', 'soft', 'AI', 'design', 'ads']
+
 	return (
-		<div className="relative w-screen min-w-[100vw] h-screen flex flex-col items-center justify-around lg:justify-start gap-0 lg:gap-[10vh pt-8">
-			<div className="absolute top-0 left-0 w-full h-full">
-				<div className="w-full h-screen overflow-hidden">
-					{[1, 2, 3, 4, 5, 6].map((i) => (
+		<div className="relative w-screen min-w-[100vw] h-screen">
+			<div className="absolute bottom-0 left-0 w-full h-full">
+				<div className="w-full h-screen overflow-hidde">
+					{[1, 2, 3, 4].map((i) => (
 						<marquee
 							key={i}
 							width="100%"
 							direction={i % 2 ? 'left' : 'right'}
 							behavior="scrolling"
+							vspace="0%"
+							hspace="0%"
 							// scrollAmount={}
 							height={screenSize.width >= 1024 ? '25%' : '15%'}
 						>
-							<h1 className="text-[15vh] lg:text-[25vh] leading-[100%] flex gap-5 uppercase opacity-15">
-								{['Agency', 'AI'].map((text, j) => (
-									<span key={j}>kiss {text}</span>
-								))}
+							<h1 className="text-[15vh] lg:text-[25vh] leading-[100%] flex gap-5 uppercase opacity-5">
+								{['Agency', 'web', 'soft', 'AI', 'design', 'ads'].map(
+									(text, j) => (
+										<span key={j}>kiss {text}</span>
+									)
+								)}
 							</h1>
 						</marquee>
 					))}
 				</div>
 			</div>
-			<div className="relative flex flex-col justify-center w-full">
-				<div className="w-full pl-[25px] lg:pl-[100px] md:pr-[50px] grid grid-cols-1 lg:grid-cols-2">
-					<motion.div
-						style={{ translateX: springLOGOX }}
-						className="h-[60px] self-start hidden lg:block opacity-0"
-					>
-						<img
-							src={logo}
-							alt="logo"
-							className="h-full w-auto object-contain"
-						/>
-					</motion.div>
-					<motion.div
-						style={{ translateX: springTextIMGX }}
-						className="space-y-5"
-					>
-						<div className="h-[45px] lg:h-[60px] flex lg:justify-end -ml-1">
+			<div className="relative w-screen min-w-[100vw] h-screen flex flex-col items-center justify-around lg:justify-start gap-0 lg:gap-[10vh pt-8">
+				<div className="relative flex flex-col justify-center w-full">
+					<div className="w-full pl-[25px] lg:pl-[100px] md:pr-[50px] grid grid-cols-1 lg:grid-cols-2">
+						<motion.div
+							style={{ translateX: springLOGOX }}
+							className="h-[60px] self-start hidden lg:block opacity-0"
+						>
 							<img
 								src={logo}
 								alt="logo"
 								className="h-full w-auto object-contain"
 							/>
-						</div>
-						<p className="!leading-[160%] w-full md:w-[350px]">
-							Your Vision, Our Expertise: <br /> Crafting Innovative Solutions
-							In Design, Development, Digital Marketing, And AI.
-						</p>
-					</motion.div>
-				</div>
-			</div>
-			<div className="relative h-full  flex flex-col justify-center">
-				<motion.h1
-					style={{ translateX: springHX }}
-					initial="initial"
-					whileInView="animate"
-					viewport={{ amount: 0.35 }}
-					transition={{ staggerChildren: 0.08 }}
-					className="text-[15vw] lg:text-[9.5vw] font-medium !leading-[100%] lg:!leading-[85%] pb-[2.5vw] relative pr-[25px] px-5 lg:px-0 flex flex-wrap gap-x-2 gap-y-1 lg:gap-5 w-[100%] md:w-[70vw] xl:w-[65vw]"
-				>
-					{titleText.map((title, n) => (
-						<span key={n} className="flex">
-							{title.split('').map((char, i) => (
-								<motion.span
-									variants={revealText}
-									key={i}
-									className={n != 2 && n != 4 ? 'text-[--black] block' : ''}
-								>
-									{char}
-								</motion.span>
-							))}
-						</span>
-					))}
-
-					<motion.div
-						// whileHover={{ scale: 1.1 }}
-						// whileTap={{ scale: 0.9 }}
-						// transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-						// href="#about"
-						className=" lg:absolute lg:bottom-0 right-0 mt-7 md:mt-12 lg:mt-0 pointer-events-auto flex"
-					>
-						<motion.a
-							whileHover={{ scale: 1.1 }}
-							whileTap={{ scale: 0.9 }}
-							transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-							// href="tel:+515-207-2540"
-							href={`tel:${footerSectionText.contact[0]}`}
-							className="btn-1-v2 !font-medium text-sm md:text-base lg:mb-[4vw] block pointer-events-auto w-auto"
+						</motion.div>
+						<motion.div
+							style={{ translateX: springTextIMGX }}
+							className="space-y-5"
 						>
-							<FaPhone className="mr-3" />
-							Call Now
-						</motion.a>
-					</motion.div>
-				</motion.h1>
+							<div className="h-[45px] lg:h-[60px] flex lg:justify-end -ml-1">
+								<img
+									src={logo}
+									alt="logo"
+									className="h-full w-auto object-contain"
+								/>
+							</div>
+							<p className="!leading-[160%] w-full md:w-[350px]">
+								Your Vision, Our Expertise: <br /> Crafting Innovative Solutions
+								In Design, Development, Digital Marketing, And AI.
+							</p>
+						</motion.div>
+					</div>
+				</div>
+				<div className="relative h-full  flex flex-col justify-center">
+					<motion.h1
+						style={{ translateX: springHX }}
+						initial="initial"
+						whileInView="animate"
+						viewport={{ amount: 0.35 }}
+						transition={{ staggerChildren: 0.08 }}
+						className="text-[15vw] lg:text-[9.5vw] font-medium !leading-[100%] lg:!leading-[85%] pb-[2.5vw] relative pr-[25px] px-5 lg:px-0 flex flex-wrap gap-x-2 gap-y-1 lg:gap-5 w-[100%] md:w-[70vw] xl:w-[65vw]"
+					>
+						{titleText.map((title, n) => (
+							<span key={n} className="flex">
+								{title.split('').map((char, i) => (
+									<motion.span
+										variants={revealText}
+										key={i}
+										className={n != 2 && n != 4 ? 'text-[--black] block' : ''}
+									>
+										{char}
+									</motion.span>
+								))}
+							</span>
+						))}
+
+						<motion.div
+							// whileHover={{ scale: 1.1 }}
+							// whileTap={{ scale: 0.9 }}
+							// transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+							// href="#about"
+							className=" lg:absolute lg:bottom-0 right-0 mt-7 md:mt-12 lg:mt-0 pointer-events-auto flex"
+						>
+							<motion.a
+								whileHover={{ scale: 1.1 }}
+								whileTap={{ scale: 0.9 }}
+								transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+								// href="tel:+515-207-2540"
+								href={`tel:${footerSectionText.contact[0]}`}
+								className="btn-1-v2 !font-medium text-sm md:text-base lg:mb-[4vw] block pointer-events-auto w-auto"
+							>
+								<FaPhone className="mr-3" />
+								Call Now
+							</motion.a>
+						</motion.div>
+					</motion.h1>
+				</div>
 			</div>
 		</div>
 	);
