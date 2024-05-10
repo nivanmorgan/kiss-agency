@@ -95,7 +95,7 @@ const MiddleSection = ({ scrollYProgress }) => {
 								<motion.span
 									variants={revealText}
 									key={i}
-									className={n != 2 && n != 4 && 'text-[--black] block'}
+									className={n != 2 && n != 4 ? 'text-[--black] block' : ''}
 								>
 									{char}
 								</motion.span>
