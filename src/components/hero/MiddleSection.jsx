@@ -49,8 +49,28 @@ const MiddleSection = ({ scrollYProgress }) => {
 	const titleText = ['Elevate', 'Your', 'Business ', 'With', 'Kiss ', 'Agency'];
 
 	return (
-		<div className="w-screen min-w-[100vw] h-screen flex flex-col items-center justify-around lg:justify-start gap-0 lg:gap-[10vh pt-8">
-			<div className="flex flex-col justify-center w-full">
+		<div className="relative w-screen min-w-[100vw] h-screen flex flex-col items-center justify-around lg:justify-start gap-0 lg:gap-[10vh pt-8">
+			<div className="absolute top-0 left-0 w-full h-full">
+				<div className="w-full h-screen overflow-hidden">
+					{[1, 2, 3, 4, 5, 6].map((i) => (
+						<marquee
+							key={i}
+							width="100%"
+							direction={i % 2 ? 'left' : 'right'}
+							behavior="scrolling"
+							// scrollAmount={}
+							height={screenSize.width >= 1024 ? '25%' : '15%'}
+						>
+							<h1 className="text-[15vh] lg:text-[25vh] leading-[100%] flex gap-5 uppercase opacity-15">
+								{['Agency', 'AI'].map((text, j) => (
+									<span key={j}>kiss {text}</span>
+								))}
+							</h1>
+						</marquee>
+					))}
+				</div>
+			</div>
+			<div className="relative flex flex-col justify-center w-full">
 				<div className="w-full pl-[25px] lg:pl-[100px] md:pr-[50px] grid grid-cols-1 lg:grid-cols-2">
 					<motion.div
 						style={{ translateX: springLOGOX }}
@@ -80,14 +100,14 @@ const MiddleSection = ({ scrollYProgress }) => {
 					</motion.div>
 				</div>
 			</div>
-			<div className="h-full  flex flex-col justify-center">
+			<div className="relative h-full  flex flex-col justify-center">
 				<motion.h1
 					style={{ translateX: springHX }}
 					initial="initial"
 					whileInView="animate"
 					viewport={{ amount: 0.35 }}
 					transition={{ staggerChildren: 0.08 }}
-					className="text-[15vw] lg:text-[9.5vw] font-semibold lg:font-medium !leading-[100%] lg:!leading-[85%] pb-[2.5vw] relative pr-[25px] px-5 lg:px-0 flex flex-wrap gap-x-2 gap-y-1 lg:gap-5 w-[100%] md:w-[70vw] max-w-[850px]"
+					className="text-[15vw] lg:text-[9.5vw] font-medium !leading-[100%] lg:!leading-[85%] pb-[2.5vw] relative pr-[25px] px-5 lg:px-0 flex flex-wrap gap-x-2 gap-y-1 lg:gap-5 w-[100%] md:w-[70vw] xl:w-[65vw]"
 				>
 					{titleText.map((title, n) => (
 						<span key={n} className="flex">
