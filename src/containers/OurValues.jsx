@@ -33,7 +33,10 @@ const OurValues = () => {
 					/>
 					<Tags tags={ourValuesSectionText.keywords} />
 				</div>
-				<div className="grid col-span-3 grid-cols-1 md:grid-cols-2 gap-7 md:gap-10 xl:grid-cols-4 xl:min-w-[1240px]">
+				<motion.div
+					transition={{ staggerChildren: 0.05 }}
+					className="grid col-span-3 grid-cols-1 md:grid-cols-2 gap-7 md:gap-10 xl:grid-cols-4 xl:min-w-[1240px]"
+				>
 					{values.map((value, i) => (
 						<Blog
 							key={i}
@@ -47,7 +50,7 @@ const OurValues = () => {
 							i={i}
 						/>
 					))}
-				</div>
+				</motion.div>
 			</div>
 			{/* <DottedNavigation /> */}
 		</div>

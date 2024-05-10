@@ -10,6 +10,14 @@ import { useAboutWidthStore } from '../utils/config';
 
 import { aboutSectionText } from '../utils/constants';
 
+// const getWindowsDimension = () => {
+// 	const { innerWidth: width, innerHeight: height } = window;
+// 	return {
+// 		width,
+// 		height,
+// 	};
+// };
+
 const About = () => {
 	// const container = useRef();
 	let [container, { width }] = useMeasure();
@@ -25,6 +33,19 @@ const About = () => {
 		setContainerWidth(width);
 		return updateSectionWidth(containerWidth);
 	}, [containerWidth, width]);
+
+	// // *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
+	// const [screenSize, setScreenSize] = useState(getWindowsDimension());
+
+	// useEffect(() => {
+	// 	const handleResize = () => {
+	// 		setScreenSize(getWindowsDimension());
+	// 	};
+
+	// 	window.addEventListener('resize', handleResize);
+
+	// 	return () => window.removeEventListener('resize', handleResize);
+	// }, []);
 
 	return (
 		<div
@@ -48,7 +69,12 @@ const About = () => {
 					<Platforms scrollYProgress={scrollYProgress} />
 				</motion.div>
 				<div className="lg:absolute top-0 right-0 lg:w-[50%] lg:h-screen flex items-center lg:pl-[70px]">
-					<motion.div className="relative pl-[10px] lg:pl-[25px] pt-[25px] md:pt-[35px] lg:pt-[50px] pb-[15px] lg:pb-[25px] overflow-hidden">
+					<motion.div
+						initial={{ opacity: 0, scale: 0.9 }}
+						whileInView={{ scale: [0.9, 1.1, 1], opacity: [0, 1] }}
+						transition={{ delay: window.innerWidth > 700 ? 1 : 0 }}
+						className="relative pl-[10px] lg:pl-[25px] pt-[25px] md:pt-[35px] lg:pt-[50px] pb-[15px] lg:pb-[25px] overflow-hidden"
+					>
 						<div
 							//   style={{ scale: imgScale }}
 							className="h-[240px] w-[110%] xl:w-full md:h-[65vh] md:max-h-[500px] max-h-[600px] bg-[--neutral] rounded-l-2xl md:rounded-l-[1.65rem] xl:rounded-l-[1.8rem]"
@@ -68,10 +94,6 @@ const About = () => {
 							/>
 
 							<motion.img
-								initial={{ opacity: 0, scale: 0.9 }}
-								whileInView={{ scale: [0.9, 1.1, 1], opacity: [0, 1] }}
-								//   transition={{ delay: 0.25 }}
-
 								src={dashboard}
 								className="relative w-full h-full object-cover object-left rounded-l-2xl md:rounded-l-[1.65rem] xl:rounded-l-[1.8rem]"
 							/>

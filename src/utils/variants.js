@@ -15,13 +15,13 @@ export const slideInRight = {
 };
 
 export const slideInBottom = {
-	initial: { opacity: 0, x: 10, y: 100 },
+	initial: { opacity: 0, x: 0, y: 0 },
 	animate: (i) => ({
 		opacity: 1,
-		x: 0,
-		y: 0,
+		x: [10, 0],
+		y: [100, 0],
 		transition: {
-			delay: i * 0.2,
+			delay: i * 0.3,
 			type: 'spring',
 			stiffness: 1000,
 			damping: 385,
@@ -29,12 +29,42 @@ export const slideInBottom = {
 	}),
 };
 
-export const fallDownVariant = {
-	initial: { opacity: 0, x: 100, y: -100 },
+export const slideInBottom2 = {
+	initial: { opacity: 0, x: 50, y: 50 },
 	animate: {
 		opacity: 1,
-		x: 0,
-		y: 0,
+		x: [50, 0],
+		y: [50, 0],
+		transition: {
+			type: 'spring',
+			stiffness: 500,
+			damping: 85,
+		},
+	},
+};
+
+export const slideInTop = {
+	initial: { opacity: 0, x: 0, y: 0 },
+	animate: (i) => ({
+		opacity: 1,
+		x: [100, 0],
+		y: [-100, 0],
+		transition: {
+			delay: i * 0.3,
+			type: 'spring',
+			stiffness: 500,
+			damping: 85,
+		},
+	}),
+};
+
+export const fallDownVariant = {
+	initial: { opacity: 0, x: 0, y: 0 },
+	exit: { opacity: 0, x: 0, y: 0 },
+	animate: {
+		opacity: [0, 1],
+		x: [100, 0],
+		y: [-100, 0],
 		transition: {
 			type: 'spring',
 			stiffness: 500,
@@ -93,7 +123,7 @@ export const revealText = {
 };
 
 export const revealText2 = {
-	initial: { opacity: 0.1, x: 0, y: 0 },
+	initial: { opacity: 0.25, x: 0, y: 0 },
 	animate: {
 		opacity: 1,
 		x: [100, 0],
@@ -102,6 +132,22 @@ export const revealText2 = {
 			type: 'spring',
 			stiffness: 500,
 			damping: 85,
+		},
+	},
+};
+
+const accordionVariant = {
+	visible: {
+		opacity: 1,
+		transition: {
+			when: 'beforeChildren',
+			staggerChildren: 0.3,
+		},
+	},
+	hidden: {
+		opacity: 0,
+		transition: {
+			when: 'afterChildren',
 		},
 	},
 };

@@ -5,7 +5,7 @@ import { CgMenuLeftAlt } from 'react-icons/cg';
 import { MdClose } from 'react-icons/md';
 // import logo from '../assets/imgs/kiss-agency-logo.png';
 import { navigation } from '../utils/constants';
-import { slideInRight, slideInBottom } from '../utils/variants';
+import { slideInRight, slideInBottom, slideInBottom2 } from '../utils/variants';
 
 import { FaFacebookF, FaInstagram, FaPhone } from 'react-icons/fa6';
 import { BiMessageRounded } from 'react-icons/bi';
@@ -68,7 +68,7 @@ const Navbar = ({ sectionInView }) => {
 					setScrolledOffHero(false);
 				}
 			} else {
-				if (scrollTop >= screenSize.height * 2.5) {
+				if (scrollTop >= screenSize.height * 2.2) {
 					setScrolledOffHero(true);
 				} else {
 					setScrolledOffHero(false);
@@ -140,17 +140,7 @@ const Navbar = ({ sectionInView }) => {
 				}
 			}
 
-			// for (let i = 0; i < scrollPoints.length; i++) {
-			// 	if (scrollPoints[i].top <= scrollTop) {
-			// 		scrollPos = i;
-			// 	} else {
-			// 		scrollPos = scrollPos;
-			// 	}
-			// }
-
 			setNavPoint(navs[scrollPos]);
-			console.log(scrollPos);
-			console.log(navPoint);
 		};
 
 		window.addEventListener('scroll', handleScroll);
@@ -262,16 +252,27 @@ const Navbar = ({ sectionInView }) => {
 			{/* popup */}
 			<AnimatePresence>
 				{menuToggled && (
-					<motion.div className="fixed top-0 left-0 w-full h-screen bg-[#ffffffaa] backdrop-blur z-[1000000]">
-						<div className="flex flex-col gap-[5vh] h-full justify-start items-center pt-[10vh]">
-							<div>
+					<motion.div
+						animate={{ opacity: [0, 1] }}
+						exit={{ opacity: [1, 0] }}
+						transition={{ type: 'tween', duration: 0.5 }}
+						className="fixed top-0 left-0 w-full h-screen bg-[#ffffffaa] backdrop-blur z-[1000000]"
+					>
+						<motion.div className="flex flex-col gap-[5vh] h-full justify-start items-center pt-[10vh]">
+							<motion.div>
 								<Logo />
-							</div>
+							</motion.div>
 
-							<div className="flex flex-col gap-[3vh] justify-center items-center ">
+							<motion.div
+								initial="initial"
+								whileInView="animate"
+								transition={{ staggerChildren: 0.2 }}
+								className="flex flex-col gap-[3vh] justify-center items-center "
+							>
 								{navigation.map(({ text, link }, i) => (
-									<a
+									<motion.a
 										key={i}
+										variants={slideInBottom2}
 										href={'#' + link}
 										onClick={() => {
 											setMenuToggled(false);
@@ -281,9 +282,10 @@ const Navbar = ({ sectionInView }) => {
 										}`}
 									>
 										{text}
-									</a>
+									</motion.a>
 								))}
 								<motion.a
+									variants={slideInBottom2}
 									whileHover={{ scale: 1.1 }}
 									whileTap={{ scale: 0.9 }}
 									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
@@ -293,8 +295,8 @@ const Navbar = ({ sectionInView }) => {
 								>
 									<FaPhone className="mr-3" /> Contact Us
 								</motion.a>
-							</div>
-						</div>
+							</motion.div>
+						</motion.div>
 
 						{/* *TOGGLE BUTTON */}
 						<div className="fixed top-0 left-0 w-full h-[80px] container flex items-center justify-end">
