@@ -52,7 +52,7 @@ const FirstSection = ({ scrollYProgress }) => {
 			top:
 				screenSize.width > 728
 					? screenSize.height * 1.5
-					: screenSize.height * 2.5,
+					: screenSize.height * 1.2,
 			behavior: 'smooth',
 		});
 		console.log('Clicked');
