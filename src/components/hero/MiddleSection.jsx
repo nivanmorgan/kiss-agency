@@ -5,6 +5,7 @@ import { revealText } from '../../utils/variants';
 import { FaPhone } from 'react-icons/fa6';
 import { footerSectionText } from '../../utils/constants';
 import Lottie from 'lottie-react';
+import { useCallNowStore } from '../../utils/config';
 
 import logo from '../../assets/imgs/kiss-agency-logo.png';
 import chart from '../../assets/lottie/chart.json';
@@ -17,6 +18,8 @@ const getWindowsDimension = () => {
 };
 
 const MiddleSection = ({ scrollYProgress }) => {
+	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
+
 	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
 	useEffect(() => {
@@ -179,7 +182,10 @@ const MiddleSection = ({ scrollYProgress }) => {
 								whileTap={{ scale: 0.9 }}
 								transition={{ type: 'spring', stiffness: 400, damping: 10 }}
 								// href="tel:+515-207-2540"
-								href={`tel:${footerSectionText.contact[0]}`}
+								// href={`tel:${footerSectionText.contact[0]}`}
+								onClick={() => {
+									setShowCallNow(true);
+								}}
 								className="btn-1-v2 !font-medium text-sm md:text-base lg:mb-[4vw] block pointer-events-auto w-auto"
 							>
 								<FaPhone className="mr-3" />

@@ -17,6 +17,7 @@ import {
 	useAboutWidthStore,
 	useContainerWidthStore,
 	useValuesWidthStore,
+	useCallNowStore,
 } from '../utils/config';
 
 const getWindowsDimension = () => {
@@ -34,6 +35,7 @@ const Navbar = ({ sectionInView }) => {
 	const containerWidth = useContainerWidthStore((state) => state.width);
 	const aboutWidth = useAboutWidthStore((state) => state.width);
 	const valuesWidth = useValuesWidthStore((state) => state.width);
+	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
 	const [navPoint, setNavPoint] = useState();
 
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
@@ -227,7 +229,9 @@ const Navbar = ({ sectionInView }) => {
 									whileHover={{ scale: 1.1 }}
 									whileTap={{ scale: 0.9 }}
 									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-									href={`tel:${footerSectionText.contact[0]}`}
+									onClick={() => {
+										setShowCallNow(true);
+									}}
 									className="btn-1"
 								>
 									<FaPhone className="mr-2" /> Call Us
@@ -289,8 +293,11 @@ const Navbar = ({ sectionInView }) => {
 									whileHover={{ scale: 1.1 }}
 									whileTap={{ scale: 0.9 }}
 									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-									href={`tel:${footerSectionText.contact[0]}`}
-									onClick={() => setMenuToggled(false)}
+									// href={`tel:${footerSectionText.contact[0]}`}
+									onClick={() => {
+										setMenuToggled(false);
+										setShowCallNow(true);
+									}}
 									className="btn-1-v2 mt-5"
 								>
 									<FaPhone className="mr-3" /> Call Us

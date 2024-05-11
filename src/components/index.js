@@ -15,6 +15,7 @@ export { default as SocialButton } from './SocialButton';
 export { default as SmoothScroll } from './SmoothScroll';
 export { default as Loader } from './Loader';
 export { default as DottedNavigation } from './DottedNavigation';
+export { default as CallUs } from './CallUs';
 
 export { default as SideNav } from './hero/SideNav';
 export { default as FirstSection } from './hero/FirstSection';

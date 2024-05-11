@@ -6,6 +6,11 @@ export const useNavStore = create((set) => ({
 	updateNavId: (id) => set({ navId: id }),
 }));
 
+export const useCallNowStore = create((set) => ({
+	showPopup: false,
+	updateshowPopup: (bool) => set({ showPopup: bool }),
+}));
+
 export const useContainerWidthStore = create((set) => ({
 	width: null,
 	updateWidth: (width) => set(() => ({ width: width })),
