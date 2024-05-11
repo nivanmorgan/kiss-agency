@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavStore } from '../../utils/config';
 import { FaPhoneFlip } from 'react-icons/fa6';
+import { footerSectionText } from '../../utils/constants';
 
 import {
 	useAboutWidthStore,
@@ -20,12 +21,6 @@ const getWindowsDimension = () => {
 };
 
 const NavLink = ({ text, link, contact, scrollPoint }) => {
-	// const updateNavId = useNavStore((state) => state.updateNavId);
-	// const navigate = (link) => {
-	//   window.scrollTo({ top: 0 });
-	//   updateNavId(link);
-	// };
-
 	return (
 		<div className={`vertical-text`}>
 			{scrollPoint ? (
@@ -40,8 +35,7 @@ const NavLink = ({ text, link, contact, scrollPoint }) => {
 				</a>
 			) : (
 				<a
-					href={'#' + link}
-					// onClick={() => (contact ? navigate('contact') : navigate(link))}
+					href={contact ? link : '#' + link}
 					className={`capitalize text-[13px] font-bold cursor-pointer flex items-center justify-center gap-2 ${
 						contact &&
 						'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
@@ -114,15 +108,20 @@ const SideNav = ({ y, animate }) => {
 						<NavLink key={i} text={nav.text} link={nav.link} />
 					)
 				)}
-				{screenSize.width >= 1280 ? (
+				<NavLink
+					contact
+					text="Call us"
+					link={`tel:${footerSectionText.contact[0]}`}
+				/>
+				{/* {screenSize.width >= 1280 ? (
 					<NavLink
 						contact
-						text="contact us"
+						text="Call us"
 						scrollPoint={scrollPoints[scrollPoints.length - 1]}
 					/>
 				) : (
 					<NavLink contact text="contact us" link="contact" />
-				)}
+				)} */}
 			</div>
 		</motion.div>
 	);

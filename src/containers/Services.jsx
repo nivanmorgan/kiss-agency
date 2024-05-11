@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useScroll } from 'framer-motion';
 import {
 	Heading,
@@ -9,14 +9,39 @@ import {
 
 import { servicesSectionText, services } from '../utils/constants';
 
+const getWindowsDimension = () => {
+	const { innerWidth: width, innerHeight: height } = window;
+	return {
+		width,
+		height,
+	};
+};
+
 const Services = () => {
+	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
+	const [screenSize, setScreenSize] = useState(getWindowsDimension());
+
+	useEffect(() => {
+		const handleResize = () => {
+			setScreenSize(getWindowsDimension());
+		};
+
+		window.addEventListener('resize', handleResize);
+
+		return () => window.removeEventListener('resize', handleResize);
+	}, []);
+
 	const container = useRef();
 
 	const { scrollYProgress } = useScroll({
 		target: container,
 		offset: ['start end', 'end start'],
-		// layoutEffect: false,
+		layoutEffect: false,
 	});
+
+	const scrollToContact = () => {
+		window.scrollTo({ top: screenSize.height * 9, behavior: 'smooth' });
+	};
 
 	return (
 		<div
@@ -30,7 +55,7 @@ const Services = () => {
 						tag={servicesSectionText.tag}
 						header={servicesSectionText.heading}
 						content={servicesSectionText.text}
-						btn={['See All', '#']}
+						btn={['Learn More', scrollToContact, '#contact']}
 					/>
 				</div>
 				<div>

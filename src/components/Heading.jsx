@@ -59,8 +59,17 @@ const Heading = ({ tag, header, content, btn }) => {
 						whileHover={{ scale: 1.1 }}
 						whileTap={{ scale: 0.9 }}
 						transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-						href={btn[1]}
-						className="btn-1-v2"
+						onClick={btn[1]}
+						className="!hidden xl:block btn-1-v2"
+					>
+						{btn[0]}
+					</motion.a>
+					<motion.a
+						whileHover={{ scale: 1.1 }}
+						whileTap={{ scale: 0.9 }}
+						transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+						href={btn[2]}
+						className="block xl:hidden btn-1-v2"
 					>
 						{btn[0]}
 					</motion.a>
