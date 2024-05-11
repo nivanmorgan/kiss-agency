@@ -230,7 +230,7 @@ const Navbar = ({ sectionInView }) => {
 									href={`tel:${footerSectionText.contact[0]}`}
 									className="btn-1"
 								>
-									<FaPhone className="mr-2" /> Contact Us
+									<FaPhone className="mr-2" /> Call Us
 								</motion.a>
 							</div>
 							<div className="lg:hidden flex items-center">
@@ -293,7 +293,7 @@ const Navbar = ({ sectionInView }) => {
 									onClick={() => setMenuToggled(false)}
 									className="btn-1-v2 mt-5"
 								>
-									<FaPhone className="mr-3" /> Contact Us
+									<FaPhone className="mr-3" /> Call Us
 								</motion.a>
 							</motion.div>
 						</motion.div>

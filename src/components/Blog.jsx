@@ -105,13 +105,13 @@ const Blog = ({ title, excerpt, link, img, type, lottie, clip, i }) => {
 					className="w-auto"
 				>
 					{screenSize.width >= 1280 ? (
-						<motion.a onClick={() => scrollToContact()} className="btn-2">
-							Know More
-						</motion.a>
+						<a onClick={() => scrollToContact()} className="btn-2">
+							Learn More
+						</a>
 					) : (
-						<motion.a href="#contact-form" className="btn-2">
-							Know More
-						</motion.a>
+						<a href="#contact" className="btn-2">
+							Learn More
+						</a>
 					)}
 				</motion.div>
 			</motion.div>

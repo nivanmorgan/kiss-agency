@@ -111,7 +111,7 @@ export const navigation = [
 		link: 'digital-solutions',
 	},
 	{
-		text: 'Subscribe',
+		text: 'Contact',
 		link: 'contact',
 	},
 ];
@@ -274,7 +274,7 @@ export const digitalSolutionsSectionText = {
 };
 
 export const subscribeSectionText = {
-	tag: 'Subscribe Us',
+	tag: 'Contact Us',
 	heading: ['Dicover how we can', 'evolve your vision'],
 	text: 'Enter your email to discover how our services can transform your ideas into reality',
 };
