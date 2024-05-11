@@ -20,6 +20,7 @@ import {
 	SideNav,
 	FixedNavbar,
 	Overlay,
+	CallUs,
 } from './components';
 
 const getWindowsDimension = () => {
@@ -177,6 +178,8 @@ function App() {
 					)}
 					<Navbar sectionInView={sectionInView} />
 				</div>
+
+				<CallUs />
 			</SmoothScroll>
 		</>
 	);

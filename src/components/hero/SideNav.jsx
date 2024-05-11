@@ -11,6 +11,7 @@ import {
 	useValuesWidthStore,
 } from '../../utils/config';
 import { navigation } from '../../utils/constants';
+import { useCallNowStore } from '../../utils/config';
 
 const getWindowsDimension = () => {
 	const { innerWidth: width, innerHeight: height } = window;
@@ -20,12 +21,20 @@ const getWindowsDimension = () => {
 	};
 };
 
-const NavLink = ({ text, link, contact, scrollPoint }) => {
+const NavLink = ({ text, link, contact, scrollPoint, showCallNow }) => {
+	const onClick = () => {
+		if (scrollPoint) {
+			window.scrollTo(scrollPoint);
+		}
+		if (showCallNow) {
+			showCallNow();
+		}
+	};
 	return (
 		<div className={`vertical-text`}>
 			{scrollPoint ? (
 				<a
-					onClick={() => window.scrollTo(scrollPoint)}
+					onClick={() => onClick()}
 					className={`capitalize text-[13px] font-bold cursor-pointer flex items-center justify-center gap-2 ${
 						contact &&
 						'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
@@ -35,7 +44,8 @@ const NavLink = ({ text, link, contact, scrollPoint }) => {
 				</a>
 			) : (
 				<a
-					href={contact ? link : '#' + link}
+					href={'#' + link}
+					onClick={() => onClick()}
 					className={`capitalize text-[13px] font-bold cursor-pointer flex items-center justify-center gap-2 ${
 						contact &&
 						'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
@@ -49,6 +59,8 @@ const NavLink = ({ text, link, contact, scrollPoint }) => {
 };
 
 const SideNav = ({ y, animate }) => {
+	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
+
 	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
@@ -111,7 +123,7 @@ const SideNav = ({ y, animate }) => {
 				<NavLink
 					contact
 					text="Call us"
-					link={`tel:${footerSectionText.contact[0]}`}
+					showCallNow={() => setShowCallNow(true)}
 				/>
 				{/* {screenSize.width >= 1280 ? (
 					<NavLink
