@@ -281,11 +281,11 @@ export const subscribeSectionText = {
 
 export const footerSectionText = {
 	text: 'Your Vision, Our Expertise: Crafting Innovative Solutions In Design, Development, Digital Marketing, And AI.',
-	contact: ['+515-207-2540'],
+	contact: ['5152072540'],
 	mail: 'info@kissagency.co',
-	location: 'Remote',
+	location: 'Des Moines, IA',
 	socialMedia: [
-		{ icon: 'facebook', link: 'https://www.facebook.com/kissdesignagencys' },
+		{ icon: 'facebook', link: 'https://www.facebook.com/kissdesignagency' },
 		{
 			icon: 'instagram',
 			link: 'https://www.linkedin.com/company/kiss-desmoines',

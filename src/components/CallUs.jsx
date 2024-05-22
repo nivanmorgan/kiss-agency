@@ -100,7 +100,7 @@ const CallUs = () => {
 							initial="initial"
 							whileInView="animate"
 							exit="exit"
-							className="fixed bottom-0 left-0 w-full flex pb-7 lg:pb-10 justify-center"
+							className="fixed bottom-0 left-0 w-full flex pb-10 justify-center"
 						>
 							<motion.h3 className="w-auto bg-[--black] text-[--white] font-semibold py-2 px-5 lg:px-10 lg:text-lg">
 								Copied!
