@@ -8,6 +8,7 @@ const SocialButton = ({ icon, link }) => {
 			whileTap={{ scale: 0.9 }}
 			transition={{ type: 'spring', stiffness: 400, damping: 10 }}
 			href={link}
+			target="_blank"
 			className="w-[45px] h-[40px] flex items-center justify-center bg-[--gray] hover:bg-[--black] hover: text-[--white]"
 		>
 			{icon}
