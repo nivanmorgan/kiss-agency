@@ -80,11 +80,11 @@ export const serviceList = [
 export const solutions = [
 	{
 		img: solution1,
-		text: 'Unlock the true potential of your digital solutions with our strategic AI services. From optimizing user experiences to streamlining complex processes, our AI expertise opens doors to innovation.',
+		text: 'From the initial concept to the final product, we cover every aspect of digital and traditional marketing. Whether it’s creating a stunning website, optimizing your online presence with SEO, or crafting compelling content, we do it all.',
 	},
 	{
 		img: solution2,
-		text: 'Our AI services are not one-size-fits-all. We tailor solutions to your unique needs, ensuring that the integration of artificial intelligence aligns seamlessly with your business goals and objectives.',
+		text: 'At Kiss Agency, collaboration is key. We work closely with you to discuss, plan, and implement the best strategies, ensuring that your vision and our expertise combine to create exceptional results.',
 	},
 ];
 
@@ -246,7 +246,7 @@ export const aboutSectionText = {
 export const ourValuesSectionText = {
 	tag: 'Our Values',
 	heading: ['Why', 'Choose Us'],
-	text: 'Our Mission is to drive the digital evolution by delivering unparalleled solutions in Design, Software & Web Development, Digital Marketing, & AI Engineering. We are dedicated to staying ahead of the curve, embracing challenges, and redefining industry standards. We are determined to be the strategic partner that propels businesses into the future.',
+	text: 'Unlike other agencies, we don’t outsource any part of our work. Every project is managed and executed by our skilled in-house team, ensuring the highest quality and consistency.',
 	keywords: [
 		'Artificial Intelligence',
 		'Integrations',
@@ -260,7 +260,7 @@ export const ourValuesSectionText = {
 export const servicesSectionText = {
 	tag: 'Our Services',
 	heading: ['Tailored to', 'Your Business', 'Needs'],
-	text: 'Our Mission is to drive the digital evolution by delivering unparalleled solutions in Design, Software & Web Development, Digital Marketing, & AI Engineering. We are dedicated to staying ahead of the curve, embracing challenges, and redefining industry standards. We are determined to be the strategic partner that propels businesses into the future.',
+	text: 'Our team consists of specialists in every aspect of digital and traditional marketing, ensuring that we can handle all your business needs from start to finish.',
 };
 
 export const digitalSolutionsSectionText = {
