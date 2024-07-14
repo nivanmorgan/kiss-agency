@@ -26,7 +26,9 @@ export { default as Cubes } from './models/Cubes';
 export { default as Globe } from './models/Globe';
 export { default as StarCanvas } from './models/StarCanvas';
 export { default as Laptop } from './models/Laptop';
-export { default as Overlay } from './models/Overlay';
 
 export { default as ServiceOne } from './icons/ServiceOne';
 export { default as ServiceTwo } from './icons/ServiceTwo';
+
+export { default as Greeting } from './popups/Greeting';
+export { default as Options } from './popups/Options';

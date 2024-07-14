@@ -12,6 +12,7 @@ import {
 	DigitalSolutions,
 	Contact,
 	DesktopWrapper,
+	AI,
 } from './containers';
 import {
 	Navbar,
@@ -19,7 +20,6 @@ import {
 	SmoothScroll,
 	SideNav,
 	FixedNavbar,
-	Overlay,
 	CallUs,
 } from './components';
 
@@ -83,9 +83,6 @@ function App() {
 		contactIsInView,
 	]);
 
-	// *OVERLAY CONSTANTS
-	const [cubeOverlay, setCubeOverlay] = useState(true);
-
 	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
@@ -123,12 +120,6 @@ function App() {
 					setSticky(false);
 				}
 			}
-
-			if (scrollTop >= screenSize.height) {
-				setCubeOverlay(false);
-			} else {
-				setCubeOverlay(true);
-			}
 		};
 
 		window.addEventListener('scroll', handleScroll);
@@ -137,7 +128,7 @@ function App() {
 	}, []);
 
 	return (
-		<>
+		<div className="">
 			<SmoothScroll>
 				{/* <div className="w-full h-[100vh]" /> */}
 				<Hero />
@@ -180,8 +171,10 @@ function App() {
 				</div>
 
 				<CallUs />
+				<AI />
 			</SmoothScroll>
-		</>
+			<div></div>
+		</div>
 	);
 }
 
