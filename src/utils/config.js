@@ -25,3 +25,10 @@ export const useValuesWidthStore = create((set) => ({
 	width: null,
 	updateWidth: (width) => set(() => ({ width: width })),
 }));
+
+export const useToggleIFrameStore = create((set) => ({
+	toggleIFrame: false,
+	updateToggleIFrame: () => set({ toggleIFrame: !toggleIFrame }),
+	showIframe: () => set({ toggleIFrame: true }),
+	closeIframe: () => set({ toggleIFrame: false }),
+}));

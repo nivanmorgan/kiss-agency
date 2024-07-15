@@ -2,7 +2,7 @@ import './App.css';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 
-import { useNavStore } from './utils/config';
+import { useNavStore, useToggleIFrameStore } from './utils/config';
 
 import {
 	Hero,
@@ -35,6 +35,7 @@ function App() {
 	// !NAVIGATION
 	const navId = useNavStore((state) => state.navId);
 	const [sectionInView, setSectionInView] = useState('home');
+	const showingIFrame = useToggleIFrameStore((state) => state.toggleIFrame);
 
 	const about = useRef();
 	const values = useRef();
@@ -132,9 +133,13 @@ function App() {
 			<SmoothScroll>
 				{/* <div className="w-full h-[100vh]" /> */}
 				<Hero />
-				<DesktopWrapper />
+				{!showingIFrame && <DesktopWrapper />}
 				<div className="overflow-hidden relative">
-					<div className="overflow-hidden relative xl:hidden">
+					<div
+						className={`overflow-hidden relative ${
+							showingIFrame ? 'w-[70%]' : 'w-full'
+						} ${!showingIFrame && 'xl:hidden'}`}
+					>
 						<div ref={about} id="about">
 							<About />
 						</div>
