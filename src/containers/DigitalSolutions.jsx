@@ -37,7 +37,7 @@ const DigitalSolutions = () => {
 						>
 							<div
 								className={`pb-2 w-full min-w-[150px] bg-[--neutral] flex items-center justify-center h-full ${
-									i === 1 && 'pt-5 !pb-0'
+									i === 1 ? 'pt-5 !pb-0' : ''
 								}`}
 							>
 								<Lottie

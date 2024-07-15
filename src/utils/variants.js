@@ -173,3 +173,24 @@ const accordionVariant = {
 		},
 	},
 };
+
+export const popupVariant = {
+	initial: { scale: 0, opacity: 1, y: 0 },
+	exit: {
+		scale: 0,
+		opacity: 0,
+		transition: {
+			type: 'spring',
+			stiffness: 700,
+			damping: 35,
+		},
+	},
+	animate: {
+		scale: 1,
+		transition: {
+			type: 'spring',
+			stiffness: 700,
+			damping: 35,
+		},
+	},
+};

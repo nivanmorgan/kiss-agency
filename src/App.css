@@ -113,3 +113,7 @@
 	scroll-snap-align: start !important;
 	scroll-snap-stop: always !important;
 } */
+
+.card-shadow {
+	box-shadow: 0 4px 8px #0000001f !important;
+}

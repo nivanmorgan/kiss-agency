@@ -59,8 +59,8 @@ const Blog = ({ title, excerpt, link, img, type, lottie, clip, i }) => {
         /> */}
 				<div
 					className={`relative !my-[-${clip[0]}%] flex object-contain p-0 m-0 ${
-						i === 2 && 'scale-[1.8]'
-					} ${i === 3 && 'scale-[1.3]'} `}
+						i === 2 ? 'scale-[1.8]' : ''
+					} ${i === 3 ? 'scale-[1.3]' : ''} `}
 				>
 					<Lottie
 						animationData={lottie}

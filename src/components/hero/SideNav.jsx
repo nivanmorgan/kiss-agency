@@ -36,8 +36,9 @@ const NavLink = ({ text, link, contact, scrollPoint, showCallNow }) => {
 				<a
 					onClick={() => onClick()}
 					className={`capitalize text-[13px] font-bold cursor-pointer flex items-center justify-center gap-2 ${
-						contact &&
-						'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
+						contact
+							? 'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
+							: ''
 					}`}
 				>
 					{contact && <FaPhoneFlip className="rotate-180" />} {text}
@@ -47,8 +48,9 @@ const NavLink = ({ text, link, contact, scrollPoint, showCallNow }) => {
 					href={'#' + link}
 					onClick={() => onClick()}
 					className={`capitalize text-[13px] font-bold cursor-pointer flex items-center justify-center gap-2 ${
-						contact &&
-						'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
+						contact
+							? 'bg-[--black] text-[--white] py-4 px-2 block text-nowrap '
+							: ''
 					}`}
 				>
 					{contact && <FaPhoneFlip className="rotate-180" />} {text}
@@ -108,7 +110,7 @@ const SideNav = ({ y, animate }) => {
 
 	return (
 		<motion.div
-			style={{ translateY: y && y }}
+			style={{ translateY: y ? y : 0 }}
 			transition={{ type: animate ? 'spring' : 'tween' }}
 			className="absolute w-full h-full min-h-screen bg-[--neutral] overflow-y-scroll no-scrollbar pointer-events-auto"
 		>

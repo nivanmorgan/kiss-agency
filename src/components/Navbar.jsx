@@ -18,6 +18,7 @@ import {
 	useContainerWidthStore,
 	useValuesWidthStore,
 	useCallNowStore,
+	useToggleIFrameStore,
 } from '../utils/config';
 
 const getWindowsDimension = () => {
@@ -37,6 +38,8 @@ const Navbar = ({ sectionInView }) => {
 	const valuesWidth = useValuesWidthStore((state) => state.width);
 	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
 	const [navPoint, setNavPoint] = useState();
+	// const showingIFrame = useToggleIFrameStore((state) => state.toggleIFrame);
+	const [showingIFrame, setShowingIFrame] = useState(false);
 
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
 
@@ -159,10 +162,16 @@ const Navbar = ({ sectionInView }) => {
 						whileInView={{ y: [-10, 0], opacity: [0.5, 1] }}
 						exit={{ y: -10, opacity: 0 }}
 						transition={{ duration: 0.5, type: 'tween' }}
-						className={` bg-white fixed top-0 left-0 w-full h-[70px] lg:h-[80px] items-center justify-center shadow z-[1000000]`}
+						className={`${
+							showingIFrame ? 'w-[75vw]' : 'w-full'
+						} bg-white fixed top-0 left-0 h-[70px] lg:h-[80px] items-center justify-center shadow z-[1000000]`}
 					>
 						<div className="container flex items-center justify-between gap-[25px] xl:gap-[50px] relative h-full">
-							<div className="hidden lg:flex flex-1 justify-between items-center w-full">
+							<div
+								className={`hidden ${
+									!showingIFrame ? 'lg:flex' : ''
+								} flex-1 justify-between items-center w-full`}
+							>
 								{navigation.slice(0, 4).map(({ text, link }, i) =>
 									screenSize.width >= 1280 ? (
 										<a
@@ -179,8 +188,9 @@ const Navbar = ({ sectionInView }) => {
 											key={i}
 											href={'#' + link}
 											className={`navlinks ${
-												sectionInView === link &&
-												'!bg-[--black] !text-[--white]'
+												sectionInView === link
+													? '!bg-[--black] !text-[--white]'
+													: ''
 											}`}
 										>
 											{text}
@@ -191,7 +201,11 @@ const Navbar = ({ sectionInView }) => {
 							<div className="">
 								<Logo />
 							</div>
-							<div className="hidden lg:flex flex-1 justify-between items-center w-full">
+							<div
+								className={`hidden ${
+									!showingIFrame ? 'lg:flex' : ''
+								} flex-1 justify-between items-center w-full`}
+							>
 								{navigation.slice(4, 6).map(({ text, link }, i) =>
 									screenSize.width >= 1280 ? (
 										<a
@@ -208,8 +222,9 @@ const Navbar = ({ sectionInView }) => {
 											key={i}
 											href={'#' + link}
 											className={`navlinks ${
-												sectionInView === link &&
-												'!bg-[--black] !text-[--white]'
+												sectionInView === link
+													? '!bg-[--black] !text-[--white]'
+													: ''
 											}`}
 										>
 											{text}
@@ -237,7 +252,11 @@ const Navbar = ({ sectionInView }) => {
 									<FaPhone className="mr-2" /> Call Us
 								</motion.a>
 							</div>
-							<div className="lg:hidden flex items-center">
+							<div
+								className={`${
+									!showingIFrame ? 'lg:hidden' : ''
+								} flex items-center`}
+							>
 								<button
 									className="z-[10]"
 									onClick={() => setMenuToggled((toggled) => !toggled)}
@@ -282,7 +301,9 @@ const Navbar = ({ sectionInView }) => {
 											setMenuToggled(false);
 										}}
 										className={`navlinks !text-[7vw] !font-semibold ${
-											sectionInView === link && '!bg-[--black] !text-[--white]'
+											sectionInView === link
+												? '!bg-[--black] !text-[--white]'
+												: ''
 										}`}
 									>
 										{text}

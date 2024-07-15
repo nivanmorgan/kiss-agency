@@ -15,7 +15,11 @@ import {
 } from '../containers';
 import { Footer } from '../components';
 import useMeasure from 'react-use-measure';
-import { useNavStore, useContainerWidthStore } from '../utils/config';
+import {
+	useNavStore,
+	useContainerWidthStore,
+	useToggleIFrameStore,
+} from '../utils/config';
 import { Parallax, ParallaxLayer } from '@react-spring/parallax';
 
 const getWindowsDimension = () => {
@@ -30,6 +34,7 @@ const DesktopWrapper = () => {
 	const updateSectionWidth = useContainerWidthStore(
 		(state) => state.updateWidth
 	);
+	const showingIFrame = useToggleIFrameStore((state) => state.toggleIFrame);
 	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
 	let [scrollContainer, { width }] = useMeasure();
@@ -82,27 +87,47 @@ const DesktopWrapper = () => {
 		<div
 			id="about"
 			ref={container}
-			className="h-[600vh] relative top-0 left-0 w-full pointer-events-none bg-blue-700 hidden xl:block"
+			className="h-[600vh] relative top-0 left-0 w-full pointer-events-none hidden xl:block"
 		>
-			<div className="!sticky top-0 left-0 w-full h-screen bg-red-600">
-				<motion.div className="relative h-screen w-full bg-[--white] no-scrollbar overflow-hidden pointer-events-none">
+			<div className="!sticky top-0 left-0 w-full h-screen">
+				<motion.div
+					className={`relative h-screen ${
+						showingIFrame ? 'w-[70%]' : 'w-full'
+					}  bg-[--white] no-scrollbar overflow-hidden pointer-events-none`}
+				>
 					<motion.div
 						ref={scrollContainer}
 						style={{ translateX: xTranslation }}
 						className="absolute top-0 left-0 w-auto h-screen flex flex-nowrap gap-0 pointer-events-none"
 					>
-						<div className="desktop-section-container">
+						<div
+							className={`desktop-section-container ${
+								showingIFrame ? '!min-w-[70vw]' : ''
+							}`}
+						>
 							<About />
 						</div>
 
-						<div className="desktop-section-container">
-							<OurValues />{' '}
+						<div
+							className={`desktop-section-container ${
+								showingIFrame ? '!min-w-[70vw]' : ''
+							}`}
+						>
+							<OurValues />
 						</div>
-						<div className="desktop-section-container">
-							<Services />{' '}
+						<div
+							className={`desktop-section-container ${
+								showingIFrame ? '!min-w-[70vw]' : ''
+							}`}
+						>
+							<Services />
 						</div>
-						<div className="desktop-section-container">
-							<DigitalSolutions />{' '}
+						<div
+							className={`desktop-section-container ${
+								showingIFrame ? '!min-w-[70vw]' : ''
+							}`}
+						>
+							<DigitalSolutions />
 						</div>
 						<div className="desktop-section-container !flex-col xl:!overflow-auto no-scrollbar">
 							<Contact />

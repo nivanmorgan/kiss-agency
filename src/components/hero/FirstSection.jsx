@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import { motion, useTransform, useSpring } from 'framer-motion';
 
+import { useToggleIFrameStore } from '../../utils/config';
 import { SideNav, Cubes } from '../../components';
 import hero1 from '../../assets/imgs/hero1.png';
 import arrow from '../../assets/imgs/arrow-right.svg';
@@ -15,7 +16,22 @@ const getWindowsDimension = () => {
 };
 
 const FirstSection = ({ scrollYProgress }) => {
+	const showingIFrame = useToggleIFrameStore((state) => state.toggleIFrame);
+
 	const [screenSize, setScreenSize] = useState(getWindowsDimension());
+
+	useEffect(() => {
+		let screen = getWindowsDimension();
+
+		if (showingIFrame) {
+			setScreenSize({
+				width: screen.width - (screen.width * 30) / 100,
+				height: screen.height - (screen.height * 30) / 100,
+			});
+		} else {
+			setScreenSize(getWindowsDimension());
+		}
+	}, [showingIFrame, getWindowsDimension]);
 
 	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
 	useEffect(() => {
