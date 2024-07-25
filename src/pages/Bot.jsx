@@ -16,6 +16,7 @@ const Bot = () => {
 	});
 	const { question } = formData;
 	const [query, setQuery] = useState(question);
+
 	const [botResponse, setBotResponse] = useState({
 		question: '',
 		answer: '',
@@ -49,7 +50,7 @@ const Bot = () => {
 
 	const options = {
 		method: 'POST',
-		url: process.env.REACT_APP_BOT_API_URL,
+		url: import.meta.env.VITE_BOT_API_URL,
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 		data: {
 			question: query,
