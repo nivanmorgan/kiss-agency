@@ -101,7 +101,7 @@ const Bot = () => {
 						<div className="flex-1 w-full flex items-center justify-center p-10">
 							{isLoading ? (
 								<div className="flex flex-col items-center gap-2">
-									<BotIcon w={80} />
+									<BotIcon w={80} disabled />
 									<h3 className="text-[--gray] text-center capitalize font-medium">
 										one moment please ...
 									</h3>
