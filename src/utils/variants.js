@@ -65,6 +65,31 @@ export const slideInBottom3 = {
 	},
 };
 
+export const slideInBottom4 = {
+	initial: { opacity: 0, x: 0, y: 0 },
+	animate: (i) => ({
+		opacity: 1,
+		x: [10, 0],
+		y: [50, 0],
+		transition: {
+			delay: i * 0.3,
+			type: 'spring',
+			stiffness: 300,
+			damping: 55,
+		},
+	}),
+	// exit: {
+	// 	opacity: 0,
+	// 	x: [0, 50],
+	// 	y: [0, 50],
+	// 	transition: {
+	// 		type: 'spring',
+	// 		stiffness: 500,
+	// 		damping: 85,
+	// 	},
+	// },
+};
+
 export const slideInTop = {
 	initial: { opacity: 0, x: 0, y: 0 },
 	animate: (i) => ({

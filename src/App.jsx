@@ -10,7 +10,7 @@ function App() {
 		<>
 			<Routes>
 				<Route exact path="/" element={<Home />} />
-				<Route exact path="/bot" element={<Bot />} />
+				{/* <Route exact path="/bot" element={<Bot />} /> */}
 			</Routes>
 			<CallUs />
 		</>
