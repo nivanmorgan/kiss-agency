@@ -6,9 +6,11 @@ const ResponseContainer = ({ question, answer, noIcon, className }) => {
 		<div
 			className={`bg-[--neutral] p-5 rounded-lg flex flex-col gap-2 max-w-[50vw] ${className}`}
 		>
-			<div className="flex flex-col gap-2">
+			<div className="flex flex-col gap-2 overflow-auto">
 				<h3 className="capitalize text-sm">{question}</h3>
-				<p className="text-xs">{answer}</p>
+				{answer.map((text, i) => (
+					<p className="text-xs">{text}</p>
+				))}
 			</div>
 			{!noIcon && (
 				<p className="flex items-center gap-2 font-semibold text-[--black] pt-2 text-sm">

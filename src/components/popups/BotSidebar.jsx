@@ -11,16 +11,39 @@ import {
 	slideInBottom3,
 	slideInBottom4,
 } from '../../utils/variants';
-import { BotIcon, Logo, ResponseContainer } from '../../components';
+import { BotIcon, Logo, ResponseContainer, Footer } from '../../components';
 import {
 	questions as sampleQuestions,
 	dummyResponse,
 } from '../../utils/botQuestions';
 
 import { useCallNowStore } from '../../utils/config';
+import { footerSectionText } from '../../utils/constants';
+
+const BotNavbar = ({ setShowCallNow }) => (
+	<div className="w-full h-[110px] container">
+		<div className="flex items-center justify-between h-full border-b border-[--neutral]">
+			<div className="">
+				<Logo h="h-[40px] object-cover" />
+			</div>
+			<motion.a
+				whileHover={{ scale: 1.1 }}
+				whileTap={{ scale: 0.9 }}
+				transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+				onClick={() => {
+					setShowCallNow(true);
+				}}
+				className="btn-1"
+			>
+				<FaPhone className="mr-2" /> Call Us
+			</motion.a>
+		</div>
+	</div>
+);
 
 const BotSidebar = ({ close, addPadding }) => {
-	const [showFullResponse, setShowFullResponse] = useState(false);
+	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
+	const [showFullResponse, setShowFullResponse] = useState(true);
 	const [isLoading, setIsLoading] = useState(false);
 	const [formData, setFormData] = useState({
 		question: '',
@@ -30,7 +53,9 @@ const BotSidebar = ({ close, addPadding }) => {
 
 	const [botResponse, setBotResponse] = useState({
 		question: '',
-		answer: '',
+		img: [],
+		answer: [],
+		moreInfo: [],
 	});
 
 	const handleChangeInput = (e) => {
@@ -40,19 +65,21 @@ const BotSidebar = ({ close, addPadding }) => {
 
 	const getApiData = async () => {
 		setIsLoading(true);
-		// const data = await axios
-		// 	.request(options)
-		// 	.then((ai_response) => {
-		// 		console.log(ai_response);
-		// 		// setBotResponse({
-		// 		// 	question: response.data.question,
-		// 		// 	answer: response.data.answer,
-		// 		// });
-		// 	})
-		// 	.then(() => setIsLoading(false))
-		// 	.catch(function (error) {
-		// 		console.error(error);
-		// 	});
+		const data = await axios
+			.request(options)
+			.then((ai_response) => {
+				console.log(ai_response);
+				setBotResponse({
+					question: question,
+					img: ai_response.data.json_response.img,
+					answer: ai_response.data.json_response.intro,
+					moreInfo: ai_response.data.json_response.moreInfo,
+				});
+			})
+			.then(() => setIsLoading(false))
+			.catch(function (error) {
+				console.error(error);
+			});
 	};
 
 	useEffect(() => {
@@ -81,8 +108,9 @@ const BotSidebar = ({ close, addPadding }) => {
 						animate={{ x: ['100%', 0] }}
 						exit={{ x: [0, '100%'] }}
 						transition={{ type: 'tween', duration: 0.75 }}
-						className="w-full h-full bg-[--white] py-[50px]"
+						className="w-full h-full bg-[--white] flex flex-col gap-5 pr-5"
 					>
+						<BotNavbar setShowCallNow={setShowCallNow} />
 						<motion.div
 							initial="initial"
 							whileInView="animate"
@@ -107,13 +135,14 @@ const BotSidebar = ({ close, addPadding }) => {
 											// question={botResponse.question}
 											// answer={botResponse.answer}
 											question={intro}
-											answer={text}
+											answer={[text]}
 											className="justify-between h-full"
 										/>
 									</motion.div>
 								))}
 							</motion.div>
 						</motion.div>
+						<Footer type="bot" />
 					</motion.div>
 				)}
 			</AnimatePresence>
@@ -155,12 +184,10 @@ const BotSidebar = ({ close, addPadding }) => {
 						</div>
 						<div className="min-h-[30%] max-h-[30vh]">
 							<ResponseContainer
-								// question={botResponse.question}
-								// answer={botResponse.answer}
-								question="What is KISS Agency About?"
-								answer="Our Mission is to drive the digital evolution by delivering unparalleled solutions in Design, Software & Web Development, Digital Marketing, & AI Engineering. We are dedicated to staying ahead of the curve, embracing challenges, and redefining industry standards. We are determined to be the strategic partner that propels businesses into the future."
+								question={query}
+								answer={botResponse.answer}
 								noIcon
-								className="h-full overflow-auto"
+								className="h-full"
 							/>
 						</div>
 						<div className="flex items-center gap-4">
