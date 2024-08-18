@@ -18,13 +18,76 @@ import {
 } from '../utils/variants';
 import { footerSectionText } from '../utils/constants';
 
-const Footer = () => {
+const Footer = ({ type }) => {
 	const socialIcons = [
 		<FaFacebookF className="text-xl" />,
 		<FaInstagram className="text-2xl" />,
 		<BiMessageRounded className="text-2xl" />,
 	];
-	return (
+	return type === 'bot' ? (
+		<motion.div
+			// variants={slideInBottom2}
+			initial="initial"
+			whileInView="animate"
+			className="bg-[--white] container"
+		>
+			<div className="grid grid-cols-3 footer-header-space gap-[25px]  border-t border-[--neutral] py-5">
+				<motion.div
+					variants={slideInBottom2}
+					initial="initial"
+					whileInView="animate"
+					className="mt-[8px]"
+				>
+					<h2>Contact</h2>
+					<div className="!space-y-1 gap-0">
+						<p>
+							{footerSectionText.contact.map((phoneNumber, id) => (
+								<a href={`tel:${phoneNumber}`} key={id}>
+									<FaPhone className="inline mr-1 w-5 text-sm" />
+									{phoneNumber}
+								</a>
+							))}
+						</p>
+						<p>
+							<a
+								href="https://www.google.com/maps/place/Des+Moines,+IA,+USA/@41.5667265,-93.7713268,11z/data=!3m1!4b1!4m6!3m5!1s0x87ee99a4c1611ee7:0x710028512691e4b2!8m2!3d41.5868417!4d-93.6249522!16zL20vMDJqM3c?entry=ttu"
+								target="_blank"
+							>
+								<FaLocationDot className="inline text-sm w-5" />{' '}
+								{footerSectionText.location}
+							</a>
+						</p>
+					</div>
+				</motion.div>
+				<motion.div
+					variants={slideInBottom2}
+					initial="initial"
+					whileInView="animate"
+				>
+					<h2>Mail</h2>
+					<p>
+						<a href={`mailto:${footerSectionText.mail}`}>
+							<FaEnvelope className="inline text-sm mr-1 w-5" />
+							{footerSectionText.mail}
+						</a>
+					</p>
+				</motion.div>
+				<motion.div
+					variants={slideInBottom2}
+					initial="initial"
+					whileInView="animate"
+				>
+					<h2>Socials</h2>
+					<p className="flex gap-2 pt-1">
+						{footerSectionText.socialMedia.map((sme, i) => (
+							<SocialButton key={i} link={sme.link} icon={socialIcons[i]} />
+						))}
+					</p>
+				</motion.div>
+			</div>
+			{/* <DottedNavigation /> */}
+		</motion.div>
+	) : (
 		<motion.div
 			// variants={slideInBottom2}
 			initial="initial"
