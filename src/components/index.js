@@ -11,6 +11,7 @@ export { default as ServicesSlide } from './ServicesSlide';
 export { default as Tags } from './Tags';
 export { default as Logo } from './Logo';
 export { default as SocialButton } from './SocialButton';
+export { default as WavyText } from './WavyText';
 
 export { default as SmoothScroll } from './SmoothScroll';
 export { default as Loader } from './Loader';
