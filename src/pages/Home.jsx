@@ -20,6 +20,9 @@ import {
 	SideNav,
 	FixedNavbar,
 	CallUs,
+	WavyText,
+	Logo,
+	Cubes,
 } from '../components';
 
 const getWindowsDimension = () => {
@@ -31,6 +34,7 @@ const getWindowsDimension = () => {
 };
 
 function Home() {
+	const [isLoading, setIsLoading] = useState(true);
 	// !NAVIGATION
 	const navId = useNavStore((state) => state.navId);
 	const [sectionInView, setSectionInView] = useState('home');
@@ -49,6 +53,10 @@ function Home() {
 		margin: '-40% 50% 50% -50%',
 	});
 	const contactIsInView = useInView(contact, { margin: '-40% 50% 50% -50%' });
+
+	useEffect(() => {
+		setIsLoading(false);
+	}, []);
 
 	useEffect(() => {
 		const navs = [
@@ -127,7 +135,22 @@ function Home() {
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
-	return (
+	return isLoading ? (
+		<div className="w-full h-screen flex items-center justify-center flex-col bg-[--black] overflow-hidden">
+			{/* <div className="w-full flex justify-center">
+				<div className="bg-[--white] p-2">
+					<Logo />
+				</div>
+			</div>
+			<div className="h-[80px]" />
+			<span className="canvas-loader"></span> */}
+			{/* <div className="h-[40px]" /> */}
+			<div className="!text-[#ffffff] absolute bottom-[10vh] text-[7vw] md:text-[5vw] lg:text-[1.8vw] uppercase !opacity-100 z-[100]">
+				<WavyText text="Loading..." />
+			</div>
+			<Cubes loader />
+		</div>
+	) : (
 		<div className="">
 			<SmoothScroll>
 				{/* <div className="w-full h-[100vh]" /> */}

@@ -64,7 +64,7 @@ h1 {
 }
 
 .btn-3 {
-	@apply text-[--black] bg-[--neutral] font-medium text-sm py-[7px] px-3 w-full text-left capitalize cursor-pointer flex items-center justify-start rounded-[2rem];
+	@apply text-[--black] bg-[--neutral] font-medium text-sm py-[7px] px-3 w-full text-left cursor-pointer flex items-center justify-start rounded-[2rem];
 }
 .btn-3-v2 {
 	@apply text-[--black] bg-[--neutral] font-medium text-sm py-[10px] px-3 w-full text-left capitalize cursor-pointer flex items-center justify-start rounded-[5px];

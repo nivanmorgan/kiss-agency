@@ -14,8 +14,8 @@ const Options = ({ respond, question, setQuestion }) => {
 
 	return (
 		<div className="p-7 bg-[--white] card-shadow w-[320px] rounded-lg space-y-3 relative">
-			<h3 className="">I'm Kiss Agency</h3>
-			<p>What would you like to ask me?</p>
+			<h3 className="">Hi, I'm Kiss Agency</h3>
+			<p>I'm an AI chatbot. What would you like to learn about Kiss</p>
 
 			<div className="space-y-2 pt-2 pb-6">
 				<button
