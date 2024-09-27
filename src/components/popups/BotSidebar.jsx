@@ -114,12 +114,13 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 	useEffect(() => {
 		console.log(query);
 		getApiData(query);
+		setShowFullResponse(true);
 	}, [query]);
 
 	return (
 		<div
-			className={`w-full h-screen fixed bottom-0 right-0 bg-transparent card-shadow transition duration-[2500] z-10 ${
-				addPadding ? 'pt-[80px]' : ''
+			className={`w-full h-screen !fixed !bottom-0 !right-0 !left-0 !top-0 bg-transparent card-shadow transition duration-[2500] !z-[10000000000] ${
+				addPadding ? 'pt-[80px' : ''
 			} flex justify-end`}
 		>
 			{/* FULL RESPONSE */}
@@ -154,7 +155,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 							) : (
 								<>
 									<motion.h2 variants={slideInRight} className="uppercase">
-										RE:{botResponse?.question}
+										{botResponse?.question}
 									</motion.h2>
 									<motion.p variants={slideInRight}>
 										{botResponse?.answer[0]}
@@ -225,10 +226,10 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 									variants={slideInRight}
 									className="flex items-center gap-2 text-base"
 								>
-									I'm Kiss Agency Bot
+									Welcome to Kiss Agency
 								</motion.h3>
 								<motion.p variants={slideInRight} className="text-xs">
-									Here are some questions you can ask me
+									I am an AI chatbot, how can I help?
 								</motion.p>
 							</div>
 							<motion.button
@@ -262,7 +263,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								</motion.button>
 							))}
 						</div>
-						<motion.div
+						{/* <motion.div
 							variants={slideInRight}
 							className="min-h-[30%] max-h-[30vh]"
 						>
@@ -273,7 +274,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								className="h-full"
 								loading={isLoading}
 							/>
-						</motion.div>
+						</motion.div> */}
 						<motion.div
 							variants={slideInRight}
 							className="flex items-center gap-4"

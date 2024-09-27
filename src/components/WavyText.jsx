@@ -5,11 +5,12 @@ import { motion } from 'framer-motion';
 const WavyText = ({ text, additionalClass }) => {
 	const [sentence, setSentence] = useState(text.split(' '));
 	const variants = {
-		initial: (i) => ({ y: i ? i : 50 }),
+		initial: (i) => ({ y: i ? i : 15, opacity: 0 }),
 		animate: (i) => ({
 			rotateX: [-25, 0],
 			rotateY: [25, 0],
-			y: [i ? i : 50, 0],
+			y: [i ? i : 15, 0],
+			opacity: [0, 1],
 
 			transition: {
 				type: 'spring',

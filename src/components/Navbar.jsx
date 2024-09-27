@@ -164,7 +164,7 @@ const Navbar = ({ sectionInView }) => {
 						transition={{ duration: 0.5, type: 'tween' }}
 						className={`${
 							showingIFrame ? 'w-[75vw]' : 'w-full'
-						} bg-white fixed top-0 left-0 h-[70px] lg:h-[80px] items-center justify-center shadow z-[1000000]`}
+						} bg-white fixed top-0 left-0 h-[70px] lg:h-[80px] items-center justify-center shadow z-[]`}
 					>
 						<div className="container flex items-center justify-between gap-[25px] xl:gap-[50px] relative h-full">
 							<div
