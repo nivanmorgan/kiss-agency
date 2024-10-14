@@ -7,6 +7,7 @@ const ResponseContainer = ({
 	noIcon,
 	className,
 	loading,
+	hideBotName,
 }) => {
 	return loading ? (
 		<div
@@ -36,7 +37,7 @@ const ResponseContainer = ({
 			</div>
 			{!noIcon && (
 				<div className="flex items-center gap-2 font-semibold text-[--black] pt-2 !text-sm">
-					<BotIcon w={20} /> Kiss Agency Bot
+					<BotIcon w={20} /> Kiss Agency
 				</div>
 			)}
 		</div>

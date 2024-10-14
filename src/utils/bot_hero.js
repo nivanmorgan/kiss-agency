@@ -29,10 +29,6 @@ export const AGENCY = [
 		type: 'square',
 	},
 	{
-		lottie: graph2,
-		type: 'landscape',
-	},
-	{
 		lottie: clientCentric,
 		type: 'portrait',
 	},
