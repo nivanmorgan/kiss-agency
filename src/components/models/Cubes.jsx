@@ -10,6 +10,7 @@ import {
 import * as random from 'maath/random/dist/maath-random.esm';
 import { motion } from 'framer-motion-3d';
 import { useTransform, useScroll } from 'framer-motion';
+import { Loader } from '../../components';
 
 import face1 from '../../assets/textures/face-1.png';
 import face2 from '../../assets/textures/face-2.png';
@@ -95,9 +96,9 @@ const Stars = (props) => {
 	);
 };
 
-const Cubes = () => {
+const Cubes = ({ loader }) => {
 	return (
-		<div className="w-full h-[80vh]">
+		<div className={loader ? 'w-full h-full' : 'w-full h-[80vh]'}>
 			<Canvas camera={{ position: [0, 0, 1] }}>
 				<OrbitControls
 					//   autoRotate
@@ -107,7 +108,7 @@ const Cubes = () => {
 				/>
 				<ambientLight intensity={1} />
 				<directionalLight position={[1, 1, 1]} intensity={5} />
-				<Suspense fallback={null}>
+				<Suspense fallback={<Loader />}>
 					<Stars />
 					{/* <Cube /> */}
 				</Suspense>

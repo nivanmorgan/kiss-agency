@@ -1,31 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Lottie from 'lottie-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { Greeting, Options } from '../components';
+import { Greeting, Options, BotSidebar } from '../components';
 import ai from '../assets/lottie/ai2.json';
 import { popupVariant } from '../utils/variants';
 import { useToggleIFrameStore } from '../utils/config';
 
 const AI = () => {
-	const [showPopup, setShowPopup] = useState(false);
+	const [question, setQuestion] = useState({});
+	const [showIntro, setShowIntro] = useState(false);
+	const [showOptions, setShowOptions] = useState(false);
 	const [addPadding, setAddPadding] = useState(false);
-	const [popupType, setPopupType] = useState('');
-	const showingIFrame = useToggleIFrameStore((state) => state.toggleIFrame);
-	const showIframe = useToggleIFrameStore((state) => state.showIframe);
-	const closeIframe = useToggleIFrameStore((state) => state.closeIframe);
+	const [showResponse, setShowResponse] = useState(false);
+	const popupRef = useRef();
+	const popupRef2 = useRef();
 
 	useEffect(() => {
-		closeIframe();
 		setTimeout(() => {
-			setPopupType('greeting');
+			setShowIntro(true);
 		}, 3000);
 
 		setTimeout(() => {
-			setPopupType('');
+			setShowIntro(false);
 		}, 8000);
 	}, []);
 
+	// GIVE PADDING WHEN NAVBAR/HEADER POPUPS UP
 	useEffect(() => {
 		const handleScroll = () => {
 			const scrollTop = window.scrollY;
@@ -36,45 +37,53 @@ const AI = () => {
 				setAddPadding(false);
 			}
 		};
-
 		window.addEventListener('scroll', handleScroll);
 
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
+	// MINIMIZE POPUPS WHEN USER CLICKS OUTSIDE THEIR CONTAINER
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (popupRef.current && !popupRef.current.contains(event.target)) {
+				setShowIntro(false);
+			}
+			if (popupRef2.current && !popupRef2.current.contains(event.target)) {
+				setShowOptions(false);
+			}
+		};
+
+		document.addEventListener('click', handleClickOutside, true);
+
+		return () => {
+			document.removeEventListener('click', handleClickOutside, true);
+		};
+	}, []);
+
 	const startAI = () => {
-		if (popupType !== 'options') {
-			setPopupType('options');
-		} else {
-			setPopupType('');
-		}
+		setShowOptions((prev) => !prev);
 	};
 
 	const aiResponse = () => {
-		setPopupType('');
-
-		showIframe();
+		setShowOptions(false);
+		setShowResponse(true);
+		// showIframe();
 	};
 
 	return (
 		<div className="fixed bottom-5 right-5 z-[0] hidden xl:block">
-			{showingIFrame && (
-				<div
-					className={`w-[30vw] h-screen fixed bottom-0 right-0 bg-[--neutral] card-shadow transition duration-[2500] ${
-						addPadding ? 'pt-[80px]' : ''
-					}`}
-				>
-					<iframe
-						src="https://kissdesign.co/"
-						title="description"
-						className="w-full h-full"
-					></iframe>
-				</div>
+			{showResponse && (
+				<BotSidebar
+					close={() => setShowResponse(false)}
+					addPadding={addPadding}
+					initQuestion={question.question}
+					// place the question from options popup here
+				/>
 			)}
 			<button
 				type="button"
 				className={`relative p-0 bg-white rounded-full  w-[80px] h-[80px] overflow-hidden object-cover hover:scale-125 transition duration-700 z-[1]`}
-				onClick={() => startAI()}
+				onClick={() => setShowOptions((prev) => !prev)}
 			>
 				<Lottie
 					animationData={ai}
@@ -90,31 +99,37 @@ const AI = () => {
 			</button>
 
 			<AnimatePresence>
-				{popupType === 'greeting' && (
+				{showIntro && (
 					<motion.div
 						initial="initial"
 						exit="exit"
 						animate="animate"
 						variants={popupVariant}
 						className="fixed bottom-[130px] right-5"
+						ref={popupRef}
 					>
 						<Greeting
-							onClickBody={() => setPopupType('options')}
-							close={() => setShowPopup(false)}
+							onClickBody={() => setShowOptions(true)}
+							close={() => setShowIntro(false)}
 						/>
 					</motion.div>
 				)}
 			</AnimatePresence>
 			<AnimatePresence>
-				{popupType === 'options' && (
+				{showOptions && (
 					<motion.div
 						initial="initial"
 						exit="exit"
 						animate="animate"
 						variants={popupVariant}
 						className="fixed bottom-[130px] right-5"
+						ref={popupRef2}
 					>
-						<Options respond={() => aiResponse()} />
+						<Options
+							respond={() => aiResponse()}
+							question={question}
+							setQuestion={setQuestion}
+						/>
 					</motion.div>
 				)}
 			</AnimatePresence>

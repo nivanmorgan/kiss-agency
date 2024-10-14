@@ -11,6 +11,7 @@ export { default as ServicesSlide } from './ServicesSlide';
 export { default as Tags } from './Tags';
 export { default as Logo } from './Logo';
 export { default as SocialButton } from './SocialButton';
+export { default as WavyText } from './WavyText';
 
 export { default as SmoothScroll } from './SmoothScroll';
 export { default as Loader } from './Loader';
@@ -32,6 +33,7 @@ export { default as ServiceTwo } from './icons/ServiceTwo';
 
 export { default as Greeting } from './popups/Greeting';
 export { default as Options } from './popups/Options';
+export { default as BotSidebar } from './popups/BotSidebar';
 
 export { default as BotIcon } from './bot/BotIcon';
 export { default as ResponseContainer } from './bot/ResponseContainer';
