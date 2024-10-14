@@ -57,7 +57,7 @@ const Stars = (props) => {
 
 	useEffect(() => {
 		setSphere(() => random.inSphere(new Float32Array(3000), { radius: 1.2 }));
-		console.log(sphere);
+		// console.log(sphere);
 	}, []);
 
 	//   *AUTHOMATIC ROTATION

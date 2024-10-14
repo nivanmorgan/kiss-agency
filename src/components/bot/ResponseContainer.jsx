@@ -26,7 +26,7 @@ const ResponseContainer = ({
 			<div className="flex flex-col gap-2 overflow-auto">
 				<h3 className="capitalize text-sm">{question}</h3>
 
-				<p className="text-xs">{answer[0]}</p>
+				<p className="">{answer[0]}</p>
 
 				{/* {answer.map((text, i) => (
 					<p key={i} className="text-xs">
