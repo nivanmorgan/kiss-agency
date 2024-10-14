@@ -6,6 +6,15 @@ import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 import { MdOutlineClose } from 'react-icons/md';
 
 import {
+	AGENCY,
+	DEVELOPMENT,
+	DESIGN,
+	ADVERTISEMENT,
+	AI,
+	SEO,
+} from '../../utils/bot_hero';
+
+import {
 	slideInBottom,
 	slideInRight,
 	slideInBottom3,
@@ -17,6 +26,7 @@ import {
 	ResponseContainer,
 	Footer,
 	WavyText,
+	BotHero,
 } from '../../components';
 import {
 	questions as sampleQuestions,
@@ -30,7 +40,7 @@ import { footerSectionText } from '../../utils/constants';
 import { getResponse } from '../../api/getBotResponse';
 
 const BotNavbar = ({ setShowCallNow }) => (
-	<div className="w-full h-[110px] container">
+	<div className="w-full h-[80px] container">
 		<div className="flex items-center justify-between h-full border-b border-[--neutral]">
 			<div className="">
 				<Logo h="h-[40px] object-cover" />
@@ -67,6 +77,10 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 		// img: [],
 		// moreInfo: [],
 	});
+	const [botHeroData, setBotHeroData] = useState({
+		text: '',
+		data: {},
+	});
 
 	const handleChangeInput = (e) => {
 		const { name, value } = e.target;
@@ -74,42 +88,107 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 	};
 
 	const getApiData = (query) => {
-		setBotResponse({ ...botResponse, ['answer']: [] });
+		// setBotResponse({ ...botResponse, ['answer']: [] });
 		setIsLoading(true);
-		getResponse(query).then((data) => {
-			// console.log(data?.data?.answer.split('\n'));
-			if (data) {
-				let resAns = data?.data?.answer.split('\n');
-				resAns = resAns.filter((prev) => prev !== '');
-				console.log(resAns);
+		getResponse(query)
+			.then((data) => {
+				// console.log(data?.data?.answer.split('\n'));
+				if (data) {
+					// ! HERO RESPONSE
+					let res = data?.data?.answer;
+					let agency =
+						parseInt(res.split('agency').length) +
+						parseInt(res.split('company').length);
+					let development =
+						parseInt(res.split('development').length) +
+						parseInt(res.split('develop').length);
+					let design = parseInt(res.split('design').length);
+					let advertisement =
+						parseInt(res.split('advertisement').length) +
+						parseInt(res.split('ad').length);
+					let ai =
+						parseInt(res.split('ai').length) +
+						parseInt(res.split('artificial inteligence').length);
+					let seo =
+						parseInt(res.split('seo').length) +
+						parseInt(res.split('search engine optimization').length);
 
-				// if (resAns.length > 1) {
-				// 	setHasFullResponse(true);
-				// } else {
-				// 	setHasFullResponse(true);
-				// }
+					// console.log(seo, ai, agency, design, development, advertisement);
+					let optionsArr = [
+						agency,
+						development,
+						design,
+						advertisement,
+						ai,
+						seo,
+					];
+					const heroLotties = [
+						AGENCY,
+						DEVELOPMENT,
+						DESIGN,
+						ADVERTISEMENT,
+						AI,
+						SEO,
+					];
 
-				setTimeout(() => {
-					setBotResponse({
-						...botResponse,
-						['question']: data?.data?.question,
-						['answer']: resAns,
+					let heroRes = {};
+
+					optionsArr.map((item, i) => {
+						if (item === Math.max(...optionsArr)) {
+							heroRes = {
+								text: data?.data?.question,
+								data: heroLotties[i][
+									Math.floor(
+										Math.random() * (0 - heroLotties[i].length) +
+											heroLotties[i].length
+									)
+								],
+							};
+						}
 					});
-				}, 500);
+
+					// ! BODY RESPONSE
+					function isNumber(char) {
+						return /^\d$/.test(char);
+					}
+
+					let resAns = data?.data?.answer.split('\n');
+					resAns = resAns.filter((prev) => prev !== '');
+					console.log(resAns);
+
+					let responseList = [];
+
+					resAns.map((item) => {
+						if (isNumber(item[0])) {
+							responseList.push({
+								tag: 'li',
+								data: item,
+							});
+						} else {
+							responseList.push({
+								tag: 'p',
+								data: item,
+							});
+						}
+					});
+
+					return { heroData: heroRes, response: responseList };
+				}
+			})
+			.then((data) => {
+				setBotHeroData(data.heroData);
+				setBotResponse(data.response);
+				console.log(data.response);
 				setTimeout(() => {
 					setIsLoading(false);
-				}, 700);
-			}
-		});
-		// .then(() => {
-		// 	setIsLoading(false);
-		// });
+				}, 500);
+			});
 	};
 
-	useEffect(() => {
-		console.log(query);
-		getApiData(query);
-	}, []);
+	// useEffect(() => {
+	// 	console.log(query);
+	// 	getApiData(query);
+	// }, []);
 
 	useEffect(() => {
 		console.log(query);
@@ -119,44 +198,76 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 
 	return (
 		<div
-			className={`w-full h-screen !fixed !bottom-0 !right-0 !left-0 !top-0 bg-transparent card-shadow transition duration-[2500] !z-[10000000000] ${
-				addPadding ? 'pt-[80px' : ''
-			} flex justify-end`}
+			className={`w-full h-screen !fixed !bottom-0 !right-0 !left-0 !top-0 bg-transparent card-shadow transition duration-[2500] !z-[10000000000] flex justify-end`}
 		>
 			{/* FULL RESPONSE */}
 			{/* FULL RESPONSE */}
 			{/* FULL RESPONSE */}
 			{/* FULL RESPONSE */}
 			<AnimatePresence>
-				{hasFullResponse && showFullResponse && (
+				{showFullResponse && (
 					<motion.div
 						initial={{ x: '100%' }}
 						animate={{ x: ['100%', 0] }}
 						exit={{ x: [0, '100%'] }}
 						transition={{ type: 'tween', duration: 0.75 }}
-						className="w-full h-full bg-[--white] flex flex-col gap-5 pr-5"
+						className="w-full h-screen overflow-y-auto overflow-x-hidden bg-[--white] gap-5 pr-5"
 					>
-						<BotNavbar setShowCallNow={setShowCallNow} />
-						<motion.div
-							initial="initial"
-							animate="animate"
-							transition={{ staggerChildren: 0.3 }}
-							className="container h-full overflow-x-hidden overflow-y-auto space-y-2"
-						>
-							{isLoading ? (
-								<div className="flex flex-col justify-center items-center w-full h-full">
-									<p className="">
-										<BotIcon w={60} />
-									</p>
-									<div className="overflow-hidden">
-										<WavyText text="Getting Response..." />
-									</div>
+						{isLoading ? (
+							<div className="flex flex-col justify-center items-center w-full h-full">
+								<p className="">
+									<BotIcon w={60} />
+								</p>
+								<div className="overflow-hidden">
+									<WavyText text="Getting Response..." />
 								</div>
-							) : (
-								<>
-									<motion.h2 variants={slideInRight} className="uppercase">
-										{botResponse?.question}
-									</motion.h2>
+							</div>
+						) : (
+							<>
+								<div className="sticky top-0 bg-[--white] z-[1000]">
+									<BotNavbar setShowCallNow={setShowCallNow} />
+								</div>
+								<div className="container">
+									<BotHero data={botHeroData?.data} text={botHeroData?.text} />
+								</div>
+								<motion.div
+									initial="initial"
+									animate="animate"
+									transition={{ staggerChildren: 0.3 }}
+									className="container py-7 gap-x-5 gap-y-7 grid grid-cols-2 items-stretch"
+								>
+									{botResponse.map(({ data, tag }, i) => (
+										<div
+											key={i}
+											className={tag === 'li' ? 'col-span-1' : 'col-span-2'}
+										>
+											{tag === 'p' && (
+												<motion.p variants={slideInBottom4} custom={i}>
+													{data}
+												</motion.p>
+											)}
+											{tag === 'li' && (
+												<motion.div
+													key={i}
+													variants={slideInBottom4}
+													custom={i}
+												>
+													<ResponseContainer
+														question=""
+														answer={[data]}
+														className="justify-between h-full"
+													/>
+												</motion.div>
+											)}
+										</div>
+									))}
+								</motion.div>
+								{/* <motion.div
+									initial="initial"
+									animate="animate"
+									transition={{ staggerChildren: 0.3 }}
+									className="container py-7 space-y-7"
+								>
 									<motion.p variants={slideInRight}>
 										{botResponse?.answer[0]}
 									</motion.p>
@@ -184,23 +295,11 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 													/>
 												</motion.div>
 											))}
-
-										{/* {dummyResponse.moreInfo.map(({ intro, text }, i) => (
-									<motion.div key={i} variants={slideInBottom4} custom={i}>
-										<ResponseContainer
-											// question={botResponse.question}
-											// answer={botResponse.answer}
-											question={intro}
-											answer={[text]}
-											className="justify-between h-full"
-										/>
 									</motion.div>
-								))} */}
-									</motion.div>
-								</>
-							)}
-						</motion.div>
-						<Footer type="bot" />
+								</motion.div> */}
+								<Footer type="bot" />
+							</>
+						)}
 					</motion.div>
 				)}
 			</AnimatePresence>
@@ -233,6 +332,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								</motion.p>
 							</div>
 							<motion.button
+								type="button"
 								whileHover={{ scale: 1.3 }}
 								whileTap={{ scale: 0.9 }}
 								transition={{ type: 'spring', stiffness: 400, damping: 10 }}
@@ -245,6 +345,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 						<div className="h-full flex-1 flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-10">
 							{sampleQuestions.map((sampleQuestion, i) => (
 								<motion.button
+									type="button"
 									whileTap={{ scale: 0.9 }}
 									whileHover={{ scale: 1.05 }}
 									transition={{ type: 'spring', bounce: 0.75 }}
@@ -291,6 +392,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 									onChange={handleChangeInput}
 								/>
 								<motion.button
+									type="button"
 									whileHover={{ scale: 1.3 }}
 									whileTap={{ scale: 0.9 }}
 									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
@@ -303,6 +405,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 						</motion.div>
 						{hasFullResponse && (
 							<button
+								type="button"
 								onClick={() => setShowFullResponse((prev) => !prev)}
 								className="absolute top-[50%] translate-y-[-50%] right-[100%] w-[12px] hover:w-[20px] h-[40px] bg-[--black] rounded-l-lg flex items-center justify-center transition-all duration-700 group"
 							>
