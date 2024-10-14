@@ -160,14 +160,33 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 
 					resAns.map((item) => {
 						if (isNumber(item[0])) {
+							let itemText = item;
+							let header = '';
+							let p = '';
+
+							if (item.includes('**')) {
+								p = itemText
+									.split('**')
+									.pop()
+									.split('**')[0]
+									.replace(/[:]/g, '');
+								header = itemText.split(p)[0].replace(/[*]/g, '');
+								console.log('header', header);
+							} else {
+								p = itemText;
+							}
+
 							responseList.push({
 								tag: 'li',
-								data: item,
+								data: {
+									header: header,
+									p: p,
+								},
 							});
 						} else {
 							responseList.push({
 								tag: 'p',
-								data: item,
+								data: item.replace(/[*]/g, ''),
 							});
 						}
 					});
@@ -227,14 +246,14 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								<div className="sticky top-0 bg-[--white] z-[1000]">
 									<BotNavbar setShowCallNow={setShowCallNow} />
 								</div>
-								<div className="container">
+								<div className="container pt-7">
 									<BotHero data={botHeroData?.data} text={botHeroData?.text} />
 								</div>
 								<motion.div
 									initial="initial"
 									animate="animate"
 									transition={{ staggerChildren: 0.3 }}
-									className="container py-7 gap-x-5 gap-y-7 grid grid-cols-2 items-stretch"
+									className="container py-7 gap-x-5 gap-y-7 grid grid-cols-2"
 								>
 									{botResponse.map(({ data, tag }, i) => (
 										<div
@@ -251,11 +270,13 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 													key={i}
 													variants={slideInBottom4}
 													custom={i}
+													className="h-full"
 												>
 													<ResponseContainer
-														question=""
-														answer={[data]}
+														question={data.header}
+														answer={[data.p]}
 														className="justify-between h-full"
+														hideBotName
 													/>
 												</motion.div>
 											)}
