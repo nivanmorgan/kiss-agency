@@ -70,6 +70,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 	});
 	const { question } = formData;
 	const [query, setQuery] = useState(question);
+	const [expandQueryList, setExpandQueryList] = useState(false);
 
 	const [botResponse, setBotResponse] = useState({
 		question: '',
@@ -90,6 +91,8 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 	const getApiData = (query) => {
 		// setBotResponse({ ...botResponse, ['answer']: [] });
 		setIsLoading(true);
+		setFormData({ ...formData, ['question']: query });
+
 		getResponse(query)
 			.then((data) => {
 				// console.log(data?.data?.answer.split('\n'));
@@ -283,41 +286,6 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 										</div>
 									))}
 								</motion.div>
-								{/* <motion.div
-									initial="initial"
-									animate="animate"
-									transition={{ staggerChildren: 0.3 }}
-									className="container py-7 space-y-7"
-								>
-									<motion.p variants={slideInRight}>
-										{botResponse?.answer[0]}
-									</motion.p>
-
-									<motion.div
-										initial="initial"
-										animate="animate"
-										variants={slideInBottom4}
-										transition={{ staggerChildren: 0.3 }}
-										className="grid grid-cols-2 gap-4 py-4"
-									>
-										{botResponse?.answer &&
-											botResponse?.answer.length > 0 &&
-											botResponse?.answer.map((text, i) => (
-												<motion.div
-													key={i}
-													variants={slideInBottom4}
-													custom={i}
-													className={`${i === 0 && 'hidden'}`}
-												>
-													<ResponseContainer
-														question=""
-														answer={[text]}
-														className="justify-between h-full"
-													/>
-												</motion.div>
-											))}
-									</motion.div>
-								</motion.div> */}
 								<Footer type="bot" />
 							</>
 						)}
@@ -348,7 +316,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								>
 									Welcome to Kiss Agency
 								</motion.h3>
-								<motion.p variants={slideInRight} className="text-xs">
+								<motion.p variants={slideInRight} className="text-sm">
 									I am an AI chatbot, how can I help?
 								</motion.p>
 							</div>
@@ -363,65 +331,62 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								<MdOutlineClose className="text-2xl" />
 							</motion.button>
 						</div>
-						<div className="h-full flex-1 flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-10">
-							{sampleQuestions.map((sampleQuestion, i) => (
-								<motion.button
-									type="button"
-									whileTap={{ scale: 0.9 }}
-									whileHover={{ scale: 1.05 }}
-									transition={{ type: 'spring', bounce: 0.75 }}
-									key={i}
-									variants={slideInRight}
-									onClick={() => {
-										if (sampleQuestion === query) {
-											getApiData(sampleQuestion);
-										} else {
-											setQuery(sampleQuestion);
-										}
-									}}
-									className="btn-3-v2 !text-xs !p-2"
-								>
-									{sampleQuestion}
-								</motion.button>
-							))}
+						<div className="h-full flex-1 flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-10 relative">
+							<div
+								className={`flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-1 pb-5`}
+							>
+								{sampleQuestions.map((sampleQuestion, i) => (
+									<motion.button
+										type="button"
+										whileTap={{ scale: 0.9 }}
+										whileHover={{ scale: 1.05 }}
+										transition={{ type: 'spring', bounce: 0.75 }}
+										key={i}
+										variants={slideInRight}
+										onClick={() => {
+											if (sampleQuestion === query) {
+												getApiData(sampleQuestion);
+											} else {
+												setQuery(sampleQuestion);
+											}
+										}}
+										className="btn-3-v2 !text-sm !p-2"
+									>
+										{sampleQuestion}
+									</motion.button>
+								))}
+								<div className="absolute bottom-0 w-full h-[30px] bg-gradient-to-t from-white to-transparent" />
+							</div>
 						</div>
-						{/* <motion.div
-							variants={slideInRight}
-							className="min-h-[30%] max-h-[30vh]"
-						>
-							<ResponseContainer
-								question={query}
-								answer={botResponse.answer}
-								noIcon
-								className="h-full"
-								loading={isLoading}
-							/>
-						</motion.div> */}
+
 						<motion.div
 							variants={slideInRight}
-							className="flex items-center gap-4"
+							className="flex items-center gap-4 pt-0"
 						>
-							<div className="min-w-[40px] h-full scale-125">
-								<BotIcon w={40} />
-							</div>
-							<div className="flex w-full gap-3 items-center bg-[--neutral] rounded-[2rem] shadow py-3 px-3 ">
-								<input
+							<div className="flex flex-col w-full gap-3">
+								<textarea
 									placeholder="Or type here..."
-									className="text-xs placeholder:text-xs placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral] bg-transparent outline-none"
+									className="text-sm placeholder:text-sm placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral] outline-none h-[30vh] max-h-[150px] bg-[--neutral] rounded-xl overflow-hidden p-3"
 									name="question"
 									value={question}
 									onChange={handleChangeInput}
 								/>
-								<motion.button
-									type="button"
-									whileHover={{ scale: 1.3 }}
-									whileTap={{ scale: 0.9 }}
-									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-									className="min-w-[15px] h-[15px] rounded-full flex justify-center items-center"
-									onClick={() => setQuery(question)}
-								>
-									<FaPaperPlane className="text-2xl" />
-								</motion.button>
+
+								<div className="flex gap-3 items-center">
+									<div className="min-w-[40px] h-full">
+										<BotIcon w={40} />
+									</div>
+									<motion.button
+										type="button"
+										whileHover={{ scale: 1.1 }}
+										whileTap={{ scale: 0.9 }}
+										transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+										className="w-full bg-[--black] text-[--white] flex items-center justify-center rounded-[2rem] gap-x-3 text-sm h-[40px]"
+										onClick={() => setQuery(question)}
+									>
+										Send <FaPaperPlane className="" />
+									</motion.button>
+								</div>
 							</div>
 						</motion.div>
 						{hasFullResponse && (
