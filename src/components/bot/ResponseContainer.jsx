@@ -25,9 +25,11 @@ const ResponseContainer = ({
 			className={`bg-[--neutral] p-5 rounded-lg flex flex-col gap-2 max-w-[50vw] ${className}`}
 		>
 			<div className="flex flex-col gap-2 overflow-auto">
-				<h3 className="capitalize text-sm">{question}</h3>
+				<h3 className="text-sm xl:!text-[1vw] xl:!leading-[150%]">
+					{question}
+				</h3>
 
-				<p className="">{answer[0]}</p>
+				<p className="xl:!text-[1vw] xl:!leading-[150%]">{answer[0]}</p>
 
 				{/* {answer.map((text, i) => (
 					<p key={i} className="text-xs">

@@ -176,7 +176,10 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								header = itemText.split(p)[0].replace(/[*]/g, '');
 								console.log('header', header);
 							} else {
-								p = itemText;
+								header = itemText.split(':')[0];
+								p = itemText.split(':')[1];
+
+								console.log(item);
 							}
 
 							responseList.push({
@@ -240,7 +243,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								<p className="">
 									<BotIcon w={60} />
 								</p>
-								<div className="overflow-hidden">
+								<div className="overflow-hidden xl:!text-[1vw] xl:!leading-[120%]">
 									<WavyText text="Getting Response..." />
 								</div>
 							</div>
@@ -264,7 +267,11 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 											className={tag === 'li' ? 'col-span-1' : 'col-span-2'}
 										>
 											{tag === 'p' && (
-												<motion.p variants={slideInBottom4} custom={i}>
+												<motion.p
+													variants={slideInBottom4}
+													custom={i}
+													className="xl:!text-[1vw] xl:!leading-[150%]"
+												>
 													{data}
 												</motion.p>
 											)}
@@ -279,7 +286,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 														question={data.header}
 														answer={[data.p]}
 														className="justify-between h-full"
-														hideBotName
+														noIcon
 													/>
 												</motion.div>
 											)}
@@ -299,7 +306,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 			{/* RIGHT SIDEBAR */}
 			{/* RIGHT SIDEBAR */}
 			<div
-				className={`min-w-[380px] max-w-[380px] h-full bg-[--white] card-shadow transition duration-[2500]`}
+				className={`min-w-[380px] max-w-[380px] xl:min-w-[30vw] xl:max-w-[30vw] h-full bg-[--white] card-shadow transition duration-[2500]`}
 			>
 				<motion.div
 					initial="initial"
@@ -312,11 +319,14 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 							<div>
 								<motion.h3
 									variants={slideInRight}
-									className="flex items-center gap-2 text-base"
+									className="flex items-center gap-3 text-base"
 								>
 									Welcome to Kiss Agency
 								</motion.h3>
-								<motion.p variants={slideInRight} className="text-sm">
+								<motion.p
+									variants={slideInRight}
+									className="text-sm xl:!text-[1vw] xl:!leading-[130%]"
+								>
 									I am an AI chatbot, how can I help?
 								</motion.p>
 							</div>
@@ -350,7 +360,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 												setQuery(sampleQuestion);
 											}
 										}}
-										className="btn-3-v2 !text-sm !p-2"
+										className="btn-3-v2 !text-sm xl:!text-[1vw] xl:!leading-[120%] !p-2 !normal-case"
 									>
 										{sampleQuestion}
 									</motion.button>
@@ -366,7 +376,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 							<div className="flex flex-col w-full gap-3">
 								<textarea
 									placeholder="Or type here..."
-									className="text-sm placeholder:text-sm placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral] outline-none h-[30vh] max-h-[150px] bg-[--neutral] rounded-xl overflow-hidden p-3"
+									className="text-sm xl:!text-[1vw] xl:!leading-[120%] placeholder:text-sm xl:placeholder:!text-[1vw] xl:placeholder:!leading-[120%] placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral] outline-none h-[30vh] max-h-[150px] bg-[--neutral] rounded-xl overflow-hidden p-3"
 									name="question"
 									value={question}
 									onChange={handleChangeInput}
@@ -381,7 +391,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 										whileHover={{ scale: 1.1 }}
 										whileTap={{ scale: 0.9 }}
 										transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-										className="w-full bg-[--black] text-[--white] flex items-center justify-center rounded-[2rem] gap-x-3 text-sm h-[40px]"
+										className="w-full bg-[--black] text-[--white] flex items-center justify-center rounded-[2rem] gap-x-3 text-sm xl:!text-[1vw] xl:!leading-[120%] h-[40px] xl:h-[3vw]"
 										onClick={() => setQuery(question)}
 									>
 										Send <FaPaperPlane className="" />
