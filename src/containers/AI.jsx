@@ -5,9 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Greeting, Options, BotSidebar } from '../components';
 import ai from '../assets/lottie/ai2.json';
 import { popupVariant } from '../utils/variants';
-import { useToggleIFrameStore } from '../utils/config';
+import { useToggleBotStore } from '../utils/config';
 
 const AI = () => {
+	const deactivateScroll = useToggleBotStore((state) => state.showBot);
+	const activateScroll = useToggleBotStore((state) => state.closeBot);
+
 	const [question, setQuestion] = useState({});
 	const [showIntro, setShowIntro] = useState(false);
 	const [showOptions, setShowOptions] = useState(false);
@@ -15,6 +18,8 @@ const AI = () => {
 	const [showResponse, setShowResponse] = useState(false);
 	const popupRef = useRef();
 	const popupRef2 = useRef();
+
+	const aiRef = useRef();
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -70,9 +75,24 @@ const AI = () => {
 		// showIframe();
 	};
 
+	useEffect(() => {
+		if (showResponse) {
+			deactivateScroll();
+		} else {
+			activateScroll();
+		}
+	}, [showResponse]);
+
 	return (
-		<div className="fixed bottom-5 right-5 z-[0] hidden xl:block">
+		<div className="fixed bottom-5 right-5 z-[10000000000000] hidden xl:block">
 			{showResponse && (
+				// <div
+				// 	ref={aiRef}
+				// 	onWheel={(e) => handleWheel(e)}
+				// 	className="fixed top-0 left-0 w-full h-[50vh] bg-red-600 p-5 overlay"
+				// >
+				// 	<div className="bg-blue-600 h-[200vh]">Hello</div>
+				// </div>
 				<BotSidebar
 					close={() => setShowResponse(false)}
 					addPadding={addPadding}

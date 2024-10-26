@@ -32,3 +32,10 @@ export const useToggleIFrameStore = create((set) => ({
 	showIframe: () => set({ toggleIFrame: true }),
 	closeIframe: () => set({ toggleIFrame: false }),
 }));
+
+export const useToggleBotStore = create((set) => ({
+	toggleBot: false,
+	updateToggleBot: () => set({ toggleBot: !toggleBot }),
+	showBot: () => set({ toggleBot: true }),
+	closeBot: () => set({ toggleBot: false }),
+}));

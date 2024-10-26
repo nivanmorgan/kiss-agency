@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaPhone, FaPaperPlane } from 'react-icons/fa6';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 import { MdOutlineClose } from 'react-icons/md';
+import { useToggleIFrameStore } from '../../utils/config';
 
 import {
 	AGENCY,
@@ -61,6 +62,9 @@ const BotNavbar = ({ setShowCallNow }) => (
 );
 
 const BotSidebar = ({ close, addPadding, initQuestion }) => {
+	const deactivateScroll = useToggleIFrameStore((state) => state.showIframe);
+	const activateScroll = useToggleIFrameStore((state) => state.closeIframe);
+
 	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
 	const [showFullResponse, setShowFullResponse] = useState(true); //Show Full Response
 	const [hasFullResponse, setHasFullResponse] = useState(true); // Allows Full Response to show only if there's a full response to show
@@ -71,6 +75,9 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 	const { question } = formData;
 	const [query, setQuery] = useState(question);
 	const [expandQueryList, setExpandQueryList] = useState(false);
+
+	const optionsRef = useRef();
+	const contentRef = useRef();
 
 	const [botResponse, setBotResponse] = useState({
 		question: '',
@@ -211,9 +218,12 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 	};
 
 	// useEffect(() => {
-	// 	console.log(query);
-	// 	getApiData(query);
-	// }, []);
+	// 	if (showFullResponse) {
+	// 		deactivateScroll();
+	// 	} else {
+	// 		activateScroll();
+	// 	}
+	// }, [showFullResponse]);
 
 	useEffect(() => {
 		console.log(query);
@@ -221,9 +231,25 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 		setShowFullResponse(true);
 	}, [query]);
 
+	const handleWheelOptions = (e) => {
+		// e.preventDefault();
+		optionsRef.current.scrollBy({
+			top: e.deltaY,
+			// behavior: 'smooth',
+		});
+	};
+
+	const handleWheelContent = (e) => {
+		// e.preventDefault();
+		contentRef.current.scrollBy({
+			top: e.deltaY,
+			// behavior: 'smooth',
+		});
+	};
+
 	return (
 		<div
-			className={`w-full h-screen !fixed !bottom-0 !right-0 !left-0 !top-0 bg-transparent card-shadow transition duration-[2500] !z-[10000000000] flex justify-end`}
+			className={`w-screen h-screen fixed !bottom- !right-0 !left- !top-0 bg-transparent card-shadow transition duration-[2500] !z-[10000000000] flex justify-end`}
 		>
 			{/* FULL RESPONSE */}
 			{/* FULL RESPONSE */}
@@ -236,7 +262,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 						animate={{ x: ['100%', 0] }}
 						exit={{ x: [0, '100%'] }}
 						transition={{ type: 'tween', duration: 0.75 }}
-						className="w-full h-screen overflow-y-auto overflow-x-hidden bg-[--white] gap-5 pr-5"
+						className="w-full h-screen overflow-y-auto overflow-x-hidden bg-[--white] gap-5 pr-0"
 					>
 						{isLoading ? (
 							<div className="flex flex-col justify-center items-center w-full h-full">
@@ -248,7 +274,11 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								</div>
 							</div>
 						) : (
-							<>
+							<div
+								className="h-full overflow-x-hidden overflow-y-auto"
+								ref={contentRef}
+								onWheel={(e) => handleWheelContent(e)}
+							>
 								<div className="sticky top-0 bg-[--white] z-[1000]">
 									<BotNavbar setShowCallNow={setShowCallNow} />
 								</div>
@@ -294,7 +324,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 									))}
 								</motion.div>
 								<Footer type="bot" />
-							</>
+							</div>
 						)}
 					</motion.div>
 				)}
@@ -341,8 +371,10 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								<MdOutlineClose className="text-2xl" />
 							</motion.button>
 						</div>
-						<div className="h-full flex-1 flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-10 relative">
+						<div className="h-full flex-1 flex flex-col gap-2 overflow-hidden z-10 relative">
 							<div
+								ref={optionsRef}
+								onWheel={(e) => handleWheelOptions(e)}
 								className={`flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-1 pb-5`}
 							>
 								{sampleQuestions.map((sampleQuestion, i) => (

@@ -1,7 +1,11 @@
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 
-import { useNavStore, useToggleIFrameStore } from '../utils/config';
+import {
+	useNavStore,
+	useToggleIFrameStore,
+	useToggleBotStore,
+} from '../utils/config';
 
 import {
 	Hero,
@@ -39,12 +43,15 @@ function Home() {
 	const navId = useNavStore((state) => state.navId);
 	const [sectionInView, setSectionInView] = useState('home');
 	const showingIFrame = useToggleIFrameStore((state) => state.toggleIFrame);
+	const showingBot = useToggleBotStore((state) => state.toggleBot);
 
 	const about = useRef();
 	const values = useRef();
 	const services = useRef();
 	const digitalSolutions = useRef();
 	const contact = useRef();
+
+	const bodyRef = useRef();
 
 	const aboutIsInView = useInView(about, { margin: '-40% 50% 50% -50%' });
 	const valuesIsInView = useInView(values, { margin: '-40% 50% 50% -50%' });
@@ -151,56 +158,72 @@ function Home() {
 			<Cubes loader />
 		</div>
 	) : (
-		<div className="">
-			<SmoothScroll>
-				{/* <div className="w-full h-[100vh]" /> */}
-				<Hero />
-				{!showingIFrame && <DesktopWrapper />}
-				<div className="overflow-hidden relative">
+		<>
+			<div
+				className={`relative ${
+					showingBot
+						? '!pointer-events-non h-scree overflow-hidde no-scrollbar'
+						: '!pointer-events-aut'
+				}`}
+				ref={bodyRef}
+				onWheel={(e) => handleWheel(e)}
+			>
+				<SmoothScroll>
+					{/* <div className="w-full h-[100vh]" /> */}
+					<Hero />
+					<DesktopWrapper />
+					{/* {!showingIFrame && <DesktopWrapper />} */}
 					<div
 						className={`overflow-hidden relative ${
-							showingIFrame ? 'w-[70%]' : 'w-full'
-						} ${!showingIFrame && 'xl:hidden'}`}
+							showingIFrame ? 'pointer-events-non' : 'pointer-events-aut'
+						}`}
 					>
-						<div ref={about} id="about">
-							<About />
+						<div
+							className={`overflow-hidden relative ${
+								showingIFrame ? 'w-[70%]' : 'w-full'
+							} ${!showingIFrame && 'xl:hidden'}`}
+						>
+							<div ref={about} id="about">
+								<About />
+							</div>
+							<div ref={values} id="values">
+								<OurValues />
+							</div>
+							<div ref={services} id="services">
+								<Services />
+							</div>
+							<div ref={digitalSolutions} id="digital-solutions">
+								<DigitalSolutions />
+							</div>
+							<div ref={contact} id="contact">
+								<Contact />
+								<Footer />
+							</div>
 						</div>
-						<div ref={values} id="values">
-							<OurValues />
-						</div>
-						<div ref={services} id="services">
-							<Services />
-						</div>
-						<div ref={digitalSolutions} id="digital-solutions">
-							<DigitalSolutions />
-						</div>
-						<div ref={contact} id="contact">
-							<Contact />
-							<Footer />
-						</div>
+						{/* Footer and Navbar */}
+						{navId === 'home' && (
+							<AnimatePresence>
+								{sticky && (
+									<motion.div
+										initial={{ x: -10, opacity: 0 }}
+										whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
+										exit={{ x: -10, opacity: 0 }}
+										className="fixed  top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] min-h-screen"
+									>
+										<SideNav animate />
+									</motion.div>
+								)}
+							</AnimatePresence>
+						)}
+						<Navbar sectionInView={sectionInView} />
 					</div>
-					{/* Footer and Navbar */}
-					{navId === 'home' && (
-						<AnimatePresence>
-							{sticky && (
-								<motion.div
-									initial={{ x: -10, opacity: 0 }}
-									whileInView={{ x: [-10, 0], opacity: [0.5, 1] }}
-									exit={{ x: -10, opacity: 0 }}
-									className="fixed  top-0 left-0 w-[60px] lg:w-[60px] bg-[--neutral] min-h-screen"
-								>
-									<SideNav animate />
-								</motion.div>
-							)}
-						</AnimatePresence>
-					)}
-					<Navbar sectionInView={sectionInView} />
-				</div>
 
-				<CallUs />
-				<AI />
-			</SmoothScroll>
-		</div>
+					<CallUs />
+					{/* <AI /> */}
+				</SmoothScroll>
+			</div>
+			<AI />
+		</>
 	);
 }
 
