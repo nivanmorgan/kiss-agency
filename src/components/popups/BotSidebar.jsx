@@ -4,6 +4,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FaPhone, FaPaperPlane } from 'react-icons/fa6';
 import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
 import { MdOutlineClose } from 'react-icons/md';
+import { useToggleIFrameStore } from '../../utils/config';
+
+import {
+	AGENCY,
+	DEVELOPMENT,
+	DESIGN,
+	ADVERTISEMENT,
+	AI,
+	SEO,
+} from '../../utils/bot_hero';
 
 import {
 	slideInBottom,
@@ -17,6 +27,7 @@ import {
 	ResponseContainer,
 	Footer,
 	WavyText,
+	BotHero,
 } from '../../components';
 import {
 	questions as sampleQuestions,
@@ -30,7 +41,7 @@ import { footerSectionText } from '../../utils/constants';
 import { getResponse } from '../../api/getBotResponse';
 
 const BotNavbar = ({ setShowCallNow }) => (
-	<div className="w-full h-[110px] container">
+	<div className="w-full h-[80px] container">
 		<div className="flex items-center justify-between h-full border-b border-[--neutral]">
 			<div className="">
 				<Logo h="h-[40px] object-cover" />
@@ -51,6 +62,9 @@ const BotNavbar = ({ setShowCallNow }) => (
 );
 
 const BotSidebar = ({ close, addPadding, initQuestion }) => {
+	const deactivateScroll = useToggleIFrameStore((state) => state.showIframe);
+	const activateScroll = useToggleIFrameStore((state) => state.closeIframe);
+
 	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
 	const [showFullResponse, setShowFullResponse] = useState(true); //Show Full Response
 	const [hasFullResponse, setHasFullResponse] = useState(true); // Allows Full Response to show only if there's a full response to show
@@ -60,12 +74,20 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 	});
 	const { question } = formData;
 	const [query, setQuery] = useState(question);
+	const [expandQueryList, setExpandQueryList] = useState(false);
+
+	const optionsRef = useRef();
+	const contentRef = useRef();
 
 	const [botResponse, setBotResponse] = useState({
 		question: '',
 		answer: [],
 		// img: [],
 		// moreInfo: [],
+	});
+	const [botHeroData, setBotHeroData] = useState({
+		text: '',
+		data: {},
 	});
 
 	const handleChangeInput = (e) => {
@@ -74,42 +96,134 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 	};
 
 	const getApiData = (query) => {
-		setBotResponse({ ...botResponse, ['answer']: [] });
+		// setBotResponse({ ...botResponse, ['answer']: [] });
 		setIsLoading(true);
-		getResponse(query).then((data) => {
-			// console.log(data?.data?.answer.split('\n'));
-			if (data) {
-				let resAns = data?.data?.answer.split('\n');
-				resAns = resAns.filter((prev) => prev !== '');
-				console.log(resAns);
+		setFormData({ ...formData, ['question']: query });
 
-				// if (resAns.length > 1) {
-				// 	setHasFullResponse(true);
-				// } else {
-				// 	setHasFullResponse(true);
-				// }
+		getResponse(query)
+			.then((data) => {
+				// console.log(data?.data?.answer.split('\n'));
+				if (data) {
+					// ! HERO RESPONSE
+					let res = data?.data?.answer;
+					let agency =
+						parseInt(res.split('agency').length) +
+						parseInt(res.split('company').length);
+					let development =
+						parseInt(res.split('development').length) +
+						parseInt(res.split('develop').length);
+					let design = parseInt(res.split('design').length);
+					let advertisement =
+						parseInt(res.split('advertisement').length) +
+						parseInt(res.split('ad').length);
+					let ai =
+						parseInt(res.split('ai').length) +
+						parseInt(res.split('artificial inteligence').length);
+					let seo =
+						parseInt(res.split('seo').length) +
+						parseInt(res.split('search engine optimization').length);
 
-				setTimeout(() => {
-					setBotResponse({
-						...botResponse,
-						['question']: data?.data?.question,
-						['answer']: resAns,
+					// console.log(seo, ai, agency, design, development, advertisement);
+					let optionsArr = [
+						agency,
+						development,
+						design,
+						advertisement,
+						ai,
+						seo,
+					];
+					const heroLotties = [
+						AGENCY,
+						DEVELOPMENT,
+						DESIGN,
+						ADVERTISEMENT,
+						AI,
+						SEO,
+					];
+
+					let heroRes = {};
+
+					optionsArr.map((item, i) => {
+						if (item === Math.max(...optionsArr)) {
+							heroRes = {
+								text: data?.data?.question,
+								data: heroLotties[i][
+									Math.floor(
+										Math.random() * (0 - heroLotties[i].length) +
+											heroLotties[i].length
+									)
+								],
+							};
+						}
 					});
-				}, 500);
+
+					// ! BODY RESPONSE
+					function isNumber(char) {
+						return /^\d$/.test(char);
+					}
+
+					let resAns = data?.data?.answer.split('\n');
+					resAns = resAns.filter((prev) => prev !== '');
+					console.log(resAns);
+
+					let responseList = [];
+
+					resAns.map((item) => {
+						if (isNumber(item[0])) {
+							let itemText = item;
+							let header = '';
+							let p = '';
+
+							if (item.includes('**')) {
+								p = itemText
+									.split('**')
+									.pop()
+									.split('**')[0]
+									.replace(/[:]/g, '');
+								header = itemText.split(p)[0].replace(/[*]/g, '');
+								console.log('header', header);
+							} else {
+								header = itemText.split(':')[0];
+								p = itemText.split(':')[1];
+
+								console.log(item);
+							}
+
+							responseList.push({
+								tag: 'li',
+								data: {
+									header: header,
+									p: p,
+								},
+							});
+						} else {
+							responseList.push({
+								tag: 'p',
+								data: item.replace(/[*]/g, ''),
+							});
+						}
+					});
+
+					return { heroData: heroRes, response: responseList };
+				}
+			})
+			.then((data) => {
+				setBotHeroData(data.heroData);
+				setBotResponse(data.response);
+				console.log(data.response);
 				setTimeout(() => {
 					setIsLoading(false);
-				}, 700);
-			}
-		});
-		// .then(() => {
-		// 	setIsLoading(false);
-		// });
+				}, 500);
+			});
 	};
 
-	useEffect(() => {
-		console.log(query);
-		getApiData(query);
-	}, []);
+	// useEffect(() => {
+	// 	if (showFullResponse) {
+	// 		deactivateScroll();
+	// 	} else {
+	// 		activateScroll();
+	// 	}
+	// }, [showFullResponse]);
 
 	useEffect(() => {
 		console.log(query);
@@ -117,90 +231,101 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 		setShowFullResponse(true);
 	}, [query]);
 
+	const handleWheelOptions = (e) => {
+		// e.preventDefault();
+		optionsRef.current.scrollBy({
+			top: e.deltaY,
+			// behavior: 'smooth',
+		});
+	};
+
+	const handleWheelContent = (e) => {
+		// e.preventDefault();
+		contentRef.current.scrollBy({
+			top: e.deltaY,
+			// behavior: 'smooth',
+		});
+	};
+
 	return (
 		<div
-			className={`w-full h-screen !fixed !bottom-0 !right-0 !left-0 !top-0 bg-transparent card-shadow transition duration-[2500] !z-[10000000000] ${
-				addPadding ? 'pt-[80px' : ''
-			} flex justify-end`}
+			className={`w-screen h-screen fixed !bottom- !right-0 !left- !top-0 bg-transparent card-shadow transition duration-[2500] !z-[10000000000] flex justify-end`}
 		>
 			{/* FULL RESPONSE */}
 			{/* FULL RESPONSE */}
 			{/* FULL RESPONSE */}
 			{/* FULL RESPONSE */}
 			<AnimatePresence>
-				{hasFullResponse && showFullResponse && (
+				{showFullResponse && (
 					<motion.div
 						initial={{ x: '100%' }}
 						animate={{ x: ['100%', 0] }}
 						exit={{ x: [0, '100%'] }}
 						transition={{ type: 'tween', duration: 0.75 }}
-						className="w-full h-full bg-[--white] flex flex-col gap-5 pr-5"
+						className="w-full h-screen overflow-y-auto overflow-x-hidden bg-[--white] gap-5 pr-0"
 					>
-						<BotNavbar setShowCallNow={setShowCallNow} />
-						<motion.div
-							initial="initial"
-							animate="animate"
-							transition={{ staggerChildren: 0.3 }}
-							className="container h-full overflow-x-hidden overflow-y-auto space-y-2"
-						>
-							{isLoading ? (
-								<div className="flex flex-col justify-center items-center w-full h-full">
-									<p className="">
-										<BotIcon w={60} />
-									</p>
-									<div className="overflow-hidden">
-										<WavyText text="Getting Response..." />
-									</div>
+						{isLoading ? (
+							<div className="flex flex-col justify-center items-center w-full h-full">
+								<p className="">
+									<BotIcon w={60} />
+								</p>
+								<div className="overflow-hidden xl:!text-[1vw] xl:!leading-[120%]">
+									<WavyText text="Getting Response..." />
 								</div>
-							) : (
-								<>
-									<motion.h2 variants={slideInRight} className="uppercase">
-										{botResponse?.question}
-									</motion.h2>
-									<motion.p variants={slideInRight}>
-										{botResponse?.answer[0]}
-									</motion.p>
-
-									<motion.div
-										initial="initial"
-										animate="animate"
-										variants={slideInBottom4}
-										transition={{ staggerChildren: 0.3 }}
-										className="grid grid-cols-2 gap-4 py-4"
-									>
-										{botResponse?.answer &&
-											botResponse?.answer.length > 0 &&
-											botResponse?.answer.map((text, i) => (
+							</div>
+						) : (
+							<div
+								className="h-full overflow-x-hidden overflow-y-auto"
+								ref={contentRef}
+								onWheel={(e) => handleWheelContent(e)}
+							>
+								<div className="sticky top-0 bg-[--white] z-[1000]">
+									<BotNavbar setShowCallNow={setShowCallNow} />
+								</div>
+								<div className="container pt-7">
+									<BotHero data={botHeroData?.data} text={botHeroData?.text} />
+								</div>
+								<motion.div
+									initial="initial"
+									animate="animate"
+									transition={{ staggerChildren: 0.3 }}
+									className="container py-7 gap-x-5 gap-y-7 grid grid-cols-2"
+								>
+									{botResponse.map(({ data, tag }, i) => (
+										<div
+											key={i}
+											className={tag === 'li' ? 'col-span-1' : 'col-span-2'}
+										>
+											{tag === 'p' && (
+												<motion.p
+													variants={slideInBottom4}
+													custom={i}
+													className="xl:!text-[1vw] xl:!leading-[150%]"
+												>
+													{data}
+												</motion.p>
+											)}
+											{tag === 'li' && (
 												<motion.div
 													key={i}
 													variants={slideInBottom4}
 													custom={i}
-													className={`${i === 0 && 'hidden'}`}
+													className="h-full"
 												>
 													<ResponseContainer
-														question=""
-														answer={[text]}
+														question={data.header}
+														answer={[data.p]}
 														className="justify-between h-full"
+														noIcon
 													/>
 												</motion.div>
-											))}
-
-										{/* {dummyResponse.moreInfo.map(({ intro, text }, i) => (
-									<motion.div key={i} variants={slideInBottom4} custom={i}>
-										<ResponseContainer
-											// question={botResponse.question}
-											// answer={botResponse.answer}
-											question={intro}
-											answer={[text]}
-											className="justify-between h-full"
-										/>
-									</motion.div>
-								))} */}
-									</motion.div>
-								</>
-							)}
-						</motion.div>
-						<Footer type="bot" />
+											)}
+										</div>
+									))}
+								</motion.div>
+								<Footer type="bot" />
+							</div>
+						)}
 					</motion.div>
 				)}
 			</AnimatePresence>
@@ -211,7 +336,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 			{/* RIGHT SIDEBAR */}
 			{/* RIGHT SIDEBAR */}
 			<div
-				className={`min-w-[380px] max-w-[380px] h-full bg-[--white] card-shadow transition duration-[2500]`}
+				className={`min-w-[380px] max-w-[380px] xl:min-w-[30vw] xl:max-w-[30vw] h-full bg-[--white] card-shadow transition duration-[2500]`}
 			>
 				<motion.div
 					initial="initial"
@@ -224,15 +349,19 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 							<div>
 								<motion.h3
 									variants={slideInRight}
-									className="flex items-center gap-2 text-base"
+									className="flex items-center gap-3 text-base"
 								>
 									Welcome to Kiss Agency
 								</motion.h3>
-								<motion.p variants={slideInRight} className="text-xs">
+								<motion.p
+									variants={slideInRight}
+									className="text-sm xl:!text-[1vw] xl:!leading-[130%]"
+								>
 									I am an AI chatbot, how can I help?
 								</motion.p>
 							</div>
 							<motion.button
+								type="button"
 								whileHover={{ scale: 1.3 }}
 								whileTap={{ scale: 0.9 }}
 								transition={{ type: 'spring', stiffness: 400, damping: 10 }}
@@ -242,67 +371,69 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 								<MdOutlineClose className="text-2xl" />
 							</motion.button>
 						</div>
-						<div className="h-full flex-1 flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-10">
-							{sampleQuestions.map((sampleQuestion, i) => (
-								<motion.button
-									whileTap={{ scale: 0.9 }}
-									whileHover={{ scale: 1.05 }}
-									transition={{ type: 'spring', bounce: 0.75 }}
-									key={i}
-									variants={slideInRight}
-									onClick={() => {
-										if (sampleQuestion === query) {
-											getApiData(sampleQuestion);
-										} else {
-											setQuery(sampleQuestion);
-										}
-									}}
-									className="btn-3-v2 !text-xs !p-2"
-								>
-									{sampleQuestion}
-								</motion.button>
-							))}
+						<div className="h-full flex-1 flex flex-col gap-2 overflow-hidden z-10 relative">
+							<div
+								ref={optionsRef}
+								onWheel={(e) => handleWheelOptions(e)}
+								className={`flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-1 pb-5`}
+							>
+								{sampleQuestions.map((sampleQuestion, i) => (
+									<motion.button
+										type="button"
+										whileTap={{ scale: 0.9 }}
+										whileHover={{ scale: 1.05 }}
+										transition={{ type: 'spring', bounce: 0.75 }}
+										key={i}
+										variants={slideInRight}
+										onClick={() => {
+											if (sampleQuestion === query) {
+												getApiData(sampleQuestion);
+											} else {
+												setQuery(sampleQuestion);
+											}
+										}}
+										className="btn-3-v2 !text-sm xl:!text-[1vw] xl:!leading-[120%] !p-2 !normal-case"
+									>
+										{sampleQuestion}
+									</motion.button>
+								))}
+								<div className="absolute bottom-0 w-full h-[30px] bg-gradient-to-t from-white to-transparent" />
+							</div>
 						</div>
-						{/* <motion.div
-							variants={slideInRight}
-							className="min-h-[30%] max-h-[30vh]"
-						>
-							<ResponseContainer
-								question={query}
-								answer={botResponse.answer}
-								noIcon
-								className="h-full"
-								loading={isLoading}
-							/>
-						</motion.div> */}
+
 						<motion.div
 							variants={slideInRight}
-							className="flex items-center gap-4"
+							className="flex items-center gap-4 pt-0"
 						>
-							<div className="min-w-[40px] h-full scale-125">
-								<BotIcon w={40} />
-							</div>
-							<div className="flex w-full gap-3 items-center bg-[--neutral] rounded-[2rem] shadow py-3 px-3 ">
-								<input
+							<div className="flex flex-col w-full gap-3">
+								<textarea
 									placeholder="Or type here..."
-									className="text-xs placeholder:text-xs placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral] bg-transparent outline-none"
+									className="text-sm xl:!text-[1vw] xl:!leading-[120%] placeholder:text-sm xl:placeholder:!text-[1vw] xl:placeholder:!leading-[120%] placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral] outline-none h-[30vh] max-h-[150px] bg-[--neutral] rounded-xl overflow-hidden p-3"
 									name="question"
 									value={question}
 									onChange={handleChangeInput}
 								/>
-								<motion.button
-									whileHover={{ scale: 1.3 }}
-									whileTap={{ scale: 0.9 }}
-									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-									className="min-w-[15px] h-[15px] rounded-full flex justify-center items-center"
-									onClick={() => setQuery(question)}
-								>
-									<FaPaperPlane className="text-2xl" />
-								</motion.button>
+
+								<div className="flex gap-3 items-center">
+									<div className="min-w-[40px] h-full">
+										<BotIcon w={40} />
+									</div>
+									<motion.button
+										type="button"
+										whileHover={{ scale: 1.1 }}
+										whileTap={{ scale: 0.9 }}
+										transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+										className="w-full bg-[--black] text-[--white] flex items-center justify-center rounded-[2rem] gap-x-3 text-sm xl:!text-[1vw] xl:!leading-[120%] h-[40px] xl:h-[3vw]"
+										onClick={() => setQuery(question)}
+									>
+										Send <FaPaperPlane className="" />
+									</motion.button>
+								</div>
 							</div>
 						</motion.div>
 						{hasFullResponse && (
 							<button
+								type="button"
 								onClick={() => setShowFullResponse((prev) => !prev)}
 								className="absolute top-[50%] translate-y-[-50%] right-[100%] w-[12px] hover:w-[20px] h-[40px] bg-[--black] rounded-l-lg flex items-center justify-center transition-all duration-700 group"
 							>

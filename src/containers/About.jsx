@@ -27,6 +27,7 @@ const About = () => {
 	const { scrollYProgress } = useScroll({
 		target: container,
 		offset: ['start start', 'end end'],
+		layoutEffect: false,
 	});
 
 	useEffect(() => {

@@ -7,6 +7,7 @@ const ResponseContainer = ({
 	noIcon,
 	className,
 	loading,
+	hideBotName,
 }) => {
 	return loading ? (
 		<div
@@ -24,9 +25,11 @@ const ResponseContainer = ({
 			className={`bg-[--neutral] p-5 rounded-lg flex flex-col gap-2 max-w-[50vw] ${className}`}
 		>
 			<div className="flex flex-col gap-2 overflow-auto">
-				<h3 className="capitalize text-sm">{question}</h3>
+				<h3 className="text-sm xl:!text-[1vw] xl:!leading-[150%]">
+					{question}
+				</h3>
 
-				<p className="text-xs">{answer[0]}</p>
+				<p className="xl:!text-[1vw] xl:!leading-[150%]">{answer[0]}</p>
 
 				{/* {answer.map((text, i) => (
 					<p key={i} className="text-xs">
@@ -36,7 +39,7 @@ const ResponseContainer = ({
 			</div>
 			{!noIcon && (
 				<div className="flex items-center gap-2 font-semibold text-[--black] pt-2 !text-sm">
-					<BotIcon w={20} /> Kiss Agency Bot
+					<BotIcon w={20} /> Kiss Agency
 				</div>
 			)}
 		</div>
