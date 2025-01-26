@@ -166,7 +166,7 @@ function Home() {
 						: '!pointer-events-aut'
 				}`}
 				ref={bodyRef}
-				onWheel={(e) => handleWheel(e)}
+				// onWheel={(e) => handleWheel(e)}
 			>
 				<SmoothScroll>
 					{/* <div className="w-full h-[100vh]" /> */}
