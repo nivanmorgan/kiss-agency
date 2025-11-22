@@ -164,7 +164,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 
 					let resAns = data?.data?.answer.split('\n');
 					resAns = resAns.filter((prev) => prev !== '');
-					console.log(resAns);
+					// console.log(resAns);
 
 					let responseList = [];
 
@@ -210,7 +210,7 @@ const BotSidebar = ({ close, addPadding, initQuestion }) => {
 			.then((data) => {
 				setBotHeroData(data.heroData);
 				setBotResponse(data.response);
-				console.log(data.response);
+				// console.log(data.response);
 				setTimeout(() => {
 					setIsLoading(false);
 				}, 500);
