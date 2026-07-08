@@ -68,7 +68,7 @@ const Navbar = () => {
 					</div>
 
 					{/* Desktop Navigation */}
-					<div className="hidden lg:flex items-center gap-1 bg-white/70 border border-black/5 px-2 py-1.5 rounded-full shadow-sm backdrop-blur-md">
+					<div className="hidden lg:flex items-center gap-1 bg-white border border-black/5 px-2 py-1.5 rounded-full shadow-sm">
 						{navigation.map(({ text, link }) => (
 							<a
 								key={link}

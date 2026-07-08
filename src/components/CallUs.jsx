@@ -34,7 +34,7 @@ const CallUs = () => {
 	}, [setShowCallNow]);
 
 	const copyContact = () => {
-		navigator.clipboard.writeText(footerSectionText.contact[0]);
+		navigator.clipboard.writeText(footerSectionText.contact[0].trim());
 		setShowCopiedPopup(true);
 		setTimeout(() => {
 			setShowCopiedPopup(false);
@@ -51,7 +51,7 @@ const CallUs = () => {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					className="w-full h-screen fixed inset-0 bg-carbon-950/80 backdrop-blur-md flex justify-center items-center px-5 z-[10000000]"
+					className="w-full h-screen fixed inset-0 bg-carbon-950/96 backdrop-blur-md flex justify-center items-center px-5 z-[20000000]"
 				>
 					<motion.div
 						variants={slideInBottom3}
@@ -59,9 +59,11 @@ const CallUs = () => {
 						animate="animate"
 						exit="exit"
 						ref={ref}
-						className="glass-panel border-white/10 bg-carbon-900/90 min-h-[300px] w-full max-w-md shadow-2xl rounded-3xl flex flex-col items-center justify-center gap-6 p-8 relative overflow-hidden"
+						className="panel-dark bg-carbon-900/95 min-h-[300px] w-full max-w-md shadow-2xl rounded-3xl flex flex-col items-center justify-center gap-6 p-8 relative overflow-hidden"
 					>
-						<Logo h="h-9 filter invert brightness-200" />
+						<div className="bg-white p-1.5 rounded-lg border border-white/5">
+							<Logo h="h-8 object-contain" />
+						</div>
 						
 						<div className="text-center space-y-2">
 							<h3 className="text-xl font-bold text-white tracking-tight leading-snug">
@@ -74,21 +76,21 @@ const CallUs = () => {
 
 						<div className="flex flex-col sm:flex-row gap-3 w-full items-center justify-center pt-2">
 							<a
-								href={'tel:' + footerSectionText.contact[0]}
-								className="btn-primary w-full sm:w-auto text-xs uppercase tracking-widest font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2"
+								href={'tel:' + footerSectionText.contact[0].trim()}
+								className="btn-primary-light w-full sm:w-auto text-xs uppercase tracking-widest font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2"
 							>
 								<FaPhone /> Call Now
 							</a>
 							
 							<button
-								className="btn-secondary w-full sm:w-auto text-xs uppercase tracking-widest font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2"
+								className="btn-secondary-dark w-full sm:w-auto text-xs uppercase tracking-widest font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2"
 								onClick={copyContact}
 							>
 								<FaRegCopy /> Copy Number
 							</button>
 						</div>
 
-						<div className="pt-2 border-t border-white/5 w-full flex flex-col items-center gap-3">
+						<div className="pt-4 border-t border-white/5 w-full flex flex-col items-center gap-3">
 							<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Connect With Us</span>
 							<div className="flex gap-2">
 								{footerSectionText.socialMedia.map((sme, i) => (
@@ -105,9 +107,9 @@ const CallUs = () => {
 								initial={{ opacity: 0, y: 50 }}
 								animate={{ opacity: 1, y: 0 }}
 								exit={{ opacity: 0, y: 50 }}
-								className="fixed bottom-10 left-0 right-0 flex justify-center z-[10000001]"
+								className="fixed bottom-10 left-0 right-0 flex justify-center z-[20000001]"
 							>
-								<h4 className="bg-brand-indigo text-white font-bold text-xs uppercase tracking-widest py-3 px-8 rounded-full shadow-lg">
+								<h4 className="bg-slate-900 border border-slate-800 text-white font-bold text-xs uppercase tracking-widest py-3 px-8 rounded-full shadow-lg">
 									Copied to clipboard!
 								</h4>
 							</motion.div>
