@@ -1,72 +1,57 @@
-import { useRef, useEffect, useState } from 'react';
-import { useScroll } from 'framer-motion';
-import {
-	Heading,
-	ServicesSlide,
-	ServiceList,
-	DottedNavigation,
-} from '../components';
-
+import { Heading, ServicesSlide, ServiceList } from '../components';
 import { servicesSectionText, services } from '../utils/constants';
 
-const getWindowsDimension = () => {
-	const { innerWidth: width, innerHeight: height } = window;
-	return {
-		width,
-		height,
-	};
-};
-
 const Services = () => {
-	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
-	const [screenSize, setScreenSize] = useState(getWindowsDimension());
+	const scrollToContact = (e) => {
+		e.preventDefault();
+		const element = document.getElementById('contact');
+		if (element) {
+			const offset = 80;
+			const bodyRect = document.body.getBoundingClientRect().top;
+			const elementRect = element.getBoundingClientRect().top;
+			const elementPosition = elementRect - bodyRect;
+			const offsetPosition = elementPosition - offset;
 
-	useEffect(() => {
-		const handleResize = () => {
-			setScreenSize(getWindowsDimension());
-		};
-
-		window.addEventListener('resize', handleResize);
-
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	const container = useRef();
-
-	const { scrollYProgress } = useScroll({
-		target: container,
-		offset: ['start end', 'end start'],
-		layoutEffect: false,
-	});
-
-	const scrollToContact = () => {
-		window.scrollTo({ top: screenSize.height * 9, behavior: 'smooth' });
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: 'smooth'
+			});
+		}
 	};
 
 	return (
-		<div
-			ref={container}
-			// id="services"
-			className="w-full relative mt-[50px] section-py"
+		<section
+			id="services"
+			className="w-full relative py-20 lg:py-32 overflow-hidden bg-carbon-900/30"
 		>
-			<div className="container grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-5">
-				<div className="space-y-7 lg:space-y-10 xl:pr-10 self-center">
-					<Heading
-						tag={servicesSectionText.tag}
-						header={servicesSectionText.heading}
-						content={servicesSectionText.text}
-						btn={['Learn More', scrollToContact, '#contact']}
-					/>
+			<div className="container space-y-16">
+				{/* Top Section Layout */}
+				<div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+					{/* Left: Section Header */}
+					<div className="lg:col-span-6 space-y-8">
+						<Heading
+							tag={servicesSectionText.tag}
+							header={servicesSectionText.heading}
+							content={servicesSectionText.text}
+							btn={['Get Started', scrollToContact, '#contact']}
+						/>
+					</div>
+
+					{/* Right: Service Cards Carousel Slider */}
+					<div className="lg:col-span-6 w-full overflow-hidden">
+						<ServicesSlide services={services} />
+					</div>
 				</div>
-				<div>
-					<ServicesSlide services={services} />
-				</div>
-				<div className="col-span-1 lg:col-span-2">
-					<ServiceList scrollYProgress={scrollYProgress} />
+
+				{/* Bottom Section Layout: Infinite badges ticker */}
+				<div className="pt-8">
+					<div className="text-center mb-6">
+						<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Trusted By Creative Professionals</span>
+					</div>
+					<ServiceList />
 				</div>
 			</div>
-			{/* <DottedNavigation /> */}
-		</div>
+		</section>
 	);
 };
 

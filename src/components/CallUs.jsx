@@ -1,16 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaFacebookF, FaInstagram, FaRegCopy, FaPhone } from 'react-icons/fa6';
+import { FaFacebookF, FaLinkedinIn, FaRegCopy, FaPhone } from 'react-icons/fa6';
 import { BiMessageRounded } from 'react-icons/bi';
 import { Logo, SocialButton } from '../components';
-
-import {
-	slideInRight,
-	slideInBottom3,
-	fallDownVariant,
-} from '../utils/variants';
+import { slideInBottom3 } from '../utils/variants';
 import { footerSectionText } from '../utils/constants';
-
 import { useCallNowStore } from '../utils/config';
 
 const CallUs = () => {
@@ -19,9 +13,9 @@ const CallUs = () => {
 	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
 
 	const socialIcons = [
-		<FaFacebookF className="text-xl" />,
-		<FaInstagram className="text-2xl" />,
-		<BiMessageRounded className="text-2xl" />,
+		<FaFacebookF size={18} />,
+		<FaLinkedinIn size={18} />,
+		<BiMessageRounded size={18} />,
 	];
 
 	const ref = useRef();
@@ -30,16 +24,14 @@ const CallUs = () => {
 		const handleClickOutside = (event) => {
 			if (ref.current && !ref.current.contains(event.target)) {
 				setShowCallNow(false);
-				console.log('hi');
 			}
 		};
 
-		document.addEventListener('click', handleClickOutside, true);
-
+		document.addEventListener('mousedown', handleClickOutside);
 		return () => {
-			document.removeEventListener('click', handleClickOutside, true);
+			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, []);
+	}, [setShowCallNow]);
 
 	const copyContact = () => {
 		navigator.clipboard.writeText(footerSectionText.contact[0]);
@@ -51,62 +43,76 @@ const CallUs = () => {
 			setShowCallNow(false);
 		}, 1700);
 	};
+
 	return (
 		<AnimatePresence>
 			{isShowCallNow && (
 				<motion.div
-					initial="initial"
-					whileInView="animate"
-					exit="exit"
-					className="w-full h-screen fixed top-0 left-0 bg-[#ffffff0a] backdrop-blur flex justify-center items-center px-5"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+					className="w-full h-screen fixed inset-0 bg-carbon-950/80 backdrop-blur-md flex justify-center items-center px-5 z-[10000000]"
 				>
 					<motion.div
 						variants={slideInBottom3}
+						initial="initial"
+						animate="animate"
+						exit="exit"
 						ref={ref}
-						className="bg-white min-h-[300px] shadow-xl rounded flex flex-col items-center justify-center gap-5 p-5 py-7 md:p-7"
+						className="glass-panel border-white/10 bg-carbon-900/90 min-h-[300px] w-full max-w-md shadow-2xl rounded-3xl flex flex-col items-center justify-center gap-6 p-8 relative overflow-hidden"
 					>
-						<Logo />
+						<Logo h="h-9 filter invert brightness-200" />
+						
 						<div className="text-center space-y-2">
-							<h3 className="text-lg leading-[130%] font-semibold">
-								Discover how we can <span>Evolve your vision</span>
+							<h3 className="text-xl font-bold text-white tracking-tight leading-snug">
+								Evolve Your Vision
 							</h3>
-							<p className="text-sm">Call or Copy our contact for later</p>
+							<p className="text-sm text-slate-400">
+								Call our team directly or copy our number.
+							</p>
 						</div>
-						<div className="flex gap-3 flex-wrap py-2 items-center justify-center">
+
+						<div className="flex flex-col sm:flex-row gap-3 w-full items-center justify-center pt-2">
 							<a
 								href={'tel:' + footerSectionText.contact[0]}
-								className="btn-1-v2 flex gap-2 items-center"
+								className="btn-primary w-full sm:w-auto text-xs uppercase tracking-widest font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2"
 							>
 								<FaPhone /> Call Now
 							</a>
+							
 							<button
-								className="border border-[--black] text-[--black] px-5 py-2 font-bold flex gap-2 items-center"
-								onClick={() => copyContact()}
+								className="btn-secondary w-full sm:w-auto text-xs uppercase tracking-widest font-bold py-3 px-6 rounded-xl flex items-center justify-center gap-2"
+								onClick={copyContact}
 							>
-								<FaRegCopy /> {footerSectionText.contact[0]}
+								<FaRegCopy /> Copy Number
 							</button>
 						</div>
-						<div>
-							<p className="flex gap-2 pt-1">
+
+						<div className="pt-2 border-t border-white/5 w-full flex flex-col items-center gap-3">
+							<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Connect With Us</span>
+							<div className="flex gap-2">
 								{footerSectionText.socialMedia.map((sme, i) => (
 									<SocialButton key={i} link={sme.link} icon={socialIcons[i]} />
 								))}
-							</p>
+							</div>
 						</div>
 					</motion.div>
-					{showCopiedPopup && (
-						<motion.div
-							variants={slideInBottom3}
-							initial="initial"
-							whileInView="animate"
-							exit="exit"
-							className="fixed bottom-0 left-0 w-full flex pb-10 justify-center"
-						>
-							<motion.h3 className="w-auto bg-[--black] text-[--white] font-semibold py-2 px-5 lg:px-10 lg:text-lg">
-								Copied!
-							</motion.h3>
-						</motion.div>
-					)}
+
+					{/* Notification Toast */}
+					<AnimatePresence>
+						{showCopiedPopup && (
+							<motion.div
+								initial={{ opacity: 0, y: 50 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: 50 }}
+								className="fixed bottom-10 left-0 right-0 flex justify-center z-[10000001]"
+							>
+								<h4 className="bg-brand-indigo text-white font-bold text-xs uppercase tracking-widest py-3 px-8 rounded-full shadow-lg">
+									Copied to clipboard!
+								</h4>
+							</motion.div>
+						)}
+					</AnimatePresence>
 				</motion.div>
 			)}
 		</AnimatePresence>

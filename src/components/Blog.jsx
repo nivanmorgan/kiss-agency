@@ -1,120 +1,78 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-
 import Lottie from 'lottie-react';
-// import lottie from '../assets/lottie/handshake.json';
+import { slideInBottom } from '../utils/variants';
 
-import { slideInRight, slideInBottom } from '../utils/variants';
+const Blog = ({ title, excerpt, lottie, i }) => {
+	// Format index helper
+	const formattedIndex = String(i + 1).padStart(2, '0');
 
-const getWindowsDimension = () => {
-	const { innerWidth: width, innerHeight: height } = window;
-	return {
-		width,
-		height,
+	const scrollToContact = (e) => {
+		e.preventDefault();
+		const element = document.getElementById('contact');
+		if (element) {
+			const offset = 80;
+			const bodyRect = document.body.getBoundingClientRect().top;
+			const elementRect = element.getBoundingClientRect().top;
+			const elementPosition = elementRect - bodyRect;
+			const offsetPosition = elementPosition - offset;
+
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: 'smooth'
+			});
+		}
 	};
-};
 
-const Blog = ({ title, excerpt, link, img, type, lottie, clip, i }) => {
-	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
-	const [screenSize, setScreenSize] = useState(getWindowsDimension());
-
-	useEffect(() => {
-		const handleResize = () => {
-			setScreenSize(getWindowsDimension());
-		};
-
-		window.addEventListener('resize', handleResize);
-
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	const scrollToContact = () => {
-		window.scrollTo({ top: screenSize.height * 9, behavior: 'smooth' });
-	};
 	return (
 		<motion.div
 			variants={slideInBottom}
 			initial="initial"
 			whileInView="animate"
-			// viewport={{ amount: 0.25 }}
-			custom={0}
-			className="relative flex flex-col blog-card lg:min-w-[300px] xl:min-w-[200px"
+			viewport={{ once: true, margin: '-50px' }}
+			custom={i * 0.1}
+			className="panel-light border-black/5 flex flex-col rounded-3xl p-6 hover:border-slate-300 transition-all duration-300 group bg-white/80 relative overflow-hidden shadow-sm"
 		>
-			<motion.div
-				variants={slideInRight}
-				initial="initial"
-				animate="animate"
-				custom={1}
-				className="w-full relative bg-[--neutral] py-5 overflow-clip"
-			>
-				<span
-					className={`absolute z-[-1] w-[50%] h-[90px] bg-[--white] border-2 border-[--black] ${
-						type[0] === 't' ? 'top-[-10px]' : 'bottom-[-10px]'
-					} ${type[1] === 'l' ? 'left-[-10px]' : 'right-[-10px]'} `}
-				></span>
-				{/* <img
-          src={img}
-          alt={title}
-          className="relative h-[100px] w-full object-cover"
-        /> */}
-				<div
-					className={`relative !my-[-${clip[0]}%] flex object-contain p-0 m-0 ${
-						i === 2 ? 'scale-[1.8]' : ''
-					} ${i === 3 ? 'scale-[1.3]' : ''} `}
-				>
+			{/* Webflow dotted grid overlay for card header */}
+			<div className="absolute top-0 left-0 right-0 h-28 webflow-grid-light opacity-50 border-b border-black/5 pointer-events-none -z-10" />
+
+			{/* Index Badge */}
+			<div className="absolute top-4 right-5 text-sm font-extrabold text-slate-300 group-hover:text-slate-500 transition-colors">
+				{formattedIndex}
+			</div>
+
+			{/* Lottie Animation container */}
+			<div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-slate-50 border border-black/5 flex items-center justify-center p-4 shadow-inner mt-4">
+				<div className={`w-3/4 max-h-[160px] flex items-center justify-center ${
+					i === 2 ? 'scale-[1.3]' : i === 3 ? 'scale-[1.1]' : 'scale-[1.2]'
+				}`}>
 					<Lottie
 						animationData={lottie}
 						style={{
-							objectFit: 'cover',
 							width: '100%',
-							height: '200px',
-							overflow: 'clip',
+							height: '100%',
 						}}
 					/>
 				</div>
-			</motion.div>
-			<motion.h3
-				variants={slideInRight}
-				initial="initial"
-				animate="animate"
-				custom={1}
-				className="pt-4 pb-2"
-			>
-				{title}
-			</motion.h3>
-			<motion.p
-				variants={slideInRight}
-				initial="initial"
-				animate="animate"
-				custom={3}
-			>
-				<span className="hidden lg:block">{excerpt.slice(0, 150)}...</span>
-				<span className="lg:hidden">{excerpt}</span>
-			</motion.p>
-			<motion.div
-				variants={slideInRight}
-				initial="initial"
-				animate="animate"
-				custom={4}
-				className="pt-2"
-			>
-				<motion.div
-					whileHover={{ scale: 1.1, x: 15 }}
-					whileTap={{ scale: 0.9, x: -15 }}
-					transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-					className="w-auto"
-				>
-					{screenSize.width >= 1280 ? (
-						<a onClick={() => scrollToContact()} className="btn-2">
-							Learn More
-						</a>
-					) : (
-						<a href="#contact" className="btn-2">
-							Learn More
-						</a>
-					)}
-				</motion.div>
-			</motion.div>
+			</div>
+
+			{/* Text info */}
+			<div className="flex-1 flex flex-col mt-6 space-y-3 relative z-10">
+				<h3 className="text-lg font-bold tracking-tight text-slate-900 group-hover:text-black transition-colors duration-300">
+					{title}
+				</h3>
+				<p className="text-sm text-slate-500 leading-relaxed flex-1">
+					{excerpt}
+				</p>
+				<div className="pt-4">
+					<a
+						href="#contact"
+						onClick={scrollToContact}
+						className="inline-flex items-center text-xs font-bold uppercase tracking-wider text-slate-800 hover:text-black transition-colors duration-300 border-b border-black/20 pb-0.5"
+					>
+						Get in touch
+					</a>
+				</div>
+			</div>
 		</motion.div>
 	);
 };

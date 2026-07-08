@@ -1,92 +1,42 @@
-import { useEffect, useRef } from 'react';
-import {
-	animate,
-	motion,
-	useMotionValue,
-	useScroll,
-	useTransform,
-} from 'framer-motion';
-import useMeasure from 'react-use-measure';
-import { slideInRight, slideInBottom } from '../utils/variants';
-import { ServiceOne, ServiceTwo } from '../components';
-import { serviceList } from '../utils/constants';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-
 import { Autoplay } from 'swiper/modules';
+import { serviceList } from '../utils/constants';
 
-const ServiceList = ({ scrollYProgress }) => {
-	// const icons = [
-	// 	<ServiceOne />,
-	// 	<ServiceTwo />,
-	// 	<ServiceOne />,
-	// 	<ServiceOne />,
-	// 	<ServiceOne />,
-	// 	<ServiceOne />,
-	// ];
-	// const iconsList = [...icons, ...icons, ...icons];
+const ServiceList = () => {
 	return (
-		<div className="w-full overflow-x-auto no-scrollbar">
-			<motion.div
-				variants={slideInBottom}
-				initial="initial"
-				whileInView="animate"
-				custom={2}
-				className="w-full relative"
+		<div className="w-full relative py-6">
+			{/* Fade overlays on edges */}
+			<div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-carbon-950 to-transparent z-10 pointer-events-none" />
+			<div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-carbon-950 to-transparent z-10 pointer-events-none" />
+
+			<Swiper
+				grabCursor={true}
+				loop={true}
+				slidesPerView={'auto'}
+				speed={3000}
+				autoplay={{
+					delay: 0,
+					disableOnInteraction: false,
+				}}
+				modules={[Autoplay]}
+				className="logos-swiper-container w-full"
 			>
-				<div className="flex gap-4">
-					<Swiper
-						grabCursor={true}
-						centeredSlides={false}
-						loop={true}
-						slidesPerView={'auto'}
-						speed={2000}
-						freeMode={true}
-						autoplay={{
-							delay: 0,
-							disableOnInteraction: false,
-						}}
-						modules={[Autoplay]}
-						className="logos-swiper-container"
-					>
-						{[...serviceList, ...serviceList, ...serviceList].map((item, i) => (
-							<SwiperSlide key={i}>
-								<div
-									className={`min-w-[170px] xl:min-w-[150px] flex flex-col gap-4 items-center  justify-center text-center px-8 py-5 xl:py-3 border-2 relative h-full ${
-										i % 2 ? 'border-[--black]' : 'border-[--gray]'
-									}`}
-								>
-									<span className="absolute top-0 right-0 bg-[--neutral] w-[15px] h-full"></span>
-									<img
-										src={item.icon}
-										alt={item.text}
-										className="w-[40px] h-[40px] object-contain"
-									/>
-									{/* {iconsList[i]} */}
-									<p className="font-bold xl:!leading-[130%]">{item.text}</p>
-								</div>
-							</SwiperSlide>
-						))}
-					</Swiper>
-					{/* {[...serviceList, ...serviceList, ...serviceList].map((item, i) => (
-						<div
-							key={i}
-							className={`min-w-[170px] xl:min-w-[150px] flex flex-col gap-4 items-center  justify-center text-center px-8 py-5 xl:py-3 border-2 relative ${
-								i % 2 ? 'border-[--black]' : 'border-[--gray]'
-							}`}
-						>
-							<span className="absolute top-0 right-0 bg-[--neutral] w-[15px] h-full"></span>
-							<img
-								src={item.icon}
-								alt={item.text}
-								className="w-[40px] h-[40px] object-contain"
-							/>
-							<p className="font-bold xl:!leading-[130%]">{item.text}</p>
+				{serviceList.map((item, i) => (
+					<SwiperSlide key={i} className="!w-[200px] !h-[90px] px-2">
+						<div className="flex gap-4 items-center justify-start px-6 py-4 glass-panel border-white/5 rounded-2xl h-full hover:border-brand-indigo/35 transition-colors cursor-pointer bg-carbon-900/30">
+							<div className="p-2 bg-carbon-950/60 rounded-xl border border-white/5">
+								<img
+									src={item.icon}
+									alt={item.text}
+									className="w-[24px] h-[24px] object-contain filter brightness-110"
+								/>
+							</div>
+							<p className="font-bold text-xs uppercase tracking-wider text-slate-300">{item.text}</p>
 						</div>
-					))} */}
-				</div>
-			</motion.div>
+					</SwiperSlide>
+				))}
+			</Swiper>
 		</div>
 	);
 };

@@ -38,3 +38,5 @@ export { default as BotSidebar } from './popups/BotSidebar';
 export { default as BotIcon } from './bot/BotIcon';
 export { default as BotHero } from './bot/BotHero';
 export { default as ResponseContainer } from './bot/ResponseContainer';
+export { default as NodeNetwork } from './NodeNetwork';
+export { default as AiWorkflow } from './AiWorkflow';

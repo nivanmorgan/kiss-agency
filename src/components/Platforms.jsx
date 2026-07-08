@@ -1,14 +1,5 @@
-import { useEffect, useRef } from 'react';
-import {
-	animate,
-	motion,
-	useMotionValue,
-	useScroll,
-	useTransform,
-	useInView,
-	AnimatePresence,
-} from 'framer-motion';
-import useMeasure from 'react-use-measure';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { slideInBottom, fallDownVariant } from '../utils/variants';
 
 import logo1 from '../assets/imgs/platform-1.svg';
@@ -21,7 +12,7 @@ const logos = [logo1, logo2, logo3, logo4, logo5];
 
 const Platforms = () => {
 	const ref = useRef();
-	const isInView = useInView(ref);
+	const isInView = useInView(ref, { once: true, margin: '-50px' });
 
 	return (
 		<div className="w-full flex">
@@ -31,32 +22,23 @@ const Platforms = () => {
 				initial="initial"
 				whileInView="animate"
 				custom={0}
-				className="bg-[--neutral] w-auto px-4 py-5 lg:py-5 lg:px-8 space-y-2"
+				className="glass-panel border-white/5 w-full md:w-auto px-6 py-5 rounded-2xl space-y-3"
 			>
-				<h3>Platforms</h3>
-				<motion.div className="max-w-[300px]">
-					<AnimatePresence>
-						{isInView && (
-							<motion.div
-								initial="initial"
-								whileInView="animate"
-								exit="exit"
-								viewport={{ margin: '0px 0px -100px 0px' }}
-								// viewport={{ amount: 0.25 }}
-								transition={{ staggerChildren: 0.15 }}
-								className="flex gap-4 flex-wrap"
-							>
-								{[...logos].map((logo, i) => (
-									<motion.img
-										src={logo}
-										variants={fallDownVariant}
-										key={i}
-										className="w-[45px] h-[45px] object-contain p-[2px]"
-									/>
-								))}
-							</motion.div>
-						)}
-					</AnimatePresence>
+				<h3 className="text-xs uppercase tracking-widest text-slate-400 font-bold">Platforms Supported</h3>
+				<motion.div 
+					initial={isInView ? "animate" : "initial"}
+					animate={isInView ? "animate" : "initial"}
+					className="flex gap-4 flex-wrap items-center justify-start max-w-[320px]"
+				>
+					{logos.map((logo, i) => (
+						<motion.img
+							key={i}
+							src={logo}
+							variants={fallDownVariant}
+							custom={i}
+							className="w-[40px] h-[40px] object-contain p-1 filter brightness-90 hover:brightness-100 transition-all cursor-pointer"
+						/>
+					))}
 				</motion.div>
 			</motion.div>
 		</div>

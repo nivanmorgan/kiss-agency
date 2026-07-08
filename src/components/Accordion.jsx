@@ -1,73 +1,65 @@
 import { useState } from 'react';
-
 import { motion, AnimatePresence } from 'framer-motion';
 import { accordionContent } from '../utils/constants';
 import { slideInBottom } from '../utils/variants';
-
-import { FaCaretUp } from 'react-icons/fa6';
+import { FaChevronDown } from 'react-icons/fa6';
 
 const AccordionCard = ({ i, heading, content, expanded, setExpanded }) => {
 	const isOpen = i === expanded;
 	return (
-		<div>
-			<motion.div
-				initial={false}
-				animate={{
-					backgroundColor: isOpen ? '#000000' : '#8A8A8E',
-					//   color: isOpen ? '#ffffff' : '#1C1C1E',
-				}}
+		<div className={`border rounded-xl overflow-hidden transition-all duration-300 ${
+			isOpen ? 'border-slate-300 bg-slate-50/80 shadow-sm' : 'border-black/5 bg-white/30 hover:border-slate-200'
+		}`}>
+			{/* Accordion Trigger Header */}
+			<button
 				onClick={() => setExpanded(isOpen ? false : i)}
-				className="px-5 py-3 cursor-pointer flex justify-between items-center"
+				className="w-full px-6 py-4 flex justify-between items-center text-left focus:outline-none"
 			>
-				<h2 className={isOpen ? '!text-white' : 'text-white'}>{heading}</h2>
+				<h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight">
+					{heading}
+				</h3>
 				<motion.div
-					animate={{
-						rotateX: isOpen ? '180deg' : '0deg',
-					}}
+					animate={{ rotate: isOpen ? 180 : 0 }}
+					transition={{ duration: 0.2 }}
+					className="text-slate-500"
 				>
-					<FaCaretUp
-						className={`${
-							isOpen ? '!text-white' : '!text-white'
-						} block h-[17.5px] w-[17.5px]`}
-					/>
+					<FaChevronDown size={14} />
 				</motion.div>
-			</motion.div>
+			</button>
+
+			{/* Accordion Content Section */}
 			<AnimatePresence initial={false}>
 				{isOpen && (
-					<motion.section
+					<motion.div
 						key="content"
 						initial="collapsed"
 						animate="open"
 						exit="collapsed"
 						variants={{
-							open: {
-								opacity: 1,
-								height: 'auto',
-							},
-							collapsed: { opacity: 0, height: 0 },
+							open: { opacity: 1, height: 'auto' },
+							collapsed: { opacity: 0, height: 0 }
 						}}
-						transition={{
-							type: 'tween',
-							duration: 0.5,
-						}}
+						transition={{ duration: 0.3, ease: 'easeInOut' }}
 					>
-						{content.map(({ title, text }, i) => (
-							<motion.div
-								initial={{ opacity: 0, y: [50] }}
-								whileInView={{ opacity: [0, 1], y: [50, 0] }}
-								transition={{
-									type: 'tween',
-									duration: 0.5,
-									delay: i * 0.2,
-								}}
-								key={i}
-								className="space-y-2 pt-2"
-							>
-								<h3>{title}</h3>
-								<p>{text}</p>
-							</motion.div>
-						))}
-					</motion.section>
+						<div className="px-6 pb-6 pt-2 space-y-5 border-t border-black/5 bg-white/30">
+							{content.map(({ title, text }, index) => (
+								<motion.div
+									initial={{ opacity: 0, y: 8 }}
+									animate={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.3, delay: index * 0.05 }}
+									key={index}
+									className="space-y-1"
+								>
+									<h4 className="text-xs font-bold text-slate-800 tracking-wide uppercase">
+										{title}
+									</h4>
+									<p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
+										{text}
+									</p>
+								</motion.div>
+							))}
+						</div>
+					</motion.div>
 				)}
 			</AnimatePresence>
 		</div>
@@ -81,7 +73,7 @@ const Accordion = () => {
 			variants={slideInBottom}
 			initial="initial"
 			whileInView="animate"
-			cuatom={1}
+			viewport={{ once: true }}
 			className="space-y-3"
 		>
 			{accordionContent.map(({ heading, content }, i) => (

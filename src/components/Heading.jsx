@@ -1,75 +1,59 @@
 import React from 'react';
-
 import { motion } from 'framer-motion';
-import {
-	slideInRight,
-	slideInBottom,
-	revealText2,
-	fallDownVariant,
-	slideInTop,
-} from '../utils/variants';
+import { slideInBottom, slideInTop } from '../utils/variants';
 
-const RevealText = ({ text, stagger }) => (
-	<motion.span
-		initial="initial"
-		whileInView="animate"
-		viewport={{ amount: 0.35 }}
-		transition={{ staggerChildren: stagger }}
-	>
-		{text.split('').map((char, i) => (
-			<motion.span variants={revealText2} key={i} className="">
-				{char}
-			</motion.span>
-		))}
-	</motion.span>
-);
-
-const Heading = ({ tag, header, content, btn }) => {
+const Heading = ({ tag, header, content, btn, light = false }) => {
 	return (
 		<motion.div
-			// variants={slideInBottom}
 			initial="initial"
 			whileInView="animate"
-			viewport={{ margin: '0px -150px -150px 0px' }}
-			transition={{ staggerChildren: 0.25 }}
-			className="flex flex-col gap-5"
+			viewport={{ once: true, margin: '-100px' }}
+			transition={{ staggerChildren: 0.15 }}
+			className="flex flex-col gap-5 text-left"
 		>
-			<motion.p variants={slideInBottom} custom={0}>
-				<span className="border border-[--black] text-[--black] px-5 py-2 font-bold">
-					{tag}
-				</span>
-			</motion.p>
-			<motion.h1 variants={slideInBottom} custom={1}>
-				{header.map((word, i) => (
-					<span
-						key={i}
-						className={`${i % 2 ? 'text-[--gray]' : 'text-[--black]'}`}
-					>
-						{word}{' '}
+			{tag && (
+				<motion.div variants={slideInBottom} custom={0}>
+					<span className={`inline-block px-3 py-1 border rounded-lg text-[10px] font-extrabold uppercase tracking-widest ${
+						light 
+							? 'bg-slate-100 border-slate-200 text-slate-800' 
+							: 'bg-white/5 border-white/10 text-slate-300'
+					}`}>
+						{tag}
 					</span>
-				))}
-			</motion.h1>
-			<motion.p variants={slideInBottom} custom={2}>
-				{/* <RevealText text={content} stagger={0.01} /> */}
-				{content}
-			</motion.p>
+				</motion.div>
+			)}
+			
+			{header && (
+				<motion.h2 variants={slideInBottom} custom={1} className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight ${
+					light ? 'text-slate-950' : 'text-white'
+				}`}>
+					{header.map((word, i) => (
+						<span
+							key={i}
+							className={i % 2 ? (light ? 'text-slate-500' : 'text-slate-400') : (light ? 'text-slate-950' : 'text-white')}
+						>
+							{word}{' '}
+						</span>
+					))}
+				</motion.h2>
+			)}
+			
+			{content && (
+				<motion.p variants={slideInBottom} custom={2} className={`text-sm sm:text-base leading-relaxed max-w-2xl ${
+					light ? 'text-slate-600' : 'text-slate-400'
+				}`}>
+					{content}
+				</motion.p>
+			)}
+			
 			{btn && (
-				<motion.div variants={slideInTop} custom={3} className="pt-3 flex">
+				<motion.div variants={slideInTop} custom={3} className="pt-2 flex">
 					<motion.a
-						whileHover={{ scale: 1.1 }}
-						whileTap={{ scale: 0.9 }}
-						transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+						whileHover={{ scale: 1.02 }}
+						whileTap={{ scale: 0.98 }}
 						onClick={btn[1]}
-						className="!hidden xl:block btn-1-v2"
-					>
-						{btn[0]}
-					</motion.a>
-					<motion.a
-						whileHover={{ scale: 1.1 }}
-						whileTap={{ scale: 0.9 }}
-						transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-						href={btn[2]}
-						className="block xl:hidden btn-1-v2"
+						href={btn[2] || undefined}
+						className={light ? 'btn-primary-dark shadow-sm' : 'btn-primary-light text-carbon-950 shadow-sm'}
 					>
 						{btn[0]}
 					</motion.a>

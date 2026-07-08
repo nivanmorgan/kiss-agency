@@ -1,343 +1,156 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-import { CgMenuLeftAlt } from 'react-icons/cg';
+import { CgMenuRight as MenuIcon } from 'react-icons/cg';
 import { MdClose } from 'react-icons/md';
-// import logo from '../assets/imgs/kiss-agency-logo.png';
+import { FaPhone } from 'react-icons/fa6';
 import { navigation } from '../utils/constants';
-import { slideInRight, slideInBottom, slideInBottom2 } from '../utils/variants';
+import { Logo } from '../components';
+import { useCallNowStore } from '../utils/config';
 
-import { FaFacebookF, FaInstagram, FaPhone } from 'react-icons/fa6';
-import { BiMessageRounded } from 'react-icons/bi';
-import { footerSectionText } from '../utils/constants';
-import { Logo, DottedNavigation, SocialButton } from '../components';
-
-import {
-	useNavStore,
-	useAboutWidthStore,
-	useContainerWidthStore,
-	useValuesWidthStore,
-	useCallNowStore,
-	useToggleIFrameStore,
-} from '../utils/config';
-
-const getWindowsDimension = () => {
-	const { innerWidth: width, innerHeight: height } = window;
-	return {
-		width,
-		height,
-	};
-};
-
-const Navbar = ({ sectionInView }) => {
-	// !NAVIGATION
-	const navId = useNavStore((state) => state.navId);
-	const updateNavId = useNavStore((state) => state.updateNavId);
-	const containerWidth = useContainerWidthStore((state) => state.width);
-	const aboutWidth = useAboutWidthStore((state) => state.width);
-	const valuesWidth = useValuesWidthStore((state) => state.width);
+const Navbar = () => {
 	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
-	const [navPoint, setNavPoint] = useState();
-	// const showingIFrame = useToggleIFrameStore((state) => state.toggleIFrame);
-	const [showingIFrame, setShowingIFrame] = useState(false);
-
-	const [screenSize, setScreenSize] = useState(getWindowsDimension());
-
-	// *UPDATE SCREEN SIZE WHEN SCREEN/VIEW PORT RESIZES
-	useEffect(() => {
-		const handleResize = () => {
-			setScreenSize(getWindowsDimension());
-		};
-
-		window.addEventListener('resize', handleResize);
-
-		return () => window.removeEventListener('resize', handleResize);
-	}, []);
-
-	const navigateToFunction = async (link) => {
-		window.scrollTo({ top: 0 });
-		setScrolledOffHero(true);
-		updateNavId(link);
-	};
-
-	const [menuToggled, setMenuToggled] = useState(false);
-	const [scrolledOffHero, setScrolledOffHero] = useState(false);
+	const [activeSection, setActiveSection] = useState('home');
+	const [menuOpen, setMenuOpen] = useState(false);
+	const [scrolled, setScrolled] = useState(false);
 
 	useEffect(() => {
 		const handleScroll = () => {
-			const scrollTop = window.scrollY;
-			if (screenSize.width >= 768) {
-				if (scrollTop >= screenSize.height * 2.2) {
-					setScrolledOffHero(true);
-				} else {
-					setScrolledOffHero(false);
-				}
+			if (window.scrollY > 20) {
+				setScrolled(true);
 			} else {
-				if (scrollTop >= screenSize.height * 2.2) {
-					setScrolledOffHero(true);
-				} else {
-					setScrolledOffHero(false);
+				setScrolled(false);
+			}
+
+			const sections = navigation.map(nav => document.getElementById(nav.link));
+			const scrollPosition = window.scrollY + 200;
+
+			for (let i = sections.length - 1; i >= 0; i--) {
+				const section = sections[i];
+				if (section && section.offsetTop <= scrollPosition) {
+					setActiveSection(navigation[i].link);
+					break;
 				}
 			}
 		};
 
 		window.addEventListener('scroll', handleScroll);
-
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
-	// NAVIGATION SCROLL
-	const heroScrollSize = screenSize.height * 4;
-	const wrapperScrollSize = screenSize.height * 6;
+	const handleNavClick = (e, link) => {
+		e.preventDefault();
+		const element = document.getElementById(link);
+		if (element) {
+			const offset = 80;
+			const bodyRect = document.body.getBoundingClientRect().top;
+			const elementRect = element.getBoundingClientRect().top;
+			const elementPosition = elementRect - bodyRect;
+			const offsetPosition = elementPosition - offset;
 
-	const contactPoint = heroScrollSize + wrapperScrollSize - screenSize.height;
-	const aboutPoint = heroScrollSize;
-	const valuesPoint =
-		18 +
-		heroScrollSize +
-		(screenSize.width / containerWidth) * wrapperScrollSize;
-	const solutionsPoint =
-		-18 +
-		contactPoint -
-		(screenSize.width / containerWidth) * wrapperScrollSize;
-	const servicesPoint =
-		-9 +
-		solutionsPoint -
-		(screenSize.width / containerWidth) * wrapperScrollSize;
-
-	const scrollPoints = [
-		{ top: 0, behavior: 'smooth' },
-		{ top: aboutPoint, behavior: 'smooth' },
-		{ top: valuesPoint, behavior: 'smooth' },
-		{ top: servicesPoint, behavior: 'smooth' },
-		{ top: solutionsPoint, behavior: 'smooth' },
-		{ top: contactPoint, behavior: 'smooth' },
-		{ top: contactPoint * 100, behavior: 'smooth' }, //Just dub content for nav code
-	];
-
-	const socialIcons = [
-		<FaFacebookF className="text-xl" />,
-		<FaInstagram className="text-2xl" />,
-		<BiMessageRounded className="text-2xl" />,
-	];
-
-	useEffect(() => {
-		const handleScroll = () => {
-			const scrollTop = window.scrollY;
-
-			const navs = [
-				'home',
-				'about',
-				'values',
-				'services',
-				'digital-solutions',
-				'contact',
-			];
-			let scrollPos = 0;
-
-			if (scrollTop && navs) {
-				for (let i = 0; i < scrollPoints.length; i++) {
-					if (scrollPoints[i].top - screenSize.height / 1.5 <= scrollTop) {
-						scrollPos = i;
-					} else {
-						scrollPos = scrollPos;
-					}
-				}
-			}
-
-			setNavPoint(navs[scrollPos]);
-		};
-
-		window.addEventListener('scroll', handleScroll);
-
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, [scrollPoints]);
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: 'smooth'
+			});
+			setActiveSection(link);
+			setMenuOpen(false);
+		}
+	};
 
 	return (
 		<>
-			<AnimatePresence>
-				{scrolledOffHero && (
-					<motion.div
-						initial={{ y: -10, opacity: 0.5 }}
-						whileInView={{ y: [-10, 0], opacity: [0.5, 1] }}
-						exit={{ y: -10, opacity: 0 }}
-						transition={{ duration: 0.5, type: 'tween' }}
-						className={`${
-							showingIFrame ? 'w-[75vw]' : 'w-full'
-						} bg-white fixed top-0 left-0 h-[70px] lg:h-[80px] items-center justify-center shadow z-[]`}
-					>
-						<div className="container flex items-center justify-between gap-[25px] xl:gap-[50px] relative h-full">
-							<div
-								className={`hidden ${
-									!showingIFrame ? 'lg:flex' : ''
-								} flex-1 justify-between items-center w-full`}
-							>
-								{navigation.slice(0, 4).map(({ text, link }, i) =>
-									screenSize.width >= 1280 ? (
-										<a
-											onClick={() => window.scrollTo(scrollPoints[i])}
-											key={i}
-											className={`navlinks ${
-												navPoint === link ? '!bg-[--black] !text-[--white]' : ''
-											}`}
-										>
-											{text}
-										</a>
-									) : (
-										<a
-											key={i}
-											href={'#' + link}
-											className={`navlinks ${
-												sectionInView === link
-													? '!bg-[--black] !text-[--white]'
-													: ''
-											}`}
-										>
-											{text}
-										</a>
-									)
-								)}
-							</div>
-							<div className="">
-								<Logo />
-							</div>
-							<div
-								className={`hidden ${
-									!showingIFrame ? 'lg:flex' : ''
-								} flex-1 justify-between items-center w-full`}
-							>
-								{navigation.slice(4, 6).map(({ text, link }, i) =>
-									screenSize.width >= 1280 ? (
-										<a
-											onClick={() => window.scrollTo(scrollPoints[i + 4])}
-											key={i}
-											className={`navlinks ${
-												navPoint === link ? '!bg-[--black] !text-[--white]' : ''
-											}`}
-										>
-											{text}
-										</a>
-									) : (
-										<a
-											key={i}
-											href={'#' + link}
-											className={`navlinks ${
-												sectionInView === link
-													? '!bg-[--black] !text-[--white]'
-													: ''
-											}`}
-										>
-											{text}
-										</a>
-									)
-								)}
-								{/* <div className="flex gap-2 pl-3">
-									{footerSectionText.socialMedia.map((sme, i) => (
-										<SocialButton
-											key={i}
-											link={sme.link}
-											icon={socialIcons[i]}
-										/>
-									))}
-								</div> */}
-								<motion.a
-									whileHover={{ scale: 1.1 }}
-									whileTap={{ scale: 0.9 }}
-									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-									onClick={() => {
-										setShowCallNow(true);
-									}}
-									className="btn-1"
-								>
-									<FaPhone className="mr-2" /> Call Us
-								</motion.a>
-							</div>
-							<div
-								className={`${
-									!showingIFrame ? 'lg:hidden' : ''
-								} flex items-center`}
-							>
-								<button
-									className="z-[10]"
-									onClick={() => setMenuToggled((toggled) => !toggled)}
-								>
-									{menuToggled ? (
-										<MdClose className="text-[--black] text-2xl" />
-									) : (
-										<CgMenuLeftAlt className="text-[--black] text-2xl" />
-									)}
-								</button>
-							</div>
-						</div>
-					</motion.div>
-				)}
-			</AnimatePresence>
-			{/* popup */}
-			<AnimatePresence>
-				{menuToggled && (
-					<motion.div
-						animate={{ opacity: [0, 1] }}
-						exit={{ opacity: [1, 0] }}
-						transition={{ type: 'tween', duration: 0.5 }}
-						className="fixed top-0 left-0 w-full h-screen bg-[#ffffffaa] backdrop-blur z-[1000000]"
-					>
-						<motion.div className="flex flex-col gap-[5vh] h-full justify-start items-center pt-[10vh]">
-							<motion.div>
-								<Logo />
-							</motion.div>
+			<nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+				scrolled ? 'glass-navbar py-3 shadow-sm' : 'bg-transparent py-5'
+			}`}>
+				<div className="container flex items-center justify-between">
+					{/* Logo */}
+					<div className="flex-shrink-0 bg-white p-1 rounded border border-black/5 shadow-sm">
+						<Logo h="h-7 lg:h-9 object-contain" />
+					</div>
 
-							<motion.div
-								initial="initial"
-								whileInView="animate"
-								transition={{ staggerChildren: 0.2 }}
-								className="flex flex-col gap-[3vh] justify-center items-center "
+					{/* Desktop Navigation */}
+					<div className="hidden lg:flex items-center gap-1 bg-white/70 border border-black/5 px-2 py-1.5 rounded-full shadow-sm backdrop-blur-md">
+						{navigation.map(({ text, link }) => (
+							<a
+								key={link}
+								href={`#${link}`}
+								onClick={(e) => handleNavClick(e, link)}
+								className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase transition-all duration-200 ${
+									activeSection === link
+										? 'bg-slate-900 text-white shadow-sm'
+										: 'text-slate-600 hover:text-black hover:bg-black/5'
+								}`}
 							>
-								{navigation.map(({ text, link }, i) => (
-									<motion.a
-										key={i}
-										variants={slideInBottom2}
-										href={'#' + link}
-										onClick={() => {
-											setMenuToggled(false);
-										}}
-										className={`navlinks !text-[7vw] !font-semibold ${
-											sectionInView === link
-												? '!bg-[--black] !text-[--white]'
-												: ''
+								{text}
+							</a>
+						))}
+					</div>
+
+					{/* Call Us Button */}
+					<div className="hidden lg:block">
+						<motion.button
+							whileHover={{ scale: 1.02 }}
+							whileTap={{ scale: 0.98 }}
+							onClick={() => setShowCallNow(true)}
+							className="btn-primary-dark flex items-center gap-2 text-xs uppercase tracking-wider py-2.5 px-5 rounded-lg font-bold shadow-sm"
+						>
+							<FaPhone className="text-xs" /> Call Us
+						</motion.button>
+					</div>
+
+					{/* Mobile Menu Button */}
+					<div className="lg:hidden flex items-center">
+						<button
+							onClick={() => setMenuOpen(!menuOpen)}
+							className="text-slate-800 hover:text-black transition-colors p-1"
+							aria-label="Toggle menu"
+						>
+							{menuOpen ? <MdClose size={28} /> : <MenuIcon size={28} />}
+						</button>
+					</div>
+				</div>
+			</nav>
+
+			{/* Mobile Menu Overlay */}
+			<AnimatePresence>
+				{menuOpen && (
+					<motion.div
+						initial={{ opacity: 0, y: -20 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -20 }}
+						transition={{ duration: 0.2 }}
+						className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl flex flex-col justify-center items-center lg:hidden"
+					>
+						<div className="flex flex-col gap-6 items-center w-full max-w-xs px-6 text-center">
+							<Logo h="h-10 object-contain" />
+							
+							<div className="flex flex-col gap-3 w-full mt-6">
+								{navigation.map(({ text, link }) => (
+									<a
+										key={link}
+										href={`#${link}`}
+										onClick={(e) => handleNavClick(e, link)}
+										className={`text-lg font-bold uppercase tracking-wider py-2.5 px-6 rounded-lg transition-all ${
+											activeSection === link
+												? 'text-black bg-slate-100 font-extrabold'
+												: 'text-slate-600 hover:text-black hover:bg-slate-50'
 										}`}
 									>
 										{text}
-									</motion.a>
+									</a>
 								))}
-								<motion.a
-									variants={slideInBottom2}
-									whileHover={{ scale: 1.1 }}
-									whileTap={{ scale: 0.9 }}
-									transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-									// href={`tel:${footerSectionText.contact[0]}`}
-									onClick={() => {
-										setMenuToggled(false);
-										setShowCallNow(true);
-									}}
-									className="btn-1-v2 mt-5"
-								>
-									<FaPhone className="mr-3" /> Call Us
-								</motion.a>
-							</motion.div>
-						</motion.div>
+							</div>
 
-						{/* *TOGGLE BUTTON */}
-						<div className="fixed top-0 left-0 w-full h-[80px] container flex items-center justify-end">
-							<button
-								className="z-[10]"
-								onClick={() => setMenuToggled((toggled) => !toggled)}
+							<motion.button
+								whileHover={{ scale: 1.02 }}
+								whileTap={{ scale: 0.98 }}
+								onClick={() => {
+									setMenuOpen(false);
+									setShowCallNow(true);
+								}}
+								className="w-full btn-primary-dark flex items-center justify-center gap-2 text-sm uppercase tracking-wider py-3.5 px-8 rounded-lg font-bold shadow-sm mt-6"
 							>
-								{menuToggled ? (
-									<MdClose className="text-[--black] text-2xl" />
-								) : (
-									<CgMenuLeftAlt className="text-[--black] text-2xl" />
-								)}
-							</button>
+								<FaPhone /> Call Us
+							</motion.button>
 						</div>
 					</motion.div>
 				)}

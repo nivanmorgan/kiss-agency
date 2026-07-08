@@ -55,9 +55,9 @@ export const values = [
     type: ["b", "l"],
   },
   {
-    title: "Intergrity",
+    title: "Integrity",
     excerpt:
-      "Integrity is the backbone of our operations. We prioritize honesty, transparency, and ethical practices in all our interactions. Our collaborative spirit  ensures each project benefits from the diverse expertise within our team and beyond",
+      "Integrity is the backbone of our operations. We prioritize honesty, transparency, and ethical practices in all our interactions. Our collaborative spirit ensures each project benefits from the diverse expertise within our team and beyond",
     link: "#",
     img: blog4,
     lottie: handshake,
@@ -70,8 +70,8 @@ export const values = [
 export const serviceList = [
   { icon: service1, text: "Digital Agencies" },
   { icon: service2, text: "Product Designers" },
-  { icon: service3, text: "Enterpreneurs" },
-  { icon: service4, text: "Copy Writers" },
+  { icon: service3, text: "Entrepreneurs" },
+  { icon: service4, text: "Copywriters" },
   { icon: service5, text: "Digital Marketers" },
   { icon: service6, text: "Developers" },
 ];
@@ -275,7 +275,7 @@ export const digitalSolutionsSectionText = {
 
 export const subscribeSectionText = {
   tag: "Contact Us",
-  heading: ["Dicover how we can", "evolve your vision"],
+  heading: ["Discover how we can", "evolve your vision"],
   text: "Enter your email to discover how our services can transform your ideas into reality",
 };
 
@@ -283,7 +283,7 @@ export const footerSectionText = {
   text: "Your Vision, Our Expertise: Crafting Innovative Solutions In Design, Development, Digital Marketing, And AI.",
   contact: ["5152006679 "],
   mail: "info@kissagency.co",
-  location: "Des Moines, IA",
+  location: "Bluebeans Ankeny, IA",
   socialMedia: [
     { icon: "facebook", link: "https://www.facebook.com/kissdesignagency" },
     {

@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaPhone, FaPaperPlane } from 'react-icons/fa6';
-import { FaCaretLeft, FaCaretRight } from 'react-icons/fa';
+import { FaPhone, FaPaperPlane, FaUser, FaRobot, FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { MdOutlineClose } from 'react-icons/md';
-import { useToggleIFrameStore } from '../../utils/config';
+import { Logo, BotHero, ResponseContainer } from '../../components';
+import { questions as sampleQuestions } from '../../utils/botQuestions';
+import { useCallNowStore } from '../../utils/config';
+import { getResponse } from '../../api/getBotResponse';
 
 import {
 	AGENCY,
@@ -15,437 +16,356 @@ import {
 	SEO,
 } from '../../utils/bot_hero';
 
-import {
-	slideInBottom,
-	slideInRight,
-	slideInBottom3,
-	slideInBottom4,
-} from '../../utils/variants';
-import {
-	BotIcon,
-	Logo,
-	ResponseContainer,
-	Footer,
-	WavyText,
-	BotHero,
-} from '../../components';
-import {
-	questions as sampleQuestions,
-	dummyResponse,
-} from '../../utils/botQuestions';
-
-import { useCallNowStore } from '../../utils/config';
-import { footerSectionText } from '../../utils/constants';
-
-// API
-import { getResponse } from '../../api/getBotResponse';
-
-const BotNavbar = ({ setShowCallNow }) => (
-	<div className="w-full h-[80px] container">
-		<div className="flex items-center justify-between h-full border-b border-[--neutral]">
-			<div className="">
-				<Logo h="h-[40px] object-cover" />
-			</div>
-			<motion.a
-				whileHover={{ scale: 1.1 }}
-				whileTap={{ scale: 0.9 }}
-				transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-				onClick={() => {
-					setShowCallNow(true);
-				}}
-				className="btn-1"
-			>
-				<FaPhone className="mr-2" /> Call Us
-			</motion.a>
-		</div>
-	</div>
-);
-
-const BotSidebar = ({ close, addPadding, initQuestion }) => {
-	const deactivateScroll = useToggleIFrameStore((state) => state.showIframe);
-	const activateScroll = useToggleIFrameStore((state) => state.closeIframe);
-
+const BotSidebar = ({ close }) => {
 	const setShowCallNow = useCallNowStore((state) => state.updateshowPopup);
-	const [showFullResponse, setShowFullResponse] = useState(true); //Show Full Response
-	const [hasFullResponse, setHasFullResponse] = useState(true); // Allows Full Response to show only if there's a full response to show
-	const [isLoading, setIsLoading] = useState(true);
-	const [formData, setFormData] = useState({
-		question: initQuestion || '',
-	});
-	const { question } = formData;
-	const [query, setQuery] = useState(question);
-	const [expandQueryList, setExpandQueryList] = useState(false);
+	const [inputQuestion, setInputQuestion] = useState('');
+	const [messages, setMessages] = useState([
+		{
+			sender: 'bot',
+			text: "Hello! I'm the Kiss Agency AI assistant. Ask me anything about our services, platforms, SEO, or team in-house expertise. (You can type in English, Spanish, or any other language!)"
+		}
+	]);
+	const [isTyping, setIsTyping] = useState(false);
+	const [showFullResponse, setShowFullResponse] = useState(false);
+	
+	// API response structured data
+	const [botResponse, setBotResponse] = useState([]);
+	const [botHeroData, setBotHeroData] = useState({ text: '', data: {} });
+	const [hasFullData, setHasFullData] = useState(false);
 
-	const optionsRef = useRef();
-	const contentRef = useRef();
+	const chatEndRef = useRef(null);
 
-	const [botResponse, setBotResponse] = useState({
-		question: '',
-		answer: [],
-		// img: [],
-		// moreInfo: [],
-	});
-	const [botHeroData, setBotHeroData] = useState({
-		text: '',
-		data: {},
-	});
-
-	const handleChangeInput = (e) => {
-		const { name, value } = e.target;
-		setFormData({ ...formData, [name]: value });
-	};
-
-	const getApiData = (query) => {
-		// setBotResponse({ ...botResponse, ['answer']: [] });
-		setIsLoading(true);
-		setFormData({ ...formData, ['question']: query });
-
-		getResponse(query)
-			.then((data) => {
-				// console.log(data?.data?.answer.split('\n'));
-				if (data) {
-					// ! HERO RESPONSE
-					let res = data?.data?.answer;
-					let agency =
-						parseInt(res.split('agency').length) +
-						parseInt(res.split('company').length);
-					let development =
-						parseInt(res.split('development').length) +
-						parseInt(res.split('develop').length);
-					let design = parseInt(res.split('design').length);
-					let advertisement =
-						parseInt(res.split('advertisement').length) +
-						parseInt(res.split('ad').length);
-					let ai =
-						parseInt(res.split('ai').length) +
-						parseInt(res.split('artificial inteligence').length);
-					let seo =
-						parseInt(res.split('seo').length) +
-						parseInt(res.split('search engine optimization').length);
-
-					// console.log(seo, ai, agency, design, development, advertisement);
-					let optionsArr = [
-						agency,
-						development,
-						design,
-						advertisement,
-						ai,
-						seo,
-					];
-					const heroLotties = [
-						AGENCY,
-						DEVELOPMENT,
-						DESIGN,
-						ADVERTISEMENT,
-						AI,
-						SEO,
-					];
-
-					let heroRes = {};
-
-					optionsArr.map((item, i) => {
-						if (item === Math.max(...optionsArr)) {
-							heroRes = {
-								text: data?.data?.question,
-								data: heroLotties[i][
-									Math.floor(
-										Math.random() * (0 - heroLotties[i].length) +
-											heroLotties[i].length
-									)
-								],
-							};
-						}
-					});
-
-					// ! BODY RESPONSE
-					function isNumber(char) {
-						return /^\d$/.test(char);
-					}
-
-					let resAns = data?.data?.answer.split('\n');
-					resAns = resAns.filter((prev) => prev !== '');
-					console.log(resAns);
-
-					let responseList = [];
-
-					resAns.map((item) => {
-						if (isNumber(item[0])) {
-							let itemText = item;
-							let header = '';
-							let p = '';
-
-							if (item.includes('**')) {
-								p = itemText
-									.split('**')
-									.pop()
-									.split('**')[0]
-									.replace(/[:]/g, '');
-								header = itemText.split(p)[0].replace(/[*]/g, '');
-								console.log('header', header);
-							} else {
-								header = itemText.split(':')[0];
-								p = itemText.split(':')[1];
-
-								console.log(item);
-							}
-
-							responseList.push({
-								tag: 'li',
-								data: {
-									header: header,
-									p: p,
-								},
-							});
-						} else {
-							responseList.push({
-								tag: 'p',
-								data: item.replace(/[*]/g, ''),
-							});
-						}
-					});
-
-					return { heroData: heroRes, response: responseList };
-				}
-			})
-			.then((data) => {
-				setBotHeroData(data.heroData);
-				setBotResponse(data.response);
-				console.log(data.response);
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 500);
-			});
-	};
-
-	// useEffect(() => {
-	// 	if (showFullResponse) {
-	// 		deactivateScroll();
-	// 	} else {
-	// 		activateScroll();
-	// 	}
-	// }, [showFullResponse]);
-
+	// Auto-scroll chat thread
 	useEffect(() => {
-		console.log(query);
-		getApiData(query);
-		setShowFullResponse(true);
-	}, [query]);
+		chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+	}, [messages, isTyping]);
 
-	const handleWheelOptions = (e) => {
-		// e.preventDefault();
-		optionsRef.current.scrollBy({
-			top: e.deltaY,
-			// behavior: 'smooth',
+	const processApiResponse = (data) => {
+		if (!data || !data.data) return null;
+		
+		const res = data.data.answer;
+		
+		// 1. Determine Category for Lottie Animation
+		const agencyCount = (res.match(/agency/gi) || []).length + (res.match(/company/gi) || []).length;
+		const devCount = (res.match(/development/gi) || []).length + (res.match(/develop/gi) || []).length;
+		const designCount = (res.match(/design/gi) || []).length;
+		const adCount = (res.match(/advertisement/gi) || []).length + (res.match(/ad/gi) || []).length;
+		const aiCount = (res.match(/ai/gi) || []).length + (res.match(/intelligence/gi) || []).length;
+		const seoCount = (res.match(/seo/gi) || []).length + (res.match(/optimization/gi) || []).length;
+
+		const counts = [agencyCount, devCount, designCount, adCount, aiCount, seoCount];
+		const categories = [AGENCY, DEVELOPMENT, DESIGN, ADVERTISEMENT, AI, SEO];
+		const maxCount = Math.max(...counts);
+		const maxIndex = counts.indexOf(maxCount);
+		
+		const categoryLotties = categories[maxIndex === -1 ? 0 : maxIndex];
+		const selectedLottie = categoryLotties[Math.floor(Math.random() * categoryLotties.length)];
+
+		const heroData = {
+			text: data.data.question || "KISS Agency Report",
+			data: selectedLottie
+		};
+
+		// 2. Parse Lines into Paragraphs & Bullet Cards
+		const lines = res.split('\n').filter(line => line.trim() !== '');
+		const parsedList = [];
+
+		lines.forEach(line => {
+			const cleanLine = line.trim();
+			// Check if line starts with a number (e.g. "1. Ingesting...")
+			if (/^\d/.test(cleanLine)) {
+				let header = '';
+				let paragraph = '';
+
+				if (cleanLine.includes('**')) {
+					const parts = cleanLine.split('**');
+					if (parts.length >= 3) {
+						header = parts[1].replace(/[:]/g, '').trim();
+						paragraph = parts.slice(2).join('**').trim();
+					} else {
+						header = cleanLine.split(':')[0].trim();
+						paragraph = cleanLine.split(':').slice(1).join(':').trim();
+					}
+				} else if (cleanLine.includes(':')) {
+					header = cleanLine.split(':')[0].trim();
+					paragraph = cleanLine.split(':').slice(1).join(':').trim();
+				} else {
+					header = cleanLine;
+					paragraph = '';
+				}
+
+				parsedList.push({
+					tag: 'li',
+					data: { header, p: paragraph }
+				});
+			} else {
+				parsedList.push({
+					tag: 'p',
+					data: cleanLine.replace(/[*]/g, '')
+				});
+			}
 		});
+
+		return { heroData, response: parsedList };
 	};
 
-	const handleWheelContent = (e) => {
-		// e.preventDefault();
-		contentRef.current.scrollBy({
-			top: e.deltaY,
-			// behavior: 'smooth',
-		});
+	const handleSend = async (textToSend) => {
+		if (!textToSend.trim()) return;
+
+		// Add User message
+		setMessages(prev => [...prev, { sender: 'user', text: textToSend }]);
+		setInputQuestion('');
+		setIsTyping(true);
+
+		// Call getResponse
+		const res = await getResponse(textToSend);
+		setIsTyping(false);
+
+		if (res && res.success) {
+			// Append conversational bot answer
+			setMessages(prev => [...prev, { 
+				sender: 'bot', 
+				text: res.data.answer 
+			}]);
+
+			// Parse response for dynamic detailed pages
+			const processed = processApiResponse(res);
+			if (processed) {
+				setBotHeroData(processed.heroData);
+				setBotResponse(processed.response);
+				setHasFullData(true);
+				setShowFullResponse(true); // Auto-open detailed view
+			}
+		} else {
+			setMessages(prev => [...prev, { 
+				sender: 'bot', 
+				text: "I'm sorry, I'm having trouble connecting right now. Please try again or call us directly." 
+			}]);
+		}
 	};
 
 	return (
-		<div
-			className={`w-screen h-screen fixed !bottom- !right-0 !left- !top-0 bg-transparent card-shadow transition duration-[2500] !z-[10000000000] flex justify-end`}
-		>
-			{/* FULL RESPONSE */}
-			{/* FULL RESPONSE */}
-			{/* FULL RESPONSE */}
-			{/* FULL RESPONSE */}
+		<div className="fixed inset-y-0 right-0 w-full sm:w-[420px] h-screen bg-white border-l border-black/10 shadow-2xl z-[10000000] flex flex-row backdrop-blur-xl">
+			
+			{/* DYNAMIC DETAILED RESPONSE PANEL (SLIDES IN ON LEFT OF SIDEBAR) */}
 			<AnimatePresence>
-				{showFullResponse && (
+				{showFullResponse && hasFullData && (
 					<motion.div
-						initial={{ x: '100%' }}
-						animate={{ x: ['100%', 0] }}
-						exit={{ x: [0, '100%'] }}
-						transition={{ type: 'tween', duration: 0.75 }}
-						className="w-full h-screen overflow-y-auto overflow-x-hidden bg-[--white] gap-5 pr-0"
+						initial={{ x: '100%', opacity: 0 }}
+						animate={{ x: 0, opacity: 1 }}
+						exit={{ x: '100%', opacity: 0 }}
+						transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+						className="fixed inset-y-0 left-0 right-0 sm:right-[420px] bg-white border-r border-black/10 shadow-2xl z-[9999999] overflow-y-auto no-scrollbar flex flex-col"
 					>
-						{isLoading ? (
-							<div className="flex flex-col justify-center items-center w-full h-full">
-								<p className="">
-									<BotIcon w={60} />
-								</p>
-								<div className="overflow-hidden xl:!text-[1vw] xl:!leading-[120%]">
-									<WavyText text="Getting Response..." />
+						{/* Detail Header */}
+						<div className="px-8 py-4 border-b border-black/5 flex items-center justify-between bg-slate-50/50">
+							<div className="flex items-center gap-3">
+								<div className="bg-white p-1 rounded border border-black/5 shadow-sm">
+									<Logo h="h-7 object-contain" />
 								</div>
+								<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Interactive Report</span>
 							</div>
-						) : (
-							<div
-								className="h-full overflow-x-hidden overflow-y-auto"
-								ref={contentRef}
-								onWheel={(e) => handleWheelContent(e)}
-							>
-								<div className="sticky top-0 bg-[--white] z-[1000]">
-									<BotNavbar setShowCallNow={setShowCallNow} />
-								</div>
-								<div className="container pt-7">
-									<BotHero data={botHeroData?.data} text={botHeroData?.text} />
-								</div>
-								<motion.div
-									initial="initial"
-									animate="animate"
-									transition={{ staggerChildren: 0.3 }}
-									className="container py-7 gap-x-5 gap-y-7 grid grid-cols-2"
+							
+							<div className="flex items-center gap-3">
+								<button
+									onClick={() => setShowCallNow(true)}
+									className="btn-primary-dark flex items-center gap-1.5 text-[10px] uppercase py-2 px-4 rounded-lg font-bold"
 								>
-									{botResponse.map(({ data, tag }, i) => (
-										<div
-											key={i}
-											className={tag === 'li' ? 'col-span-1' : 'col-span-2'}
-										>
-											{tag === 'p' && (
-												<motion.p
-													variants={slideInBottom4}
-													custom={i}
-													className="xl:!text-[1vw] xl:!leading-[150%]"
-												>
-													{data}
-												</motion.p>
-											)}
-											{tag === 'li' && (
-												<motion.div
-													key={i}
-													variants={slideInBottom4}
-													custom={i}
-													className="h-full"
-												>
-													<ResponseContainer
-														question={data.header}
-														answer={[data.p]}
-														className="justify-between h-full"
-														noIcon
-													/>
-												</motion.div>
-											)}
-										</div>
-									))}
-								</motion.div>
-								<Footer type="bot" />
+									<FaPhone size={9} /> Call Us
+								</button>
+								<button
+									onClick={() => setShowFullResponse(false)}
+									className="text-slate-400 hover:text-black p-1 transition-colors"
+									aria-label="Close detailed view"
+								>
+									<MdOutlineClose size={22} />
+								</button>
 							</div>
-						)}
+						</div>
+
+						{/* Detail Body Content */}
+						<div className="flex-1 px-8 py-8 space-y-8 max-w-4xl mx-auto w-full text-left">
+							{/* Lottie Hero Banner */}
+							<BotHero data={botHeroData.data} text={botHeroData.text} />
+
+							{/* Dynamic Grid Sections */}
+							<div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+								{botResponse.map((item, idx) => (
+									<div
+										key={idx}
+										className={item.tag === 'p' ? 'col-span-1 md:col-span-2' : 'col-span-1'}
+									>
+										{item.tag === 'p' ? (
+											<p className="text-sm sm:text-base text-slate-600 leading-relaxed font-medium bg-slate-50 p-5 rounded-2xl border border-black/5 shadow-inner">
+												{item.data}
+											</p>
+										) : (
+											<ResponseContainer
+												question={item.data.header}
+												answer={[item.data.p]}
+												noIcon
+											/>
+										)}
+									</div>
+								))}
+							</div>
+						</div>
+
+						{/* Detail Footer */}
+						<div className="px-8 py-6 border-t border-black/5 text-center text-xs text-slate-400 font-medium">
+							&copy; {new Date().getFullYear()} Kiss Agency Report Console.
+						</div>
 					</motion.div>
 				)}
 			</AnimatePresence>
 
-			{/* RIGHT SIDEBAR */}
-			{/* RIGHT SIDEBAR */}
-			{/* RIGHT SIDEBAR */}
-			{/* RIGHT SIDEBAR */}
-			{/* RIGHT SIDEBAR */}
-			<div
-				className={`min-w-[380px] max-w-[380px] xl:min-w-[30vw] xl:max-w-[30vw] h-full bg-[--white] card-shadow transition duration-[2500]`}
-			>
-				<motion.div
-					initial="initial"
-					animate="animate"
-					transition={{ staggerChildren: 0.3 }}
-					className="w-full h-full"
-				>
-					<div className="p-5 bg-[--white] card-shadow w-full h-full flex flex-col gap-5 relative">
-						<div className="flex justify-between items-start">
-							<div>
-								<motion.h3
-									variants={slideInRight}
-									className="flex items-center gap-3 text-base"
-								>
-									Welcome to Kiss Agency
-								</motion.h3>
-								<motion.p
-									variants={slideInRight}
-									className="text-sm xl:!text-[1vw] xl:!leading-[130%]"
-								>
-									I am an AI chatbot, how can I help?
-								</motion.p>
-							</div>
-							<motion.button
-								type="button"
-								whileHover={{ scale: 1.3 }}
-								whileTap={{ scale: 0.9 }}
-								transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-								onClick={close}
-								className="bg-transparent !w-auto"
-							>
-								<MdOutlineClose className="text-2xl" />
-							</motion.button>
+			{/* RIGHT SIDEBAR CHAT INTERFACE */}
+			<div className="flex-1 flex flex-col w-full h-full relative z-[10000001] bg-white">
+				{/* Top Header */}
+				<div className="px-6 py-4 border-b border-black/5 flex items-center justify-between bg-slate-50/50">
+					<div className="flex items-center gap-3">
+						<div className="bg-white p-1 rounded border border-black/5 shadow-sm">
+							<Logo h="h-7 object-contain" />
 						</div>
-						<div className="h-full flex-1 flex flex-col gap-2 overflow-hidden z-10 relative">
-							<div
-								ref={optionsRef}
-								onWheel={(e) => handleWheelOptions(e)}
-								className={`flex flex-col gap-2 overflow-y-auto overflow-x-hidden z-1 pb-5`}
-							>
-								{sampleQuestions.map((sampleQuestion, i) => (
-									<motion.button
-										type="button"
-										whileTap={{ scale: 0.9 }}
-										whileHover={{ scale: 1.05 }}
-										transition={{ type: 'spring', bounce: 0.75 }}
-										key={i}
-										variants={slideInRight}
-										onClick={() => {
-											if (sampleQuestion === query) {
-												getApiData(sampleQuestion);
-											} else {
-												setQuery(sampleQuestion);
-											}
-										}}
-										className="btn-3-v2 !text-sm xl:!text-[1vw] xl:!leading-[120%] !p-2 !normal-case"
-									>
-										{sampleQuestion}
-									</motion.button>
-								))}
-								<div className="absolute bottom-0 w-full h-[30px] bg-gradient-to-t from-white to-transparent" />
-							</div>
-						</div>
-
-						<motion.div
-							variants={slideInRight}
-							className="flex items-center gap-4 pt-0"
-						>
-							<div className="flex flex-col w-full gap-3">
-								<textarea
-									placeholder="Or type here..."
-									className="text-sm xl:!text-[1vw] xl:!leading-[120%] placeholder:text-sm xl:placeholder:!text-[1vw] xl:placeholder:!leading-[120%] placeholder:text-[--gray] block w-full focus:border-none focus:outline-[--neutral] outline-none h-[30vh] max-h-[150px] bg-[--neutral] rounded-xl overflow-hidden p-3"
-									name="question"
-									value={question}
-									onChange={handleChangeInput}
-								/>
-
-								<div className="flex gap-3 items-center">
-									<div className="min-w-[40px] h-full">
-										<BotIcon w={40} />
-									</div>
-									<motion.button
-										type="button"
-										whileHover={{ scale: 1.1 }}
-										whileTap={{ scale: 0.9 }}
-										transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-										className="w-full bg-[--black] text-[--white] flex items-center justify-center rounded-[2rem] gap-x-3 text-sm xl:!text-[1vw] xl:!leading-[120%] h-[40px] xl:h-[3vw]"
-										onClick={() => setQuery(question)}
-									>
-										Send <FaPaperPlane className="" />
-									</motion.button>
-								</div>
-							</div>
-						</motion.div>
-						{hasFullResponse && (
-							<button
-								type="button"
-								onClick={() => setShowFullResponse((prev) => !prev)}
-								className="absolute top-[50%] translate-y-[-50%] right-[100%] w-[12px] hover:w-[20px] h-[40px] bg-[--black] rounded-l-lg flex items-center justify-center transition-all duration-700 group"
-							>
-								{showFullResponse ? (
-									<FaCaretRight className="text-[--white] group-hover:scale-105 transition-all duration-700" />
-								) : (
-									<FaCaretLeft className="text-[--white] group-hover:scale-105 transition-all duration-700" />
-								)}
-							</button>
-						)}
+						<div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+						<span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">AI Assistant</span>
 					</div>
-				</motion.div>
+					
+					<button
+						onClick={close}
+						className="text-slate-400 hover:text-black p-1 transition-colors"
+						aria-label="Close chatbot"
+					>
+						<MdOutlineClose size={22} />
+					</button>
+				</div>
+
+				{/* Chat Messages Thread */}
+				<div className="flex-1 overflow-y-auto px-6 py-6 space-y-5 no-scrollbar bg-slate-50/30">
+					{messages.map((msg, i) => (
+						<div key={i} className="space-y-3">
+							<motion.div
+								initial={{ opacity: 0, y: 8 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.25 }}
+								className={`flex gap-3 max-w-[85%] ${
+									msg.sender === 'user' ? 'ml-auto flex-row-reverse' : ''
+								}`}
+							>
+								{/* Icon Badge */}
+								<div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs shadow-sm ${
+									msg.sender === 'user' 
+										? 'bg-slate-900 text-white' 
+										: 'bg-white border border-black/5 text-slate-700'
+								}`}>
+									{msg.sender === 'user' ? <FaUser size={10} /> : <FaRobot size={12} />}
+								</div>
+
+								{/* Text Bubble */}
+								<div className={`px-4 py-2.5 rounded-2xl text-xs sm:text-sm leading-relaxed border shadow-sm ${
+									msg.sender === 'user'
+										? 'bg-slate-900 text-white border-slate-900 rounded-tr-none'
+										: 'bg-white text-slate-700 border-black/5 rounded-tl-none'
+								}`}>
+									{msg.text}
+								</div>
+							</motion.div>
+							
+							{/* Report Prompt button in thread if data is available for the bot message */}
+							{msg.sender === 'bot' && i === messages.length - 1 && hasFullData && !showFullResponse && (
+								<motion.div
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									className="pl-11"
+								>
+									<button
+										onClick={() => setShowFullResponse(true)}
+										className="text-xs font-extrabold uppercase tracking-wider text-slate-900 border border-slate-300 hover:border-black rounded-lg px-4 py-2 bg-white flex items-center gap-1.5 shadow-sm transition-all"
+									>
+										View Detailed Interactive Report <FaChevronRight size={10} />
+									</button>
+								</motion.div>
+							)}
+						</div>
+					))}
+
+					{/* Typing Indicator */}
+					{isTyping && (
+						<div className="flex gap-3 max-w-[85%]">
+							<div className="w-8 h-8 rounded-xl bg-white border border-black/5 flex items-center justify-center text-slate-700 flex-shrink-0 shadow-sm">
+								<FaRobot size={12} />
+							</div>
+							<div className="bg-white border border-black/5 px-4 py-3 rounded-2xl rounded-tl-none flex items-center gap-1.5 h-10 shadow-sm">
+								<span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '0ms' }} />
+								<span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '150ms' }} />
+								<span className="w-1.5 h-1.5 rounded-full bg-slate-400 animate-bounce" style={{ animationDelay: '300ms' }} />
+							</div>
+						</div>
+					)}
+					<div ref={chatEndRef} />
+				</div>
+
+				{/* Suggested Questions Carousel */}
+				<div className="px-6 py-3.5 border-t border-black/5 bg-white relative">
+					{hasFullData && (
+						<button
+							onClick={() => setShowFullResponse(!showFullResponse)}
+							className="absolute bottom-[100%] right-6 translate-y-[-50%] bg-slate-900 text-white rounded-full p-2.5 shadow-lg border border-slate-800 flex items-center justify-center hover:scale-105 transition-all z-10"
+							title={showFullResponse ? "Close Report" : "Open Report"}
+						>
+							{showFullResponse ? <FaChevronRight size={12} /> : <FaChevronLeft size={12} />}
+						</button>
+					)}
+					<p className="text-[9px] font-bold uppercase tracking-wider text-slate-400 mb-2">Suggested Questions</p>
+					<div className="flex gap-2 overflow-x-auto no-scrollbar pb-1.5">
+						{sampleQuestions.slice(0, 10).map((q, idx) => (
+							<button
+								key={idx}
+								onClick={() => handleSend(q)}
+								className="flex-shrink-0 bg-slate-50 border border-black/5 hover:border-slate-300 text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-sm"
+							>
+								{q}
+							</button>
+						))}
+					</div>
+				</div>
+
+				{/* Message Input Form */}
+				<div className="p-6 border-t border-black/5 bg-slate-50/50 space-y-4">
+					<div className="flex items-center gap-3">
+						<textarea
+							value={inputQuestion}
+							onChange={(e) => setInputQuestion(e.target.value)}
+							onKeyDown={(e) => {
+								if (e.key === 'Enter' && !e.shiftKey) {
+									e.preventDefault();
+									handleSend(inputQuestion);
+								}
+							}}
+							placeholder="Ask about our services..."
+							rows={1}
+							className="flex-1 bg-white border border-black/5 focus:border-slate-300 rounded-xl px-4 py-3 text-xs sm:text-sm text-slate-800 placeholder-slate-400 outline-none resize-none no-scrollbar h-[44px] shadow-sm transition-all"
+						/>
+						<button
+							onClick={() => handleSend(inputQuestion)}
+							className="h-[44px] w-[44px] rounded-xl bg-slate-900 text-white flex items-center justify-center hover:bg-slate-800 transition-all flex-shrink-0 cursor-pointer shadow-md"
+							aria-label="Send message"
+						>
+							<FaPaperPlane size={12} />
+						</button>
+					</div>
+
+					{/* Call Us Quick Link */}
+					<div className="flex items-center justify-between text-[11px] border-t border-black/5 pt-3">
+						<span className="text-slate-400">Need direct consultation?</span>
+						<button
+							onClick={() => setShowCallNow(true)}
+							className="text-slate-800 hover:text-black flex items-center gap-1 font-bold transition-colors"
+						>
+							<FaPhone size={9} /> Call Our Team
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

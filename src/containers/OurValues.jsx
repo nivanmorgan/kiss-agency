@@ -1,68 +1,49 @@
-import { useRef, useState, useEffect } from 'react';
-
-import { motion, useAnimate, stagger } from 'framer-motion';
-
-import { Heading, Tags, Blog, DottedNavigation } from '../components';
+import { motion } from 'framer-motion';
+import { Heading, Tags, Blog } from '../components';
 import { ourValuesSectionText, values } from '../utils/constants';
 
-import useMeasure from 'react-use-measure';
-import { useValuesWidthStore, useToggleIFrameStore } from '../utils/config';
-
 const OurValues = () => {
-	let [container, { width }] = useMeasure();
-	const updateSectionWidth = useValuesWidthStore((state) => state.updateWidth);
-	const [containerWidth, setContainerWidth] = useState(width);
-	const showingIFrame = useToggleIFrameStore((state) => state.toggleIFrame);
-
-	useEffect(() => {
-		setContainerWidth(width);
-		return updateSectionWidth(containerWidth);
-	}, [containerWidth, width]);
-
 	return (
-		<div
-			ref={container}
-			// id="values"
-			className="w-full relative mt-[50px] section-py"
+		<section
+			id="values"
+			className="w-full relative py-20 lg:py-32 overflow-hidden bg-white"
 		>
-			<div
-				className={`container grid grid-cols-1 gap-y-10 ${
-					!showingIFrame
-						? 'xl:grid-cols-  xl:gap-[50px] xl:flex xl:!max-w-full xl:pl-[8rem]'
-						: ''
-				} `}
-			>
-				<div className="space-y-7 lg:space-y-10 w-full md:w-[85%] xl:w-full col-span-2 flex flex-col justify-center xl:min-w-[500px] xl:max-w-[500px]">
-					<Heading
-						tag={ourValuesSectionText.tag}
-						header={ourValuesSectionText.heading}
-						content={ourValuesSectionText.text}
-					/>
-					<Tags tags={ourValuesSectionText.keywords} />
+			<div className="container space-y-16">
+				{/* Top Section: Header & Keywords */}
+				<div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+					<div className="lg:col-span-8 space-y-6">
+						<Heading
+							tag={ourValuesSectionText.tag}
+							header={ourValuesSectionText.heading}
+							content={ourValuesSectionText.text}
+							light={true}
+						/>
+					</div>
+					<div className="lg:col-span-4 flex lg:justify-end">
+						<Tags tags={ourValuesSectionText.keywords} />
+					</div>
 				</div>
+
+				{/* Values Cards Grid */}
 				<motion.div
-					transition={{ staggerChildren: 0.05 }}
-					className={`grid col-span-3 grid-cols-1 md:grid-cols-2 gap-7 md:gap-10 ${
-						!showingIFrame ? 'xl:grid-cols-4 xl:min-w-[1240px]' : ''
-					}`}
+					initial="initial"
+					whileInView="animate"
+					viewport={{ once: true, margin: '-50px' }}
+					transition={{ staggerChildren: 0.1 }}
+					className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8"
 				>
 					{values.map((value, i) => (
 						<Blog
 							key={i}
 							title={value.title}
 							excerpt={value.excerpt}
-							link={value.link}
-							img={value.img}
-							type={value.type}
 							lottie={value.lottie}
-							clip={value.clip}
 							i={i}
 						/>
 					))}
 				</motion.div>
 			</div>
-			{/* <DottedNavigation /> */}
-		</div>
+		</section>
 	);
 };
 
